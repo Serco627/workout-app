@@ -22,11 +22,11 @@ export default function HomePage() {
                   />
                 </ImageContainer>
                 <ExerciseName>{exercise.name}</ExerciseName>
-                <MuscleGroups>
+                <MuscleGroupList>
                   {exercise.muscleGroups.map((muscle, index) => {
-                    return <Muscle key={index}>{muscle}</Muscle>;
+                    return <MuscleBadge key={index}>{muscle}</MuscleBadge>;
                   })}
-                </MuscleGroups>
+                </MuscleGroupList>
               </ExerciseCard>
             );
           })}
@@ -50,9 +50,30 @@ const ExerciseList = styled.ul`
   list-style: none;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
   gap: 1.5rem;
+
+  /* Für große Bildschirme (z.B. Desktop) - max. 3 Spalten */
+  grid-template-columns: repeat(3, 1fr);
+
+  /* Für mittlere Bildschirme (z.B. Tablet) - max. 2 Spalten */
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Für kleine Bildschirme (z.B. Smartphones) - max. 1 Spalte */
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
 `;
+
+// const ExerciseList = styled.ul`
+//   list-style: none;
+//   padding: 0;
+//   display: flex;
+//   flex-wrap: wrap;
+//   justify-content: center;
+//   gap: 1.5rem;
+// `;
 
 const ExerciseCard = styled.li`
   background-color: #f0f4f8;
@@ -60,11 +81,13 @@ const ExerciseCard = styled.li`
   padding: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
+  justify-content: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 50vh;
-  width: 80vw;
+  height: 25rem;
+  width: 100%;
+  /* width: 18.75rem; */
 `;
 
 const ImageContainer = styled.div`
@@ -89,16 +112,21 @@ const ExerciseName = styled.h3`
   margin: 10px 0;
 `;
 
-const MuscleGroups = styled.div`
+const MuscleGroupList = styled.ul`
   display: flex;
   justify-content: center;
+  align-items: center;
+  width: 100%;
   flex-wrap: wrap;
   gap: 5px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 `;
 
-const Muscle = styled.span`
+const MuscleBadge = styled.li`
   background-color: #3498db;
-  color: white;
+  color: #ffffff;
   border-radius: 5px;
   padding: 5px 10px;
   font-size: 0.85em;
