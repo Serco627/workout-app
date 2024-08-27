@@ -7,7 +7,7 @@ export default function HomePage() {
     <>
       <Header>
         <h1>GymLog</h1>
-        <h2>Your ultimate Fitness platform</h2>
+        <h2>Your Ultimate Fitness Platform</h2>
       </Header>
       <Main>
         <ExerciseList>
@@ -38,7 +38,7 @@ export default function HomePage() {
 
 const Header = styled.header`
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
 `;
 
 const Main = styled.main`
@@ -50,8 +50,8 @@ const ExerciseList = styled.ul`
   list-style: none;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  gap: 1.5rem;
 `;
 
 const ExerciseCard = styled.li`
@@ -63,8 +63,8 @@ const ExerciseCard = styled.li`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 400px;
-  width: 300px;
+  height: 50vh;
+  width: 80vw;
 `;
 
 const ImageContainer = styled.div`
