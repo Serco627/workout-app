@@ -36,7 +36,6 @@ export default function HomePage() {
   );
 }
 
-// Styled Components
 const Header = styled.header`
   text-align: center;
   margin-bottom: 20px;
@@ -64,13 +63,14 @@ const ExerciseCard = styled.li`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 350px;
+  height: 400px;
+  width: 300px;
 `;
 
 const ImageContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 200px; /* Feste Höhe für den Bildcontainer */
+  height: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -85,7 +85,7 @@ const StyledImage = styled(Image)`
 `;
 
 const ExerciseName = styled.h3`
-  color: #2c3e50; /* Dunklere Farbe für den Namen der Übung */
+  color: #2c3e50;
   margin: 10px 0;
 `;
 
@@ -97,7 +97,7 @@ const MuscleGroups = styled.div`
 `;
 
 const Muscle = styled.span`
-  background-color: #3498db; /* Harmonische Farbe für Muskelgruppen */
+  background-color: #3498db;
   color: white;
   border-radius: 5px;
   padding: 5px 10px;
