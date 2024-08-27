@@ -14,6 +14,9 @@ export default function HomePage() {
             <li key={exercise.id}>
               {exercise.name}
               <Image src={exercise.imageUrl} width={200} height={200} />
+              {exercise.muscleGroups.map((muscle) => {
+                return <p>{muscle}</p>;
+              })}
             </li>
           );
         })}
