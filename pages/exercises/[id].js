@@ -141,14 +141,20 @@ export default function ExerciseDetailsPage() {
 
       <MuscleGroupList>
         {currentExercise.muscleGroups.map((muscle, index) => (
-          <MuscleBadge key={index}>{muscle}</MuscleBadge>
+          <MuscleBadge key={`${currentExercise.id}-muscle-${index}`}>
+            {muscle}
+          </MuscleBadge>
         ))}
       </MuscleGroupList>
 
       <InstructionsList>
         <h2>How To Crush It</h2>
-        {currentExercise.instructions.map((instruction) => {
-          return <InstructionItem>{instruction}</InstructionItem>;
+        {currentExercise.instructions.map((instruction, index) => {
+          return (
+            <InstructionItem key={`${currentExercise.id}-instruction-${index}`}>
+              {instruction}
+            </InstructionItem>
+          );
         })}
       </InstructionsList>
     </Container>
