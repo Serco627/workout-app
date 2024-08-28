@@ -20,7 +20,7 @@ export default function HomePage() {
         <ExerciseList>
           {exercises.map((exercise) => (
             <ExerciseCard key={exercise.id}>
-              <Link href={`/exercises/${exercise.id}`}>
+              <StyledLink href={`/exercises/${exercise.id}`}>
                 <BackgroundImageWrapper>
                   <StyledImage
                     src={exercise.imageUrl}
@@ -39,7 +39,7 @@ export default function HomePage() {
                     ))}
                   </MuscleGroupList>
                 </ContentOverlay>
-              </Link>
+              </StyledLink>
             </ExerciseCard>
           ))}
         </ExerciseList>
@@ -134,4 +134,8 @@ const MuscleBadge = styled.li`
   border-radius: 5px;
   padding: 5px 10px;
   font-size: 0.85em;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
 `;
