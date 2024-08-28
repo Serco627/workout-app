@@ -8,12 +8,7 @@ export default function HomePage() {
     <>
       <Header>
         <h1>GymLog</h1>
-        <Image
-          src="/../public/workoutapplogo.jpg"
-          alt="Logo"
-          width={200}
-          height={200}
-        />
+        <Image src="/../public/logo.png" alt="Logo" width={200} height={200} />
         <h2>Your Ultimate Fitness Platform</h2>
       </Header>
       <Main>
@@ -134,8 +129,11 @@ const MuscleBadge = styled.li`
   border-radius: 5px;
   padding: 5px 10px;
   font-size: 0.85em;
+  font-weight: bold;
 `;
 
 const StyledLink = styled(Link)`
   text-decoration: none;
 `;
+
+export { MuscleBadge, MuscleGroupList };
