@@ -11,25 +11,28 @@ export default function HomePage() {
       </Header>
       <Main>
         <ExerciseList>
-          {exercises.map((exercise) => {
-            return (
-              <ExerciseCard key={exercise.id}>
-                <ImageContainer>
-                  <StyledImage
-                    src={exercise.imageUrl}
-                    alt={exercise.name}
-                    layout="fill"
-                  />
-                </ImageContainer>
+          {exercises.map((exercise) => (
+            <ExerciseCard key={exercise.id}>
+              <BackgroundImageWrapper>
+                <StyledImage
+                  src={exercise.imageUrl}
+                  alt={exercise.name}
+                  layout="fill"
+                  objectFit="cover"
+                  quality={75}
+                  priority={exercise.id === 0}
+                />
+              </BackgroundImageWrapper>
+              <ContentOverlay>
                 <ExerciseName>{exercise.name}</ExerciseName>
                 <MuscleGroupList>
-                  {exercise.muscleGroups.map((muscle, index) => {
-                    return <MuscleBadge key={index}>{muscle}</MuscleBadge>;
-                  })}
+                  {exercise.muscleGroups.map((muscle, index) => (
+                    <MuscleBadge key={index}>{muscle}</MuscleBadge>
+                  ))}
                 </MuscleGroupList>
-              </ExerciseCard>
-            );
-          })}
+              </ContentOverlay>
+            </ExerciseCard>
+          ))}
         </ExerciseList>
       </Main>
     </>
@@ -52,63 +55,55 @@ const ExerciseList = styled.ul`
   display: grid;
   gap: 1.5rem;
 
-  /* Für große Bildschirme (z.B. Desktop) - max. 3 Spalten */
   grid-template-columns: repeat(3, 1fr);
 
-  /* Für mittlere Bildschirme (z.B. Tablet) - max. 2 Spalten */
   @media (max-width: 1024px) {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  /* Für kleine Bildschirme (z.B. Smartphones) - max. 1 Spalte */
   @media (max-width: 600px) {
     grid-template-columns: 1fr;
   }
 `;
 
-// const ExerciseList = styled.ul`
-//   list-style: none;
-//   padding: 0;
-//   display: flex;
-//   flex-wrap: wrap;
-//   justify-content: center;
-//   gap: 1.5rem;
-// `;
-
 const ExerciseCard = styled.li`
-  background-color: #f0f4f8;
+  position: relative;
   border-radius: 10px;
-  padding: 15px;
+  overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
-  justify-content: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: flex-end;
   height: 25rem;
   width: 100%;
-  /* width: 18.75rem; */
 `;
 
-const ImageContainer = styled.div`
-  position: relative;
+const BackgroundImageWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
+  height: 100%;
+  z-index: 1;
 `;
 
 const StyledImage = styled(Image)`
+  z-index: 1;
   border-radius: 10px;
+`;
+
+const ContentOverlay = styled.div`
+  position: relative;
+  z-index: 2;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.4);
+  color: #ffffff;
   width: 100%;
-  height: 100%;
-  object-fit: contain;
 `;
 
 const ExerciseName = styled.h3`
-  color: #2c3e50;
+  color: #ffffff;
   margin: 10px 0;
 `;
 
