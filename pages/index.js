@@ -8,7 +8,7 @@ export default function HomePage() {
     <>
       <Header>
         <h1>GymLog</h1>
-        <Image src="/../public/logo.png" alt="Logo" width={200} height={200} />
+        <Image src="/logo.png" alt="Logo" width={200} height={200} />
         <h2>Your Ultimate Fitness Platform</h2>
       </Header>
       <Main>
