@@ -4,8 +4,13 @@ import { exercises } from "@/lib/exercises";
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
-import { MuscleBadge } from "..";
-import { MuscleGroupList } from "..";
+import {
+  MuscleBadge,
+  MuscleGroupList,
+  BackgroundImageWrapper,
+  StyledImage,
+  ExerciseCard,
+} from "..";
 
 const Container = styled.div`
   text-align: center;
@@ -32,7 +37,12 @@ const HeaderWrapper = styled.header`
 const InstructionsList = styled.ol`
   counter-reset: custom-counter;
   list-style: none;
-  padding-left: 0;
+  list-style-position: inside;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0;
+  margin-top: 2rem;
 `;
 
 const InstructionItem = styled.li`
@@ -90,12 +100,17 @@ export default function ExerciseDetailsPage() {
         </Link>
       </HeaderWrapper>
       <h1>{currentExercise.name}</h1>
-      <ExerciseImage
-        src={currentExercise.imageUrl}
-        alt={currentExercise.name}
-        width={250}
-        height={250}
-      />
+      <ExerciseCard>
+        <BackgroundImageWrapper>
+          <StyledImage
+            src={currentExercise.imageUrl}
+            alt={currentExercise.name}
+            layout="fill"
+            objectFit="cover"
+            quality={75}
+          />
+        </BackgroundImageWrapper>
+      </ExerciseCard>
       <h2>Muscles In The Spotlight</h2>
 
       <MuscleGroupList>
@@ -104,10 +119,8 @@ export default function ExerciseDetailsPage() {
         ))}
       </MuscleGroupList>
 
-      {/* <p>{currentExercise.muscleGroups.join(", ")}</p> */}
-
-      <h2>How To Crush It</h2>
       <InstructionsList>
+        <h2>How To Crush It</h2>
         {currentExercise.instructions.map((instruction) => {
           return <InstructionItem>{instruction}</InstructionItem>;
         })}

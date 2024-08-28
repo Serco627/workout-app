@@ -136,4 +136,10 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-export { MuscleBadge, MuscleGroupList };
+export {
+  MuscleBadge,
+  MuscleGroupList,
+  BackgroundImageWrapper,
+  StyledImage,
+  ExerciseCard,
+};
