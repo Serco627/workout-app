@@ -20,12 +20,27 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const ExerciseImage = styled(Image)`
-  border-radius: 10px;
-`;
-
 const BackLinkSvg = styled.svg`
-  padding: 10px;
+  position: fixed;
+  left: 5px;
+  top: 5px;
+  padding: 8px;
+  z-index: 3;
+  border: 2px solid #3498db;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    background-color: #f0f8ff;
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(1.05);
+  }
 `;
 
 const HeaderWrapper = styled.header`
@@ -86,8 +101,8 @@ export default function ExerciseDetailsPage() {
         <Link href="/" alt="Back to homepage">
           <BackLinkSvg
             xmlns="http://www.w3.org/2000/svg"
-            width="80"
-            height="80"
+            width="50"
+            height="50"
             viewBox="0 0 24 24"
             fill="none"
             stroke="#3498db"
