@@ -81,6 +81,15 @@ const ExerciseCard = styled.li`
   justify-content: flex-end;
   height: 25rem;
   width: 100%;
+
+  &:hover {
+    background-color: #f0f8ff;
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(1.05);
+  }
 `;
 
 const BackgroundImageWrapper = styled.div`

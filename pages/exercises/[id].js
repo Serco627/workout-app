@@ -1,7 +1,6 @@
 // pages/exercises/[id].js
 import { useRouter } from "next/router";
 import { exercises } from "@/lib/exercises";
-import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 import {
@@ -9,8 +8,20 @@ import {
   MuscleGroupList,
   BackgroundImageWrapper,
   StyledImage,
-  ExerciseCard,
 } from "..";
+
+const ExerciseDetailsImage = styled.div`
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 25rem;
+  width: 100%;
+`;
 
 const Container = styled.div`
   text-align: center;
@@ -115,7 +126,7 @@ export default function ExerciseDetailsPage() {
         </Link>
       </HeaderWrapper>
       <h1>{currentExercise.name}</h1>
-      <ExerciseCard>
+      <ExerciseDetailsImage>
         <BackgroundImageWrapper>
           <StyledImage
             src={currentExercise.imageUrl}
@@ -125,7 +136,7 @@ export default function ExerciseDetailsPage() {
             quality={75}
           />
         </BackgroundImageWrapper>
-      </ExerciseCard>
+      </ExerciseDetailsImage>
       <h2>Muscles In The Spotlight</h2>
 
       <MuscleGroupList>
