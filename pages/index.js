@@ -1,6 +1,7 @@
 import { exercises } from "@/lib/exercises";
 import Image from "next/image";
 import styled from "styled-components";
+import Link from "next/link";
 
 export default function HomePage() {
   return (
@@ -19,24 +20,26 @@ export default function HomePage() {
         <ExerciseList>
           {exercises.map((exercise) => (
             <ExerciseCard key={exercise.id}>
-              <BackgroundImageWrapper>
-                <StyledImage
-                  src={exercise.imageUrl}
-                  alt={exercise.name}
-                  layout="fill"
-                  objectFit="cover"
-                  quality={75}
-                  priority={exercise.id === 0}
-                />
-              </BackgroundImageWrapper>
-              <ContentOverlay>
-                <ExerciseName>{exercise.name}</ExerciseName>
-                <MuscleGroupList>
-                  {exercise.muscleGroups.map((muscle, index) => (
-                    <MuscleBadge key={index}>{muscle}</MuscleBadge>
-                  ))}
-                </MuscleGroupList>
-              </ContentOverlay>
+              <Link href={`/exercises/${exercise.id}`}>
+                <BackgroundImageWrapper>
+                  <StyledImage
+                    src={exercise.imageUrl}
+                    alt={exercise.name}
+                    layout="fill"
+                    objectFit="cover"
+                    quality={75}
+                    priority={exercise.id === 0}
+                  />
+                </BackgroundImageWrapper>
+                <ContentOverlay>
+                  <ExerciseName>{exercise.name}</ExerciseName>
+                  <MuscleGroupList>
+                    {exercise.muscleGroups.map((muscle, index) => (
+                      <MuscleBadge key={index}>{muscle}</MuscleBadge>
+                    ))}
+                  </MuscleGroupList>
+                </ContentOverlay>
+              </Link>
             </ExerciseCard>
           ))}
         </ExerciseList>
