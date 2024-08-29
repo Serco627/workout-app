@@ -7,6 +7,10 @@ const StickyHeader = styled.h1`
   top: 10px;
 `;
 
+function findExerciseById(exerciseId) {
+  return exercises.find((exercise) => exercise.id === exerciseId);
+}
+
 export default function WorkoutsList() {
   return (
     <>
@@ -18,10 +22,7 @@ export default function WorkoutsList() {
           const muscleGroupsSet = new Set();
 
           workout.exercises.forEach((exercise) => {
-            const foundExercise = exercises.find(
-              (searchingExercise) =>
-                searchingExercise.id === exercise.exerciseId
-            );
+            const foundExercise = findExerciseById(exercise.exerciseId);
 
             if (foundExercise) {
               foundExercise.muscleGroups.forEach((muscleGroup) => {
@@ -39,10 +40,7 @@ export default function WorkoutsList() {
               <p>{reducedMuscleGroups.join(", ")}</p>
               <ul>
                 {workout.exercises.map((exercise) => {
-                  const foundExercise = exercises.find(
-                    (searchingExercise) =>
-                      searchingExercise.id === exercise.exerciseId
-                  );
+                  const foundExercise = findExerciseById(exercise.exerciseId);
 
                   return (
                     <li key={exercise.exerciseId}>
