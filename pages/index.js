@@ -1,42 +1,40 @@
 import { exercises } from "@/lib/exercises";
 import Image from "next/image";
 import styled from "styled-components";
+import Link from "next/link";
 
 export default function HomePage() {
   return (
     <>
       <Header>
         <h1>GymLog</h1>
-        <Image
-          src="/../public/workoutapplogo.jpg"
-          alt="Logo"
-          width={200}
-          height={200}
-        />
+        <Image src="/logo.png" alt="Logo" width={200} height={200} />
         <h2>Your Ultimate Fitness Platform</h2>
       </Header>
       <Main>
         <ExerciseList>
           {exercises.map((exercise) => (
             <ExerciseCard key={exercise.id}>
-              <BackgroundImageWrapper>
-                <StyledImage
-                  src={exercise.imageUrl}
-                  alt={exercise.name}
-                  layout="fill"
-                  objectFit="cover"
-                  quality={75}
-                  priority={exercise.id === 0}
-                />
-              </BackgroundImageWrapper>
-              <ContentOverlay>
-                <ExerciseName>{exercise.name}</ExerciseName>
-                <MuscleGroupList>
-                  {exercise.muscleGroups.map((muscle, index) => (
-                    <MuscleBadge key={index}>{muscle}</MuscleBadge>
-                  ))}
-                </MuscleGroupList>
-              </ContentOverlay>
+              <StyledLink href={`/exercises/${exercise.id}`}>
+                <BackgroundImageWrapper>
+                  <StyledImage
+                    src={exercise.imageUrl}
+                    alt={exercise.name}
+                    layout="fill"
+                    objectFit="cover"
+                    quality={75}
+                    priority={exercise.id === 0}
+                  />
+                </BackgroundImageWrapper>
+                <ContentOverlay>
+                  <ExerciseName>{exercise.name}</ExerciseName>
+                  <MuscleGroupList>
+                    {exercise.muscleGroups.map((muscle, index) => (
+                      <MuscleBadge key={index}>{muscle}</MuscleBadge>
+                    ))}
+                  </MuscleGroupList>
+                </ContentOverlay>
+              </StyledLink>
             </ExerciseCard>
           ))}
         </ExerciseList>
@@ -83,6 +81,15 @@ const ExerciseCard = styled.li`
   justify-content: flex-end;
   height: 25rem;
   width: 100%;
+
+  &:hover {
+    background-color: #f0f8ff;
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(1.05);
+  }
 `;
 
 const BackgroundImageWrapper = styled.div`
@@ -131,4 +138,17 @@ const MuscleBadge = styled.li`
   border-radius: 5px;
   padding: 5px 10px;
   font-size: 0.85em;
+  font-weight: bold;
 `;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
+export {
+  MuscleBadge,
+  MuscleGroupList,
+  BackgroundImageWrapper,
+  StyledImage,
+  ExerciseCard,
+};
