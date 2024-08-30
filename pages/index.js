@@ -11,6 +11,11 @@ export default function HomePage() {
         <Image src="/logo.png" alt="Logo" width={200} height={200} />
         <h2>Your Ultimate Fitness Platform</h2>
       </Header>
+
+      <ButtonContainer>
+        <ButtonLink href="/workoutlist">Go to Workout List</ButtonLink>
+      </ButtonContainer>
+
       <Main>
         <ExerciseList>
           {exercises.map((exercise) => (
@@ -46,6 +51,12 @@ export default function HomePage() {
 const Header = styled.header`
   text-align: center;
   margin-bottom: 1rem;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
 `;
 
 const Main = styled.main`
@@ -143,6 +154,26 @@ const MuscleBadge = styled.li`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
+`;
+
+const ButtonLink = styled(StyledLink)`
+  display: inline-block;
+  background-color: #e67e22;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #d35400;
+  }
+
+  &:active {
+    background-color: #2471a3;
+  }
 `;
 
 export {
