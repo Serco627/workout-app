@@ -100,7 +100,7 @@ export default function ExerciseDetailsPage() {
   const router = useRouter();
   const { id } = router.query;
 
-  const currentExercise = exercises.find((exercise) => exercise.id === id);
+  const currentExercise = exercises.find((exercise) => exercise.id == id);
 
   if (!currentExercise) {
     return <p>Exercise not found</p>;
@@ -109,7 +109,7 @@ export default function ExerciseDetailsPage() {
   return (
     <Container>
       <HeaderWrapper>
-        <Link href="/" alt="Back to homepage">
+        <Link href="/">
           <BackLinkSvg
             xmlns="http://www.w3.org/2000/svg"
             width="50"
