@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { exercises } from "@/lib/exercises";
 import { workouts } from "@/lib/workouts";
+import Link from "next/link";
 
 function findExerciseById(exerciseId) {
   return exercises.find((exercise) => exercise.id === exerciseId);
@@ -10,7 +11,6 @@ function findExerciseById(exerciseId) {
 export default function WorkoutsList() {
   const [showDetails, setShowDetails] = useState({});
 
-  // Toggle function to show or hide details for a specific workout
   const toggleDetails = (workoutId) => {
     setShowDetails((prev) => ({
       ...prev,
@@ -20,9 +20,10 @@ export default function WorkoutsList() {
 
   return (
     <>
-      <header>
+      <Header>
         <StickyHeader>Choose Today's Workout</StickyHeader>
-      </header>
+        <BackButtonLink href="/">Back to Exercises</BackButtonLink>
+      </Header>
       <Main>
         <WorkoutList>
           {workouts.map((workout) => {
@@ -101,16 +102,20 @@ const WorkoutCard = styled.div`
   margin-bottom: 2rem;
   padding: 1rem;
   background: #ffffff;
-  text-align: center; /* Center align all text within the card */
+  text-align: center;
+`;
+
+const Header = styled.header`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
 `;
 
 const StickyHeader = styled.h1`
-  position: fixed;
-  top: 10px;
   background: #fff;
   padding: 0.5rem;
   margin: 0;
-  z-index: 1;
   text-align: center;
 `;
 
@@ -176,4 +181,21 @@ const SpotlightHeading = styled.h3`
   text-align: center;
   margin-top: 0;
   margin-bottom: 1rem;
+`;
+
+const BackButtonLink = styled(Link)`
+  display: inline-block;
+  background: #e67e22;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 2rem;
+  text-decoration: none;
+
+  &:hover {
+    background: #d35400;
+  }
 `;
