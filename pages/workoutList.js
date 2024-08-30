@@ -192,7 +192,6 @@ const BackButtonLink = styled(Link)`
   color: #ffffff;
   padding: 10px 10px;
   border-radius: 5px;
-  font-size: 1rem;
   text-align: center;
   cursor: pointer;
   text-decoration: none;
