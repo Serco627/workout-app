@@ -20,7 +20,7 @@ export default function WorkoutsList() {
   return (
     <>
       <header>
-        <StickyHeader>Choose Today's Workout</StickyHeader>
+        <StickyHeader>Choose Your Workout</StickyHeader>
       </header>
 
       <Main>
