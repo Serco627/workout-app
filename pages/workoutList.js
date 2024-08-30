@@ -23,7 +23,6 @@ export default function WorkoutsList() {
       <header>
         <StickyHeader>Choose Today's Workout</StickyHeader>
       </header>
-      <BackButtonLink href="/">Back To Exercises</BackButtonLink>
 
       <Main>
         <WorkoutList>

@@ -12,10 +12,6 @@ export default function HomePage() {
         <h2>Your Ultimate Fitness Platform</h2>
       </Header>
 
-      <ButtonContainer>
-        <ButtonLink href="/workoutlist">Go to Workout List</ButtonLink>
-      </ButtonContainer>
-
       <Main>
         <ExerciseList>
           {exercises.map((exercise) => (
@@ -154,26 +150,6 @@ const MuscleBadge = styled.li`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-`;
-
-const ButtonLink = styled(StyledLink)`
-  display: inline-block;
-  background-color: #e67e22;
-  color: #ffffff;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 1rem;
-  text-align: center;
-  cursor: pointer;
-  transition: background-color 0.3s;
-
-  &:hover {
-    background-color: #d35400;
-  }
-
-  &:active {
-    background-color: #2471a3;
-  }
 `;
 
 export {
