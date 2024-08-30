@@ -20,10 +20,11 @@ export default function WorkoutsList() {
 
   return (
     <>
-      <Header>
+      <header>
         <StickyHeader>Choose Today's Workout</StickyHeader>
-        <BackButtonLink href="/">Back to Exercises</BackButtonLink>
-      </Header>
+      </header>
+      <BackButtonLink href="/">Back To Exercises</BackButtonLink>
+
       <Main>
         <WorkoutList>
           {workouts.map((workout) => {
@@ -105,14 +106,17 @@ const WorkoutCard = styled.div`
   text-align: center;
 `;
 
-const Header = styled.header`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 2rem;
-`;
+// const Header = styled.header`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   margin-bottom: 2rem;
+// `;
 
 const StickyHeader = styled.h1`
+  /* position: fixed;
+  top: 0px; */
+  z-index: 2;
   background: #fff;
   padding: 0.5rem;
   margin: 0;
@@ -184,15 +188,13 @@ const SpotlightHeading = styled.h3`
 `;
 
 const BackButtonLink = styled(Link)`
-  display: inline-block;
   background: #e67e22;
   color: #ffffff;
-  padding: 10px 20px;
+  padding: 10px 10px;
   border-radius: 5px;
   font-size: 1rem;
   text-align: center;
   cursor: pointer;
-  margin-bottom: 2rem;
   text-decoration: none;
 
   &:hover {
