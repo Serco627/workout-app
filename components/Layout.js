@@ -54,6 +54,7 @@ const NavLink = styled(Link)`
 const MainContent = styled.main`
   flex: 1;
   padding: 1rem;
+  margin-bottom: 65px;
 `;
 
 const Footer = styled.footer`
@@ -62,7 +63,7 @@ const Footer = styled.footer`
   background-color: #3498db;
   color: #fff;
   position: fixed;
-  bottom: 0px;
+  bottom: 0;
   z-index: 3;
   width: 100%;
 `;

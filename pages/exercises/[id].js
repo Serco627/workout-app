@@ -1,4 +1,3 @@
-// pages/exercises/[id].js
 import { useRouter } from "next/router";
 import { exercises } from "@/lib/exercises";
 import Link from "next/link";
@@ -100,7 +99,7 @@ export default function ExerciseDetailsPage() {
   const router = useRouter();
   const { id } = router.query;
 
-  const currentExercise = exercises.find((exercise) => exercise.id == id);
+  const currentExercise = exercises.find((exercise) => exercise.id === id);
 
   if (!currentExercise) {
     return <p>Exercise not found</p>;
