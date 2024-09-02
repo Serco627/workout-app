@@ -130,7 +130,7 @@ export default function Form() {
   const handleSetsChange = (event) => setSets(event.target.value);
   const handleRepsChange = (event) => setReps(event.target.value);
 
-  const handleAddExercise = () => {
+  const handleAddExercise = (event) => {
     if (exerciseName && sets && reps) {
       const newExercise = { exerciseName, sets, reps };
       setSubmittedExercises([...submittedExercises, newExercise]);
@@ -139,6 +139,9 @@ export default function Form() {
       setExerciseName("");
       setSets("");
       setReps("");
+
+      // Set focus back to the "Exercise Name" input using the element's name
+      document.getElementsByName("exerciseName")[0].focus(); // Fokus auf das erste Element mit dem Namen "exerciseName"
 
       // Lock workout name if at least one exercise has been added
       if (submittedExercises.length === 0) {
@@ -178,6 +181,7 @@ export default function Form() {
                 <Select
                   value={exerciseName}
                   onChange={handleExerciseNameChange}
+                  name="exerciseName"
                 >
                   <option value="">Please select an exercise</option>
                   {ExerciseList.map((exercise) => (
