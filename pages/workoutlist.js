@@ -19,78 +19,66 @@ export default function WorkoutsList() {
 
   return (
     <>
-      <header>
-        <StickyHeader>Choose Your Workout</StickyHeader>
-      </header>
+      <StyledHeadline>Choose Your Workout</StyledHeadline>
 
-      <Main>
-        <WorkoutList>
-          {workouts.map((workout) => {
-            const muscleGroupsSet = new Set();
+      <WorkoutList>
+        {workouts.map((workout) => {
+          const muscleGroupsSet = new Set();
 
-            workout.exercises.forEach((exercise) => {
-              const foundExercise = findExerciseById(exercise.exerciseId);
+          workout.exercises.forEach((exercise) => {
+            const foundExercise = findExerciseById(exercise.exerciseId);
 
-              if (foundExercise) {
-                foundExercise.muscleGroups.forEach((muscleGroup) => {
-                  muscleGroupsSet.add(muscleGroup);
-                });
-              }
-            });
+            if (foundExercise) {
+              foundExercise.muscleGroups.forEach((muscleGroup) => {
+                muscleGroupsSet.add(muscleGroup);
+              });
+            }
+          });
 
-            const reducedMuscleGroups = Array.from(muscleGroupsSet);
-            const isDetailsVisible = showDetails[workout.id];
-            return (
-              <WorkoutCard key={workout.id}>
-                <h2>{workout.name}</h2>
-                <SpotlightHeading>Muscles In The Spotlight:</SpotlightHeading>
-                <MuscleGroupList>
-                  {reducedMuscleGroups.map((muscle) => (
-                    <MuscleBadge key={muscle}>{muscle}</MuscleBadge>
-                  ))}
-                </MuscleGroupList>
-                <ToggleButton onClick={() => toggleDetails(workout.id)}>
-                  {isDetailsVisible ? "Show Less" : "Show More"}
-                </ToggleButton>
-                {isDetailsVisible && (
-                  <ExerciseList>
-                    {workout.exercises.map((exercise) => {
-                      const foundExercise = findExerciseById(
-                        exercise.exerciseId
-                      );
+          const reducedMuscleGroups = Array.from(muscleGroupsSet);
+          const isDetailsVisible = showDetails[workout.id];
+          return (
+            <WorkoutCard key={workout.id}>
+              <h2>{workout.name}</h2>
+              <SpotlightHeading>Muscles In The Spotlight:</SpotlightHeading>
+              <MuscleGroupList>
+                {reducedMuscleGroups.map((muscle) => (
+                  <MuscleBadge key={muscle}>{muscle}</MuscleBadge>
+                ))}
+              </MuscleGroupList>
+              <ToggleButton onClick={() => toggleDetails(workout.id)}>
+                {isDetailsVisible ? "Show Less" : "Show More"}
+              </ToggleButton>
+              {isDetailsVisible && (
+                <ExerciseList>
+                  {workout.exercises.map((exercise) => {
+                    const foundExercise = findExerciseById(exercise.exerciseId);
 
-                      return (
-                        <ExerciseItem key={exercise.exerciseId}>
-                          <ExerciseName>{foundExercise.name}</ExerciseName>
-                          <ExerciseDetails>
-                            Sets: {exercise.sets}
-                          </ExerciseDetails>
-                          <ExerciseDetails>
-                            Reps: {exercise.reps}
-                          </ExerciseDetails>
-                        </ExerciseItem>
-                      );
-                    })}
-                  </ExerciseList>
-                )}
-              </WorkoutCard>
-            );
-          })}
-        </WorkoutList>
-      </Main>
+                    return (
+                      <ExerciseItem key={exercise.exerciseId}>
+                        <ExerciseName>{foundExercise.name}</ExerciseName>
+                        <ExerciseDetails>Sets: {exercise.sets}</ExerciseDetails>
+                        <ExerciseDetails>Reps: {exercise.reps}</ExerciseDetails>
+                      </ExerciseItem>
+                    );
+                  })}
+                </ExerciseList>
+              )}
+            </WorkoutCard>
+          );
+        })}
+      </WorkoutList>
     </>
   );
 }
 
-const Main = styled.main`
-  display: flex;
-  justify-content: center;
-  padding: 1rem;
-`;
-
 const WorkoutList = styled.div`
   width: 100%;
   max-width: 1200px;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  flex-direction: column;
 `;
 
 const WorkoutCard = styled.div`
@@ -104,7 +92,7 @@ const WorkoutCard = styled.div`
   text-align: center;
 `;
 
-const StickyHeader = styled.h1`
+const StyledHeadline = styled.h2`
   background: #fff;
   padding: 0.5rem;
   margin: 0;

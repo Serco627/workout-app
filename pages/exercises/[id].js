@@ -31,29 +31,6 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const BackLinkSvg = styled.svg`
-  position: fixed;
-  left: 5px;
-  top: 5px;
-  padding: 8px;
-  z-index: 3;
-  border: 2px solid #3498db;
-  border-radius: 8px;
-  background-color: #ffffff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-
-  &:hover {
-    background-color: #f0f8ff;
-    transform: scale(1.1);
-  }
-
-  &:active {
-    transform: scale(1.05);
-  }
-`;
-
 const HeaderWrapper = styled.header`
   display: flex;
   align-items: center;
@@ -96,6 +73,10 @@ const InstructionItem = styled.li`
   }
 `;
 
+const StyledExerciseName = styled.h2`
+  font-size: 2rem;
+`;
+
 export default function ExerciseDetailsPage() {
   const router = useRouter();
   const { id } = router.query;
@@ -108,7 +89,7 @@ export default function ExerciseDetailsPage() {
 
   return (
     <Container>
-      <HeaderWrapper>
+      {/* <HeaderWrapper>
         <Link href="/">
           <BackLinkSvg
             xmlns="http://www.w3.org/2000/svg"
@@ -124,8 +105,8 @@ export default function ExerciseDetailsPage() {
             <polyline points="15 18 9 12 15 6" />
           </BackLinkSvg>
         </Link>
-      </HeaderWrapper>
-      <h1>{currentExercise.name}</h1>
+      </HeaderWrapper> */}
+      <StyledExerciseName>{currentExercise.name}</StyledExerciseName>
       <ExerciseDetailsImage>
         <BackgroundImageWrapper>
           <StyledImage
@@ -137,7 +118,7 @@ export default function ExerciseDetailsPage() {
           />
         </BackgroundImageWrapper>
       </ExerciseDetailsImage>
-      <h2>Muscles In The Spotlight</h2>
+      <h3>Muscles In The Spotlight</h3>
 
       <MuscleGroupList>
         {currentExercise.muscleGroups.map((muscle, index) => (
@@ -148,7 +129,7 @@ export default function ExerciseDetailsPage() {
       </MuscleGroupList>
 
       <InstructionsList>
-        <h2>How To Crush It</h2>
+        <h3>How To Crush It</h3>
         {currentExercise.instructions.map((instruction, index) => {
           return (
             <InstructionItem key={`${currentExercise.id}-instruction-${index}`}>

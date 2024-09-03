@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <Main>
+    <StyledFlexWrapper>
       <ExerciseList>
         {exercises.map((exercise) => (
           <ExerciseCard key={exercise.id}>
@@ -32,17 +32,11 @@ export default function HomePage() {
           </ExerciseCard>
         ))}
       </ExerciseList>
-    </Main>
+    </StyledFlexWrapper>
   );
 }
 
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: 2rem 0;
-`;
-
-const Main = styled.main`
+const StyledFlexWrapper = styled.div`
   display: flex;
   justify-content: center;
 `;
