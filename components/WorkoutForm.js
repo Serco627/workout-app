@@ -130,7 +130,7 @@ export default function Form() {
   const handleSetsChange = (event) => setSets(event.target.value);
   const handleRepsChange = (event) => setReps(event.target.value);
 
-  const handleAddExercise = (event) => {
+  const handleAddExercise = () => {
     if (exerciseName && sets && reps) {
       const newExercise = { exerciseName, sets, reps };
       setSubmittedExercises([...submittedExercises, newExercise]);
@@ -152,7 +152,27 @@ export default function Form() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // No additional submission logic since we're not using `submittedWorkout`
+    console.log("Workout wird jetzt gespeichert");
+
+    // Erstelle das neue Workout
+    const newWorkout = {
+      id: Date.now().toString(),
+      name: workoutName,
+      exercises: submittedExercises.map((exercise) => ({
+        exerciseId: ExerciseList.find((e) => e.name === exercise.exerciseName)
+          ?.id,
+        sets: exercise.sets,
+        reps: exercise.reps,
+      })),
+    };
+
+    // Übergebe das neue Workout an die Parent-Komponente
+    onAddWorkout(newWorkout);
+
+    // Reset Form nach dem Absenden
+    setWorkoutName("");
+    setSubmittedExercises([]);
+    setIsWorkoutNameEditable(true);
   };
 
   return (
@@ -168,6 +188,7 @@ export default function Form() {
               <Input
                 type="text"
                 value={workoutName}
+                name="workoutName"
                 onChange={handleWorkoutNameChange}
                 disabled={!isWorkoutNameEditable}
               />
@@ -196,6 +217,7 @@ export default function Form() {
                   Sets
                   <Input
                     type="number"
+                    name="sets"
                     value={sets}
                     onChange={handleSetsChange}
                   />
@@ -205,6 +227,7 @@ export default function Form() {
                   <Input
                     type="number"
                     value={reps}
+                    name="reps"
                     onChange={handleRepsChange}
                   />
                 </SetRepLabel>
