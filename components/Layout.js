@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import Link from "next/link";
+import Header from "./Header/Header";
 
 export default function Layout({ children }) {
   return (
     <Container>
+      <Header />
       <MainContent>{children}</MainContent>
 
       <Footer>
@@ -54,6 +56,7 @@ const NavLink = styled(Link)`
 const MainContent = styled.main`
   flex: 1;
   padding: 1rem;
+  padding-top: 0;
   margin-bottom: 65px;
 `;
 

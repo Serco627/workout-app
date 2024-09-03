@@ -5,47 +5,36 @@ import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <>
-      <Header>
-        <Image src="/logo.png" alt="Logo" width={200} height={200} />
-      </Header>
-
-      <Main>
-        <ExerciseList>
-          {exercises.map((exercise) => (
-            <ExerciseCard key={exercise.id}>
-              <StyledLink href={`/exercises/${exercise.id}`}>
-                <BackgroundImageWrapper>
-                  <StyledImage
-                    src={exercise.imageUrl}
-                    alt={exercise.name}
-                    layout="fill"
-                    objectFit="cover"
-                    quality={75}
-                    priority={exercise.id === 0}
-                  />
-                </BackgroundImageWrapper>
-                <ContentOverlay>
-                  <ExerciseName>{exercise.name}</ExerciseName>
-                  <MuscleGroupList>
-                    {exercise.muscleGroups.map((muscle, index) => (
-                      <MuscleBadge key={index}>{muscle}</MuscleBadge>
-                    ))}
-                  </MuscleGroupList>
-                </ContentOverlay>
-              </StyledLink>
-            </ExerciseCard>
-          ))}
-        </ExerciseList>
-      </Main>
-    </>
+    <Main>
+      <ExerciseList>
+        {exercises.map((exercise) => (
+          <ExerciseCard key={exercise.id}>
+            <StyledLink href={`/exercises/${exercise.id}`}>
+              <BackgroundImageWrapper>
+                <StyledImage
+                  src={exercise.imageUrl}
+                  alt={exercise.name}
+                  layout="fill"
+                  objectFit="cover"
+                  quality={75}
+                  priority={exercise.id === 0}
+                />
+              </BackgroundImageWrapper>
+              <ContentOverlay>
+                <ExerciseName>{exercise.name}</ExerciseName>
+                <MuscleGroupList>
+                  {exercise.muscleGroups.map((muscle, index) => (
+                    <MuscleBadge key={index}>{muscle}</MuscleBadge>
+                  ))}
+                </MuscleGroupList>
+              </ContentOverlay>
+            </StyledLink>
+          </ExerciseCard>
+        ))}
+      </ExerciseList>
+    </Main>
   );
 }
-
-const Header = styled.header`
-  text-align: center;
-  margin-bottom: 1rem;
-`;
 
 const ButtonContainer = styled.div`
   display: flex;

@@ -25,6 +25,7 @@ const ExerciseDetailsImage = styled.div`
 const Container = styled.div`
   text-align: center;
   margin: 20px;
+  margin-top: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
