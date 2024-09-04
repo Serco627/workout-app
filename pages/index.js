@@ -1,12 +1,10 @@
 import { exercises } from "@/lib/exercises";
 import Image from "next/image";
 import styled from "styled-components";
-import Form from "@/components/WorkoutForm";
 
 export default function HomePage() {
   return (
     <>
-      <Form />
       <Header>
         <h1>GymLog</h1>
         <Image

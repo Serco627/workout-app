@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { exercises as ExerciseList } from "@/lib/exercises";
+import { exercises } from "@/lib/exercises";
+import findExerciseById from "@/utils/findExerciseById";
 
 // Styled Components
 const Header = styled.header`
@@ -104,7 +105,7 @@ const InlineContainer = styled.div`
   width: 100%;
 `;
 
-const SetRepLabel = styled.label`
+const RepsSetsLabel = styled.label`
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -116,63 +117,28 @@ const ExerciseListDisplay = styled.div`
 `;
 
 export default function Form() {
-  const [workoutName, setWorkoutName] = useState("");
-  const [exerciseName, setExerciseName] = useState("");
-  const [sets, setSets] = useState("");
-  const [reps, setReps] = useState("");
-  const [submittedExercises, setSubmittedExercises] = useState([]);
-  const [isWorkoutNameEditable, setIsWorkoutNameEditable] = useState(true);
+  const [currentExercises, setCurrentExercises] = useState([]);
 
-  const handleWorkoutNameChange = (event) => setWorkoutName(event.target.value);
+  function handleAddExercise(event) {
+    const form = event.target.form;
+    const exerciseId = form.elements.exerciseName.value;
+    const sets = form.elements.sets.value;
+    const reps = form.elements.reps.value;
 
-  const handleExerciseNameChange = (event) =>
-    setExerciseName(event.target.value);
-  const handleSetsChange = (event) => setSets(event.target.value);
-  const handleRepsChange = (event) => setReps(event.target.value);
+    setCurrentExercises([
+      ...currentExercises,
+      { exerciseId: exerciseId, sets: sets, reps: reps },
+    ]);
 
-  const handleAddExercise = () => {
-    if (exerciseName && sets && reps) {
-      const newExercise = { exerciseName, sets, reps };
-      setSubmittedExercises([...submittedExercises, newExercise]);
-
-      // Reset input fields
-      setExerciseName("");
-      setSets("");
-      setReps("");
-
-      // Set focus back to the "Exercise Name" input using the element's name
-      document.getElementsByName("exerciseName")[0].focus(); // Fokus auf das erste Element mit dem Namen "exerciseName"
-
-      // Lock workout name if at least one exercise has been added
-      if (submittedExercises.length === 0) {
-        setIsWorkoutNameEditable(false);
-      }
-    }
-  };
+    form.elements.exerciseName.value = "";
+    form.elements.sets.value = "";
+    form.elements.reps.value = "";
+    form.elements.exerciseName.focus();
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Workout wird jetzt gespeichert");
-
-    // Erstelle das neue Workout
-    const newWorkout = {
-      id: Date.now().toString(),
-      name: workoutName,
-      exercises: submittedExercises.map((exercise) => ({
-        exerciseId: ExerciseList.find((e) => e.name === exercise.exerciseName)
-          ?.id,
-        sets: exercise.sets,
-        reps: exercise.reps,
-      })),
-    };
-
-    // Übergebe das neue Workout an die Parent-Komponente
-    onAddWorkout(newWorkout);
-
-    // Reset Form nach dem Absenden
-    setWorkoutName("");
-    setSubmittedExercises([]);
-    setIsWorkoutNameEditable(true);
   };
 
   return (
@@ -182,79 +148,58 @@ export default function Form() {
           <h2>Create New Workout</h2>
         </Header>
         <form onSubmit={handleSubmit}>
-          <div>
+          <Label>
+            Workout Name
+            <Input type="text" name="workoutName" />
+          </Label>
+
+          <Fieldset>
+            <Legend>New Exercise</Legend>
             <Label>
-              Workout Name
-              <Input
-                type="text"
-                value={workoutName}
-                name="workoutName"
-                onChange={handleWorkoutNameChange}
-                disabled={!isWorkoutNameEditable}
-              />
+              Exercise Name
+              <Select name="exerciseName">
+                <option disabled>Please select an exercise</option>
+                {exercises.map((exercise) => (
+                  <option key={exercise.id} value={exercise.id}>
+                    {exercise.name}
+                  </option>
+                ))}
+              </Select>
             </Label>
-          </div>
-          <div>
-            <Fieldset>
-              <Legend>New Exercise</Legend>
-              <Label>
-                Exercise Name
-                <Select
-                  value={exerciseName}
-                  onChange={handleExerciseNameChange}
-                  name="exerciseName"
-                >
-                  <option value="">Please select an exercise</option>
-                  {ExerciseList.map((exercise) => (
-                    <option key={exercise.id} value={exercise.name}>
-                      {exercise.name}
-                    </option>
-                  ))}
-                </Select>
-              </Label>
-              <InlineContainer>
-                <SetRepLabel>
-                  Sets
-                  <Input
-                    type="number"
-                    name="sets"
-                    value={sets}
-                    onChange={handleSetsChange}
-                  />
-                </SetRepLabel>
-                <SetRepLabel>
-                  Reps
-                  <Input
-                    type="number"
-                    value={reps}
-                    name="reps"
-                    onChange={handleRepsChange}
-                  />
-                </SetRepLabel>
-              </InlineContainer>
-              <Button type="button" onClick={handleAddExercise}>
-                + Add Exercise
-              </Button>
-            </Fieldset>
-          </div>
+            <InlineContainer>
+              <RepsSetsLabel>
+                Sets
+                <Input type="number" name="sets" />
+              </RepsSetsLabel>
+              <RepsSetsLabel>
+                Reps
+                <Input type="number" name="reps" />
+              </RepsSetsLabel>
+            </InlineContainer>
+            <Button type="button" onClick={handleAddExercise}>
+              + Add Exercise
+            </Button>
+          </Fieldset>
+
+          {/* Display the list of added exercises */}
+          <ExerciseListDisplay>
+            <h3>Exercises</h3>
+            <ExerciseListContainer>
+              {currentExercises.map((exercise, index) => (
+                <ExerciseItem key={index}>
+                  <strong>
+                    {findExerciseById(exercises, exercise.exerciseId).name}
+                  </strong>{" "}
+                  - {exercise.sets} sets, {exercise.reps} reps
+                </ExerciseItem>
+              ))}
+            </ExerciseListContainer>
+          </ExerciseListDisplay>
 
           <StyledDiv>
             <ButtonSecondary type="submit">Save Workout</ButtonSecondary>
           </StyledDiv>
         </form>
-
-        {/* Display the list of added exercises */}
-        <ExerciseListDisplay>
-          <h3>{workoutName}</h3>
-          <ExerciseListContainer>
-            {submittedExercises.map((exercise, index) => (
-              <ExerciseItem key={index}>
-                <strong>{exercise.exerciseName}</strong> - {exercise.sets} sets,{" "}
-                {exercise.reps} reps
-              </ExerciseItem>
-            ))}
-          </ExerciseListContainer>
-        </ExerciseListDisplay>
       </FormContainer>
     </Main>
   );

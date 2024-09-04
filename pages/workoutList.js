@@ -3,10 +3,7 @@ import styled from "styled-components";
 import { exercises } from "@/lib/exercises";
 import { workouts as initialWorkouts } from "@/lib/workouts";
 import Form from "@/components/WorkoutForm";
-
-function findExerciseById(exerciseId) {
-  return exercises.find((exercise) => exercise.id === exerciseId);
-}
+import findExerciseById from "@/utils/findExerciseById";
 
 export default function WorkoutsList() {
   const [showDetails, setShowDetails] = useState({});
@@ -26,19 +23,17 @@ export default function WorkoutsList() {
 
   return (
     <>
-      <header>
-        <StickyHeader>Choose Your Workout</StickyHeader>
-        {/* Übergabe der Funktion als Prop an das Formular */}
-        <Form onAddWorkout={handleAddWorkout} />
-      </header>
-
       <Main>
+        <Form onAddWorkout={handleAddWorkout} />
         <WorkoutList>
           {workouts.map((workout) => {
             const muscleGroupsSet = new Set();
 
             workout.exercises.forEach((exercise) => {
-              const foundExercise = findExerciseById(exercise.exerciseId);
+              const foundExercise = findExerciseById(
+                exercises,
+                exercise.exerciseId
+              );
 
               if (foundExercise) {
                 foundExercise.muscleGroups.forEach((muscleGroup) => {
@@ -65,6 +60,7 @@ export default function WorkoutsList() {
                   <ExerciseList>
                     {workout.exercises.map((exercise) => {
                       const foundExercise = findExerciseById(
+                        exercises,
                         exercise.exerciseId
                       );
 
