@@ -116,7 +116,7 @@ const ExerciseListDisplay = styled.div`
   margin-top: 1rem;
 `;
 
-export default function Form() {
+export default function Form({ onAddWorkout }) {
   const [currentExercises, setCurrentExercises] = useState([]);
 
   function handleAddExercise(event) {
@@ -125,21 +125,34 @@ export default function Form() {
     const sets = form.elements.sets.value;
     const reps = form.elements.reps.value;
 
-    setCurrentExercises([
-      ...currentExercises,
-      { exerciseId: exerciseId, sets: sets, reps: reps },
-    ]);
-
-    form.elements.exerciseName.value = "";
-    form.elements.sets.value = "";
-    form.elements.reps.value = "";
-    form.elements.exerciseName.focus();
+    if (exerciseId === "default" || sets <= 0 || reps <= 0) {
+      alert("Please fill in all the fields.");
+      form.elements.exerciseName.focus();
+    } else {
+      setCurrentExercises([
+        ...currentExercises,
+        { exerciseId: exerciseId, sets: sets, reps: reps },
+      ]);
+      form.elements.exerciseName.value = "";
+      form.elements.sets.value = "";
+      form.elements.reps.value = "";
+      form.elements.exerciseName.focus();
+    }
   }
 
-  const handleSubmit = (event) => {
+  function handleSubmit(event) {
     event.preventDefault();
-    console.log("Workout wird jetzt gespeichert");
-  };
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+    const name = data.workoutName;
+    if (!currentExercises.length) {
+      alert("Please add exercises to your workout!");
+    } else {
+      onAddWorkout(name, currentExercises);
+      setCurrentExercises([]);
+      event.target.reset();
+    }
+  }
 
   return (
     <Main>
@@ -150,15 +163,23 @@ export default function Form() {
         <form onSubmit={handleSubmit}>
           <Label>
             Workout Name
-            <Input type="text" name="workoutName" />
+            <Input
+              type="text"
+              name="workoutName"
+              placeholder="your workout name"
+              required
+              maxLength={30}
+            />
           </Label>
 
           <Fieldset>
             <Legend>New Exercise</Legend>
             <Label>
               Exercise Name
-              <Select name="exerciseName">
-                <option disabled>Please select an exercise</option>
+              <Select name="exerciseName" defaultValue="default">
+                <option value="default" disabled>
+                  Please select an exercise
+                </option>
                 {exercises.map((exercise) => (
                   <option key={exercise.id} value={exercise.id}>
                     {exercise.name}
@@ -169,11 +190,23 @@ export default function Form() {
             <InlineContainer>
               <RepsSetsLabel>
                 Sets
-                <Input type="number" name="sets" />
+                <Input
+                  type="number"
+                  name="sets"
+                  min="1"
+                  max="50"
+                  placeholder="min. 1"
+                />
               </RepsSetsLabel>
               <RepsSetsLabel>
                 Reps
-                <Input type="number" name="reps" />
+                <Input
+                  type="number"
+                  name="reps"
+                  min="1"
+                  max="100"
+                  placeholder="min. 1"
+                />
               </RepsSetsLabel>
             </InlineContainer>
             <Button type="button" onClick={handleAddExercise}>

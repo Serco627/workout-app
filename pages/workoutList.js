@@ -4,6 +4,7 @@ import { exercises } from "@/lib/exercises";
 import { workouts as initialWorkouts } from "@/lib/workouts";
 import Form from "@/components/WorkoutForm";
 import findExerciseById from "@/utils/findExerciseById";
+import { uid } from "uid";
 
 export default function WorkoutsList() {
   const [showDetails, setShowDetails] = useState({});
@@ -17,9 +18,12 @@ export default function WorkoutsList() {
   };
 
   // Funktion zum Hinzufügen eines neuen Workouts
-  const handleAddWorkout = (newWorkout) => {
-    setWorkouts((prevWorkouts) => [newWorkout, ...prevWorkouts]);
-  };
+  function handleAddWorkout(name, currentExercises) {
+    setWorkouts([
+      ...workouts,
+      { id: uid(), name: name, exercises: currentExercises },
+    ]);
+  }
 
   return (
     <>
@@ -65,7 +69,7 @@ export default function WorkoutsList() {
                       );
 
                       return (
-                        <ExerciseItem key={exercise.exerciseId}>
+                        <ExerciseItem key={uid()}>
                           <ExerciseName>{foundExercise.name}</ExerciseName>
                           <ExerciseDetails>
                             Sets: {exercise.sets}
