@@ -9,9 +9,21 @@ const Header = styled.header`
   margin-bottom: 1rem;
 `;
 
-const Main = styled.main`
+const WrapperFilter = styled.div`
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 2rem 5rem;
+`;
+
+const WrapperForm = styled.div`
   display: flex;
   justify-content: center;
+  background-color: white;
+  border-radius: 10px;
+  padding: 1rem;
 `;
 
 const FormContainer = styled.div`
@@ -116,7 +128,7 @@ const ExerciseListDisplay = styled.div`
   margin-top: 1rem;
 `;
 
-export default function Form({ onAddWorkout }) {
+export default function Form({ onAddWorkout, createMode }) {
   const [currentExercises, setCurrentExercises] = useState([]);
 
   function handleAddExercise(event) {
@@ -155,85 +167,87 @@ export default function Form({ onAddWorkout }) {
   }
 
   return (
-    <Main>
-      <FormContainer>
-        <Header>
-          <h2>Create New Workout</h2>
-        </Header>
-        <form onSubmit={handleSubmit}>
-          <Label>
-            Workout Name
-            <Input
-              type="text"
-              name="workoutName"
-              placeholder="your workout name"
-              required
-              maxLength={30}
-            />
-          </Label>
-
-          <Fieldset>
-            <Legend>New Exercise</Legend>
+    <WrapperFilter>
+      <WrapperForm>
+        <FormContainer>
+          <Header>
+            <h2>Create New Workout</h2>
+          </Header>
+          <form onSubmit={handleSubmit}>
             <Label>
-              Exercise Name
-              <Select name="exerciseName" defaultValue="default">
-                <option value="default" disabled>
-                  Please select an exercise
-                </option>
-                {exercises.map((exercise) => (
-                  <option key={exercise.id} value={exercise.id}>
-                    {exercise.name}
-                  </option>
-                ))}
-              </Select>
+              Workout Name
+              <Input
+                type="text"
+                name="workoutName"
+                placeholder="your workout name"
+                required
+                maxLength={30}
+              />
             </Label>
-            <InlineContainer>
-              <RepsSetsLabel>
-                Sets
-                <Input
-                  type="number"
-                  name="sets"
-                  min="1"
-                  max="50"
-                  placeholder="min. 1"
-                />
-              </RepsSetsLabel>
-              <RepsSetsLabel>
-                Reps
-                <Input
-                  type="number"
-                  name="reps"
-                  min="1"
-                  max="100"
-                  placeholder="min. 1"
-                />
-              </RepsSetsLabel>
-            </InlineContainer>
-            <Button type="button" onClick={handleAddExercise}>
-              + Add Exercise
-            </Button>
-          </Fieldset>
 
-          {/* Display the list of added exercises */}
-          <ExerciseListDisplay>
-            <h3>Exercises</h3>
-            <ExerciseListContainer>
-              {currentExercises.map((exercise, index) => (
-                <ExerciseItem key={index}>
-                  <strong>
-                    {findExerciseById(exercises, exercise.exerciseId).name}
-                  </strong>{" "}
-                  - {exercise.sets} sets, {exercise.reps} reps
-                </ExerciseItem>
-              ))}
-            </ExerciseListContainer>
-          </ExerciseListDisplay>
+            <Fieldset>
+              <Legend>New Exercise</Legend>
+              <Label>
+                Exercise Name
+                <Select name="exerciseName" defaultValue="default">
+                  <option value="default" disabled>
+                    Please select an exercise
+                  </option>
+                  {exercises.map((exercise) => (
+                    <option key={exercise.id} value={exercise.id}>
+                      {exercise.name}
+                    </option>
+                  ))}
+                </Select>
+              </Label>
+              <InlineContainer>
+                <RepsSetsLabel>
+                  Sets
+                  <Input
+                    type="number"
+                    name="sets"
+                    min="1"
+                    max="50"
+                    placeholder="min. 1"
+                  />
+                </RepsSetsLabel>
+                <RepsSetsLabel>
+                  Reps
+                  <Input
+                    type="number"
+                    name="reps"
+                    min="1"
+                    max="100"
+                    placeholder="min. 1"
+                  />
+                </RepsSetsLabel>
+              </InlineContainer>
+              <Button type="button" onClick={handleAddExercise}>
+                + Add Exercise
+              </Button>
+            </Fieldset>
 
-          <StyledDiv>
-            <ButtonSecondary type="submit">Save Workout</ButtonSecondary>
-          </StyledDiv>
-        </form>
-      </FormContainer>
-    </Main>
+            {/* Display the list of added exercises */}
+            <ExerciseListDisplay>
+              <h3>Exercises</h3>
+              <ExerciseListContainer>
+                {currentExercises.map((exercise, index) => (
+                  <ExerciseItem key={index}>
+                    <strong>
+                      {findExerciseById(exercises, exercise.exerciseId).name}
+                    </strong>{" "}
+                    - {exercise.sets} sets, {exercise.reps} reps
+                  </ExerciseItem>
+                ))}
+              </ExerciseListContainer>
+            </ExerciseListDisplay>
+
+            <StyledDiv>
+              <ButtonSecondary type="submit">Save Workout</ButtonSecondary>
+            </StyledDiv>
+          </form>
+        </FormContainer>
+      </WrapperForm>
+    </WrapperFilter>
   );
 }

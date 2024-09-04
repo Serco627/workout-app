@@ -9,6 +9,7 @@ import { uid } from "uid";
 export default function WorkoutsList() {
   const [showDetails, setShowDetails] = useState({});
   const [workouts, setWorkouts] = useState(initialWorkouts); // Initialisiere den Workout-State
+  const [createMode, setCreateMode] = useState(true);
 
   const toggleDetails = (workoutId) => {
     setShowDetails((prev) => ({
@@ -28,7 +29,9 @@ export default function WorkoutsList() {
   return (
     <>
       <Main>
-        <Form onAddWorkout={handleAddWorkout} />
+        {createMode ? (
+          <Form onAddWorkout={handleAddWorkout} createMode={createMode} />
+        ) : null}
         <WorkoutList>
           {workouts.map((workout) => {
             const muscleGroupsSet = new Set();
@@ -95,6 +98,7 @@ const Main = styled.main`
   display: flex;
   justify-content: center;
   padding: 1rem;
+  padding-top: 0;
 `;
 
 const WorkoutList = styled.div`
