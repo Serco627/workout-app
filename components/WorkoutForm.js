@@ -13,9 +13,10 @@ const WrapperFilter = styled.div`
   width: 100%;
   height: 100%;
   position: fixed;
+  top: 0;
   z-index: 1;
   background: rgba(0, 0, 0, 0.6);
-  padding: 2rem 5rem;
+  padding: 1rem 3rem;
 `;
 
 const WrapperForm = styled.div`
@@ -86,9 +87,19 @@ const Button = styled.button`
 
 const ButtonSecondary = styled(Button)`
   background-color: #27ae60;
+  border: 1px solid #fff;
 
   &:hover {
     background-color: #1f8a4d;
+  }
+`;
+
+const CancelButton = styled(ButtonSecondary)`
+  background-color: #dc3545;
+  border: 1px solid #fff;
+
+  &:hover {
+    background-color: #c82333;
   }
 `;
 
@@ -128,7 +139,7 @@ const ExerciseListDisplay = styled.div`
   margin-top: 1rem;
 `;
 
-export default function Form({ onAddWorkout, createMode }) {
+export default function Form({ onAddWorkout, handleCancel, onCreateMode }) {
   const [currentExercises, setCurrentExercises] = useState([]);
 
   function handleAddExercise(event) {
@@ -161,6 +172,7 @@ export default function Form({ onAddWorkout, createMode }) {
       alert("Please add exercises to your workout!");
     } else {
       onAddWorkout(name, currentExercises);
+      onCreateMode();
       setCurrentExercises([]);
       event.target.reset();
     }
@@ -243,6 +255,9 @@ export default function Form({ onAddWorkout, createMode }) {
             </ExerciseListDisplay>
 
             <StyledDiv>
+              <CancelButton type="button" onClick={handleCancel}>
+                Cancel
+              </CancelButton>
               <ButtonSecondary type="submit">Save Workout</ButtonSecondary>
             </StyledDiv>
           </form>

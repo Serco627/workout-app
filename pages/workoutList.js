@@ -9,7 +9,7 @@ import { uid } from "uid";
 export default function WorkoutsList() {
   const [showDetails, setShowDetails] = useState({});
   const [workouts, setWorkouts] = useState(initialWorkouts); // Initialisiere den Workout-State
-  const [createMode, setCreateMode] = useState(true);
+  const [createMode, setCreateMode] = useState(false);
 
   const toggleDetails = (workoutId) => {
     setShowDetails((prev) => ({
@@ -26,11 +26,25 @@ export default function WorkoutsList() {
     ]);
   }
 
+  function handleCancel() {
+    setCreateMode(false);
+  }
+
+  function handleCreateMode() {
+    setCreateMode(true);
+  }
+
   return (
     <>
       <Main>
+        <CreateWorkoutButton onClick={handleCreateMode}>+</CreateWorkoutButton>
         {createMode ? (
-          <Form onAddWorkout={handleAddWorkout} createMode={createMode} />
+          <Form
+            onAddWorkout={handleAddWorkout}
+            createMode={createMode}
+            handleCancel={handleCancel}
+            onCreateMode={handleCancel}
+          />
         ) : null}
         <WorkoutList>
           {workouts.map((workout) => {
@@ -98,7 +112,6 @@ const Main = styled.main`
   display: flex;
   justify-content: center;
   padding: 1rem;
-  padding-top: 0;
 `;
 
 const WorkoutList = styled.div`
@@ -139,6 +152,22 @@ const ToggleButton = styled.button`
 
   &:hover {
     background: #d35400;
+  }
+`;
+
+const CreateWorkoutButton = styled(ToggleButton)`
+  background-color: #27ae60;
+  position: fixed;
+  z-index: 1;
+  padding: 0.2rem 1.15rem;
+  font-size: 3.5rem;
+  bottom: 5px;
+  right: 20px;
+  border-radius: 50%;
+  border: 1px solid #fff;
+
+  &:hover {
+    background-color: #1f8a4d;
   }
 `;
 
