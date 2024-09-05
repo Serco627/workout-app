@@ -17,32 +17,37 @@ export default function WorkoutsList() {
     }));
   };
 
+  const preparedWorkouts = workouts.map((workout) => {
+    const muscleGroups = [];
+    const enrichedExercises = workout.exercises.map((exercise) => {
+      const foundExercise = findExerciseById(exercise.exerciseId);
+      if (foundExercise) {
+        muscleGroups.push(...foundExercise.muscleGroups);
+        return { ...exercise, name: foundExercise.name };
+      }
+      return exercise;
+    });
+    const uniqueMuscleGroups = [...new Set(muscleGroups)];
+    return {
+      ...workout,
+      exercises: enrichedExercises,
+      muscleGroups: uniqueMuscleGroups,
+    };
+  });
+
   return (
     <>
       <StyledHeadline>Choose Your Workout</StyledHeadline>
 
       <WorkoutList>
-        {workouts.map((workout) => {
-          const muscleGroupsSet = new Set();
-
-          workout.exercises.forEach((exercise) => {
-            const foundExercise = findExerciseById(exercise.exerciseId);
-
-            if (foundExercise) {
-              foundExercise.muscleGroups.forEach((muscleGroup) => {
-                muscleGroupsSet.add(muscleGroup);
-              });
-            }
-          });
-
-          const reducedMuscleGroups = Array.from(muscleGroupsSet);
-          const isDetailsVisible = showDetails[workout.id];
+        {preparedWorkouts.map((workout) => {
+          const isDetailsVisible = showDetails[workout.id] || false;
           return (
             <WorkoutCard key={workout.id}>
               <h2>{workout.name}</h2>
               <SpotlightHeading>Muscles In The Spotlight:</SpotlightHeading>
               <MuscleGroupList>
-                {reducedMuscleGroups.map((muscle) => (
+                {workout.muscleGroups.map((muscle) => (
                   <MuscleBadge key={muscle}>{muscle}</MuscleBadge>
                 ))}
               </MuscleGroupList>
@@ -52,11 +57,9 @@ export default function WorkoutsList() {
               {isDetailsVisible && (
                 <ExerciseList>
                   {workout.exercises.map((exercise) => {
-                    const foundExercise = findExerciseById(exercise.exerciseId);
-
                     return (
                       <ExerciseItem key={exercise.exerciseId}>
-                        <ExerciseName>{foundExercise.name}</ExerciseName>
+                        <ExerciseName>{exercise.name}</ExerciseName>
                         <ExerciseDetails>Sets: {exercise.sets}</ExerciseDetails>
                         <ExerciseDetails>Reps: {exercise.reps}</ExerciseDetails>
                       </ExerciseItem>
@@ -88,7 +91,7 @@ const WorkoutCard = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 2rem;
   padding: 1rem;
-  background: #ffffff;
+  background: #fff;
   text-align: center;
 `;
 
@@ -101,7 +104,7 @@ const StyledHeadline = styled.h2`
 
 const ToggleButton = styled.button`
   background: #e67e22;
-  color: #ffffff;
+  color: #fff;
   border: none;
   border-radius: 5px;
   padding: 0.5rem 1rem;
@@ -131,7 +134,7 @@ const MuscleGroupList = styled.ul`
 
 const MuscleBadge = styled.li`
   background-color: #3498db;
-  color: #ffffff;
+  color: #fff;
   border-radius: 5px;
   padding: 5px 10px;
   font-size: 0.85em;

@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import { exercises } from "@/lib/exercises";
-import Link from "next/link";
 import styled from "styled-components";
 import {
   MuscleBadge,
@@ -62,7 +61,7 @@ const InstructionItem = styled.li`
     top: 50%;
     transform: translateY(-50%);
     background-color: #3498db;
-    color: #ffffff;
+    color: #fff;
     width: 35px;
     height: 35px;
     border-radius: 50%;
@@ -89,23 +88,6 @@ export default function ExerciseDetailsPage() {
 
   return (
     <Container>
-      {/* <HeaderWrapper>
-        <Link href="/">
-          <BackLinkSvg
-            xmlns="http://www.w3.org/2000/svg"
-            width="50"
-            height="50"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#3498db"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polyline points="15 18 9 12 15 6" />
-          </BackLinkSvg>
-        </Link>
-      </HeaderWrapper> */}
       <StyledExerciseName>{currentExercise.name}</StyledExerciseName>
       <ExerciseDetailsImage>
         <BackgroundImageWrapper>

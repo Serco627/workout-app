@@ -99,12 +99,12 @@ const ContentOverlay = styled.div`
   z-index: 2;
   padding: 15px;
   background: rgba(0, 0, 0, 0.4);
-  color: #ffffff;
+  color: #fff;
   width: 100%;
 `;
 
 const ExerciseName = styled.h3`
-  color: #ffffff;
+  color: #fff;
   margin: 10px 0;
 `;
 
@@ -122,7 +122,7 @@ const MuscleGroupList = styled.ul`
 
 const MuscleBadge = styled.li`
   background-color: #3498db;
-  color: #ffffff;
+  color: #fff;
   border-radius: 5px;
   padding: 5px 10px;
   font-size: 0.85em;

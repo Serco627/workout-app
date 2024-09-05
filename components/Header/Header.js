@@ -17,7 +17,7 @@ const BackLinkSvg = styled.svg`
   z-index: 3;
   border: 2px solid #3498db;
   border-radius: 8px;
-  background-color: #ffffff;
+  background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
