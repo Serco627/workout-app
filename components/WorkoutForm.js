@@ -65,7 +65,7 @@ const Select = styled.select`
   border: 1px solid #ddd;
 `;
 
-const Button = styled.button`
+const AddButton = styled.button`
   background-color: #3498db;
   color: #ffffff;
   border: none;
@@ -81,7 +81,7 @@ const Button = styled.button`
   }
 `;
 
-const ButtonSecondary = styled(Button)`
+const ButtonSecondary = styled(AddButton)`
   background-color: #27ae60;
   border: 1px solid #fff;
 
@@ -228,9 +228,9 @@ export default function Form({ onAddWorkout, toggleCreateMode, onCreateMode }) {
                   />
                 </RepsSetsLabel>
               </InlineContainer>
-              <Button type="button" onClick={handleAddExercise}>
+              <AddButton type="button" onClick={handleAddExercise}>
                 + Add Exercise
-              </Button>
+              </AddButton>
             </Fieldset>
 
             {/* Display the list of added exercises */}
@@ -238,7 +238,7 @@ export default function Form({ onAddWorkout, toggleCreateMode, onCreateMode }) {
               {currentExercises.length ? <h3>Exercises</h3> : null}
               <ExerciseListContainer>
                 {currentExercises.map((exercise, index) => (
-                  <ExerciseItem key={index}>
+                  <ExerciseItem key={uid()}>
                     <strong>
                       {findExerciseById(exercises, exercise.exerciseId).name}
                     </strong>{" "}
