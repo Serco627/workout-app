@@ -229,6 +229,10 @@ const CreateWorkoutButton = styled(ToggleButton)`
 const CancelCreateButton = styled(CreateWorkoutButton)`
   background-color: #dc3545;
   transform: rotate(45deg);
+
+  &:hover {
+    background-color: #c82333;
+  }
 `;
 
 const FlexWrapWorkouts = styled.div`
