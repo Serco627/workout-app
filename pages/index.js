@@ -1,24 +1,15 @@
 import { exercises } from "@/lib/exercises";
 import Image from "next/image";
 import styled from "styled-components";
+import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <>
-      <Header>
-        <h1>GymLog</h1>
-        <Image
-          src="/../public/workoutapplogo.jpg"
-          alt="Logo"
-          width={200}
-          height={200}
-        />
-        <h2>Your Ultimate Fitness Platform</h2>
-      </Header>
-      <Main>
-        <ExerciseList>
-          {exercises.map((exercise) => (
-            <ExerciseCard key={exercise.id}>
+    <StyledFlexWrapper>
+      <ExerciseList>
+        {exercises.map((exercise) => (
+          <ExerciseCard key={exercise.id}>
+            <StyledLink href={`/exercises/${exercise.id}`}>
               <BackgroundImageWrapper>
                 <StyledImage
                   src={exercise.imageUrl}
@@ -37,20 +28,15 @@ export default function HomePage() {
                   ))}
                 </MuscleGroupList>
               </ContentOverlay>
-            </ExerciseCard>
-          ))}
-        </ExerciseList>
-      </Main>
-    </>
+            </StyledLink>
+          </ExerciseCard>
+        ))}
+      </ExerciseList>
+    </StyledFlexWrapper>
   );
 }
 
-const Header = styled.header`
-  text-align: center;
-  margin-bottom: 1rem;
-`;
-
-const Main = styled.main`
+const StyledFlexWrapper = styled.div`
   display: flex;
   justify-content: center;
 `;
@@ -83,6 +69,15 @@ const ExerciseCard = styled.li`
   justify-content: flex-end;
   height: 25rem;
   width: 100%;
+
+  &:hover {
+    background-color: #f0f8ff;
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(1.05);
+  }
 `;
 
 const BackgroundImageWrapper = styled.div`
@@ -103,13 +98,13 @@ const ContentOverlay = styled.div`
   position: relative;
   z-index: 2;
   padding: 15px;
-  background: rgba(0, 0, 0, 0.4);
-  color: #ffffff;
+  background: #00000066;
+  color: #fff;
   width: 100%;
 `;
 
 const ExerciseName = styled.h3`
-  color: #ffffff;
+  color: #fff;
   margin: 10px 0;
 `;
 
@@ -127,8 +122,21 @@ const MuscleGroupList = styled.ul`
 
 const MuscleBadge = styled.li`
   background-color: #3498db;
-  color: #ffffff;
+  color: #fff;
   border-radius: 5px;
   padding: 5px 10px;
   font-size: 0.85em;
+  font-weight: bold;
 `;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
+export {
+  MuscleBadge,
+  MuscleGroupList,
+  BackgroundImageWrapper,
+  StyledImage,
+  ExerciseCard,
+};
