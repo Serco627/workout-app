@@ -68,7 +68,7 @@ export default function WorkoutList() {
       ) : null}
       <StyledHeadline>Choose Your Workout</StyledHeadline>
 
-      <WorkoutList>
+      <WorkoutListFlex>
         {preparedWorkouts.map((workout) => {
           const isDetailsVisible = showDetails[workout.id] || false;
           return (
@@ -99,7 +99,7 @@ export default function WorkoutList() {
             </WorkoutCard>
           );
         })}
-      </WorkoutList>
+      </WorkoutListFlex>
     </FlexWrapWorkouts>
   );
 }
@@ -114,7 +114,7 @@ const Filter = styled.div`
   padding: 1rem 3rem;
 `;
 
-const WorkoutList = styled.div`
+const WorkoutListFlex = styled.div`
   width: 100%;
   max-width: 1200px;
   display: flex;
