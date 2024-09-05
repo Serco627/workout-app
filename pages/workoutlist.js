@@ -9,7 +9,7 @@ function findExerciseById(exerciseId) {
   return exercises.find((exercise) => exercise.id === exerciseId);
 }
 
-export default function WorkoutsList() {
+export default function WorkoutList() {
   const [showDetails, setShowDetails] = useState({});
   const [workouts, setWorkouts] = useState(initialWorkouts); // Initialisiere den Workout-State
   const [createMode, setCreateMode] = useState(false);
