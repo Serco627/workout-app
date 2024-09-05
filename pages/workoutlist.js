@@ -1,7 +1,9 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { exercises } from "@/lib/exercises";
-import { workouts } from "@/lib/workouts";
+import Form from "@/components/WorkoutForm";
+import { workouts as initialWorkouts } from "@/lib/workouts";
+import { uid } from "uid";
 
 function findExerciseById(exerciseId) {
   return exercises.find((exercise) => exercise.id === exerciseId);
@@ -9,6 +11,8 @@ function findExerciseById(exerciseId) {
 
 export default function WorkoutsList() {
   const [showDetails, setShowDetails] = useState({});
+  const [workouts, setWorkouts] = useState(initialWorkouts); // Initialisiere den Workout-State
+  const [createMode, setCreateMode] = useState(false);
 
   const toggleDetails = (workoutId) => {
     setShowDetails((prev) => ({
@@ -35,8 +39,33 @@ export default function WorkoutsList() {
     };
   });
 
+  function handleAddWorkout(name, currentExercises) {
+    setWorkouts([
+      ...workouts,
+      { id: uid(), name: name, exercises: currentExercises },
+    ]);
+  }
+
+  function handleCancel() {
+    setCreateMode(false);
+  }
+
+  function handleCreateMode() {
+    setCreateMode(true);
+  }
+
   return (
-    <>
+    <FlexWrapWorkouts>
+      {createMode ? <Filter></Filter> : null}
+      <CreateWorkoutButton onClick={handleCreateMode}>+</CreateWorkoutButton>
+      {createMode ? (
+        <Form
+          onAddWorkout={handleAddWorkout}
+          createMode={createMode}
+          handleCancel={handleCancel}
+          onCreateMode={handleCancel}
+        />
+      ) : null}
       <StyledHeadline>Choose Your Workout</StyledHeadline>
 
       <WorkoutList>
@@ -71,9 +100,19 @@ export default function WorkoutsList() {
           );
         })}
       </WorkoutList>
-    </>
+    </FlexWrapWorkouts>
   );
 }
+
+const Filter = styled.div`
+  width: 100vw;
+  min-height: 100vh;
+  position: fixed;
+  bottom: 0;
+  z-index: 1;
+  background: #00000099;
+  padding: 1rem 3rem;
+`;
 
 const WorkoutList = styled.div`
   width: 100%;
@@ -164,4 +203,27 @@ const SpotlightHeading = styled.h3`
   text-align: center;
   margin-top: 0;
   margin-bottom: 1rem;
+`;
+
+const CreateWorkoutButton = styled(ToggleButton)`
+  background-color: #27ae60;
+  position: fixed;
+  z-index: 5;
+  padding: 0.2rem 1.15rem;
+  font-size: 3.5rem;
+  bottom: 20px;
+  right: 20px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+
+  &:hover {
+    background-color: #1f8a4d;
+  }
+`;
+
+const FlexWrapWorkouts = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;

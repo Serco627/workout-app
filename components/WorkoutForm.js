@@ -9,28 +9,24 @@ const Header = styled.header`
   margin-bottom: 1rem;
 `;
 
-const WrapperFilter = styled.div`
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  z-index: 1;
-  background: rgba(0, 0, 0, 0.6);
-  padding: 1rem 3rem;
-`;
-
 const WrapperForm = styled.div`
   display: flex;
   justify-content: center;
   background-color: white;
   border-radius: 10px;
   padding: 1rem;
+  margin: 1rem;
+  padding-top: 0;
+  position: absolute;
+  top: 0;
+  z-index: 1;
 `;
 
 const FormContainer = styled.div`
   width: 100%;
   max-width: 800px;
   padding: 1rem;
+  padding-top: 0;
   margin: 0 auto;
 `;
 
@@ -39,7 +35,7 @@ const Fieldset = styled.fieldset`
   margin-bottom: 1rem;
   padding: 1rem;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px #0000001a;
 `;
 
 const Legend = styled.legend`
@@ -178,7 +174,7 @@ export default function Form({ onAddWorkout, handleCancel, onCreateMode }) {
   }
 
   return (
-    <WrapperFilter>
+    <>
       <WrapperForm>
         <FormContainer>
           <Header>
@@ -197,9 +193,8 @@ export default function Form({ onAddWorkout, handleCancel, onCreateMode }) {
             </Label>
 
             <Fieldset>
-              <Legend>New Exercise</Legend>
               <Label>
-                Exercise Name
+                Add your exercises
                 <Select name="exerciseName" defaultValue="default">
                   <option value="default" disabled>
                     Please select an exercise
@@ -240,7 +235,7 @@ export default function Form({ onAddWorkout, handleCancel, onCreateMode }) {
 
             {/* Display the list of added exercises */}
             <ExerciseListDisplay>
-              <h3>Exercises</h3>
+              {currentExercises.length ? <h3>Exercises</h3> : null}
               <ExerciseListContainer>
                 {currentExercises.map((exercise, index) => (
                   <ExerciseItem key={index}>
@@ -262,6 +257,6 @@ export default function Form({ onAddWorkout, handleCancel, onCreateMode }) {
           </form>
         </FormContainer>
       </WrapperForm>
-    </WrapperFilter>
+    </>
   );
 }
