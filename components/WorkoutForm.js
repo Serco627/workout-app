@@ -159,7 +159,6 @@ export default function Form({ onAddWorkout, handleCancel, onCreateMode }) {
       form.elements.exerciseName.value = "";
       form.elements.sets.value = "";
       form.elements.reps.value = "";
-      form.elements.exerciseName.focus();
     }
   }
 
