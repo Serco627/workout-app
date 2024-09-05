@@ -135,7 +135,7 @@ const ExerciseListDisplay = styled.div`
   margin-top: 1rem;
 `;
 
-export default function Form({ onAddWorkout, handleCancel, onCreateMode }) {
+export default function Form({ onAddWorkout, toggleCreateMode, onCreateMode }) {
   const [currentExercises, setCurrentExercises] = useState([]);
 
   function handleAddExercise(event) {
@@ -167,9 +167,9 @@ export default function Form({ onAddWorkout, handleCancel, onCreateMode }) {
       alert("Please add exercises to your workout!");
     } else {
       onAddWorkout(name, currentExercises);
-      onCreateMode();
       setCurrentExercises([]);
       event.target.reset();
+      onCreateMode();
     }
   }
 
@@ -249,7 +249,7 @@ export default function Form({ onAddWorkout, handleCancel, onCreateMode }) {
             </ExerciseListDisplay>
 
             <StyledDiv>
-              <CancelButton type="button" onClick={handleCancel}>
+              <CancelButton type="button" onClick={toggleCreateMode}>
                 Cancel
               </CancelButton>
               <ButtonSecondary type="submit">Save Workout</ButtonSecondary>

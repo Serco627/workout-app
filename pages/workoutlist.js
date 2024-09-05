@@ -46,24 +46,28 @@ export default function WorkoutList() {
     ]);
   }
 
-  function handleCancel() {
-    setCreateMode(false);
-  }
-
-  function handleCreateMode() {
-    setCreateMode(true);
+  function toggleCreateMode() {
+    setCreateMode(!createMode);
   }
 
   return (
     <FlexWrapWorkouts>
-      {createMode ? <Filter></Filter> : null}
-      <CreateWorkoutButton onClick={handleCreateMode}>+</CreateWorkoutButton>
+      {createMode ? <Filter onClick={toggleCreateMode}></Filter> : null}
+      {createMode ? (
+        <CancelCreateButton onClick={toggleCreateMode}>
+          &#x2B;
+        </CancelCreateButton>
+      ) : (
+        <CreateWorkoutButton onClick={toggleCreateMode}>
+          &#x2B;
+        </CreateWorkoutButton>
+      )}
       {createMode ? (
         <Form
           onAddWorkout={handleAddWorkout}
           createMode={createMode}
-          handleCancel={handleCancel}
-          onCreateMode={handleCancel}
+          toggleCreateMode={toggleCreateMode}
+          onCreateMode={toggleCreateMode}
         />
       ) : null}
       <StyledHeadline>Choose Your Workout</StyledHeadline>
@@ -209,16 +213,22 @@ const CreateWorkoutButton = styled(ToggleButton)`
   background-color: #27ae60;
   position: fixed;
   z-index: 5;
-  padding: 0.2rem 1.15rem;
-  font-size: 3.5rem;
+  font-size: 3rem;
   bottom: 20px;
-  right: 20px;
+  right: 14px;
   border-radius: 50%;
   border: 2px solid #fff;
+  width: 80px;
+  height: 80px;
 
   &:hover {
     background-color: #1f8a4d;
   }
+`;
+
+const CancelCreateButton = styled(CreateWorkoutButton)`
+  background-color: #dc3545;
+  transform: rotate(45deg);
 `;
 
 const FlexWrapWorkouts = styled.div`
