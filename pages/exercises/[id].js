@@ -1,7 +1,5 @@
-// pages/exercises/[id].js
 import { useRouter } from "next/router";
 import { exercises } from "@/lib/exercises";
-import Link from "next/link";
 import styled from "styled-components";
 import {
   MuscleBadge,
@@ -14,7 +12,7 @@ const ExerciseDetailsImage = styled.div`
   position: relative;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px #0000001a;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -26,32 +24,10 @@ const ExerciseDetailsImage = styled.div`
 const Container = styled.div`
   text-align: center;
   margin: 20px;
+  margin-top: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const BackLinkSvg = styled.svg`
-  position: fixed;
-  left: 5px;
-  top: 5px;
-  padding: 8px;
-  z-index: 3;
-  border: 2px solid #3498db;
-  border-radius: 8px;
-  background-color: #ffffff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-
-  &:hover {
-    background-color: #f0f8ff;
-    transform: scale(1.1);
-  }
-
-  &:active {
-    transform: scale(1.05);
-  }
 `;
 
 const HeaderWrapper = styled.header`
@@ -85,7 +61,7 @@ const InstructionItem = styled.li`
     top: 50%;
     transform: translateY(-50%);
     background-color: #3498db;
-    color: #ffffff;
+    color: #fff;
     width: 35px;
     height: 35px;
     border-radius: 50%;
@@ -94,6 +70,10 @@ const InstructionItem = styled.li`
     justify-content: center;
     font-weight: bold;
   }
+`;
+
+const StyledExerciseName = styled.h2`
+  font-size: 2rem;
 `;
 
 export default function ExerciseDetailsPage() {
@@ -108,24 +88,7 @@ export default function ExerciseDetailsPage() {
 
   return (
     <Container>
-      <HeaderWrapper>
-        <Link href="/" alt="Back to homepage">
-          <BackLinkSvg
-            xmlns="http://www.w3.org/2000/svg"
-            width="50"
-            height="50"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#3498db"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polyline points="15 18 9 12 15 6" />
-          </BackLinkSvg>
-        </Link>
-      </HeaderWrapper>
-      <h1>{currentExercise.name}</h1>
+      <StyledExerciseName>{currentExercise.name}</StyledExerciseName>
       <ExerciseDetailsImage>
         <BackgroundImageWrapper>
           <StyledImage
@@ -137,7 +100,7 @@ export default function ExerciseDetailsPage() {
           />
         </BackgroundImageWrapper>
       </ExerciseDetailsImage>
-      <h2>Muscles In The Spotlight</h2>
+      <h3>Muscles In The Spotlight</h3>
 
       <MuscleGroupList>
         {currentExercise.muscleGroups.map((muscle, index) => (
@@ -148,7 +111,7 @@ export default function ExerciseDetailsPage() {
       </MuscleGroupList>
 
       <InstructionsList>
-        <h2>How To Crush It</h2>
+        <h3>How To Crush It</h3>
         {currentExercise.instructions.map((instruction, index) => {
           return (
             <InstructionItem key={`${currentExercise.id}-instruction-${index}`}>

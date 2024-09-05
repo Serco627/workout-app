@@ -5,50 +5,38 @@ import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <>
-      <Header>
-        <h1>GymLog</h1>
-        <Image src="/logo.png" alt="Logo" width={200} height={200} />
-        <h2>Your Ultimate Fitness Platform</h2>
-      </Header>
-      <Main>
-        <ExerciseList>
-          {exercises.map((exercise) => (
-            <ExerciseCard key={exercise.id}>
-              <StyledLink href={`/exercises/${exercise.id}`}>
-                <BackgroundImageWrapper>
-                  <StyledImage
-                    src={exercise.imageUrl}
-                    alt={exercise.name}
-                    layout="fill"
-                    objectFit="cover"
-                    quality={75}
-                    priority={exercise.id === 0}
-                  />
-                </BackgroundImageWrapper>
-                <ContentOverlay>
-                  <ExerciseName>{exercise.name}</ExerciseName>
-                  <MuscleGroupList>
-                    {exercise.muscleGroups.map((muscle, index) => (
-                      <MuscleBadge key={index}>{muscle}</MuscleBadge>
-                    ))}
-                  </MuscleGroupList>
-                </ContentOverlay>
-              </StyledLink>
-            </ExerciseCard>
-          ))}
-        </ExerciseList>
-      </Main>
-    </>
+    <StyledFlexWrapper>
+      <ExerciseList>
+        {exercises.map((exercise) => (
+          <ExerciseCard key={exercise.id}>
+            <StyledLink href={`/exercises/${exercise.id}`}>
+              <BackgroundImageWrapper>
+                <StyledImage
+                  src={exercise.imageUrl}
+                  alt={exercise.name}
+                  layout="fill"
+                  objectFit="cover"
+                  quality={75}
+                  priority={exercise.id === 0}
+                />
+              </BackgroundImageWrapper>
+              <ContentOverlay>
+                <ExerciseName>{exercise.name}</ExerciseName>
+                <MuscleGroupList>
+                  {exercise.muscleGroups.map((muscle, index) => (
+                    <MuscleBadge key={index}>{muscle}</MuscleBadge>
+                  ))}
+                </MuscleGroupList>
+              </ContentOverlay>
+            </StyledLink>
+          </ExerciseCard>
+        ))}
+      </ExerciseList>
+    </StyledFlexWrapper>
   );
 }
 
-const Header = styled.header`
-  text-align: center;
-  margin-bottom: 1rem;
-`;
-
-const Main = styled.main`
+const StyledFlexWrapper = styled.div`
   display: flex;
   justify-content: center;
 `;
@@ -110,13 +98,13 @@ const ContentOverlay = styled.div`
   position: relative;
   z-index: 2;
   padding: 15px;
-  background: rgba(0, 0, 0, 0.4);
-  color: #ffffff;
+  background: #00000066;
+  color: #fff;
   width: 100%;
 `;
 
 const ExerciseName = styled.h3`
-  color: #ffffff;
+  color: #fff;
   margin: 10px 0;
 `;
 
@@ -134,7 +122,7 @@ const MuscleGroupList = styled.ul`
 
 const MuscleBadge = styled.li`
   background-color: #3498db;
-  color: #ffffff;
+  color: #fff;
   border-radius: 5px;
   padding: 5px 10px;
   font-size: 0.85em;
