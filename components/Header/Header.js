@@ -2,11 +2,10 @@ import styled from "styled-components";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 
 const StyledHeader = styled.header`
   text-align: center;
-  margin-bottom: 0rem;
+  margin-bottom: 0;
 `;
 
 const BackLinkSvg = styled.svg`
@@ -18,7 +17,7 @@ const BackLinkSvg = styled.svg`
   border: 2px solid #3498db;
   border-radius: 8px;
   background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px #00000033;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
 
@@ -46,7 +45,7 @@ export default function Header() {
         return (
           <>
             <Image src="/logo.png" alt="Logo" width={90} height={90} />
-            <Link href={`/`}>
+            <Link href={`/`} aria-label="back to homepage">
               <BackLinkSvg
                 xmlns="http://www.w3.org/2000/svg"
                 width="50"

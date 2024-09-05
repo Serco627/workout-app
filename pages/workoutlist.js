@@ -88,7 +88,7 @@ const WorkoutCard = styled.div`
   position: relative;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px #0000001a;
   margin-bottom: 2rem;
   padding: 1rem;
   background: #fff;

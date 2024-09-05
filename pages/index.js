@@ -98,7 +98,7 @@ const ContentOverlay = styled.div`
   position: relative;
   z-index: 2;
   padding: 15px;
-  background: rgba(0, 0, 0, 0.4);
+  background: #00000066;
   color: #fff;
   width: 100%;
 `;
