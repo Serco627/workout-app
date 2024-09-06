@@ -1,14 +1,18 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { exercises } from "@/lib/exercises";
-import { workouts } from "@/lib/workouts";
+import Form from "@/components/WorkoutForm";
+import { workouts as initialWorkouts } from "@/lib/workouts";
+import { uid } from "uid";
 
 function findExerciseById(exerciseId) {
   return exercises.find((exercise) => exercise.id === exerciseId);
 }
 
-export default function WorkoutsList() {
+export default function WorkoutList() {
   const [showDetails, setShowDetails] = useState({});
+  const [workouts, setWorkouts] = useState(initialWorkouts); // Initialisiere den Workout-State
+  const [createMode, setCreateMode] = useState(false);
 
   const toggleDetails = (workoutId) => {
     setShowDetails((prev) => ({
@@ -35,11 +39,39 @@ export default function WorkoutsList() {
     };
   });
 
+  function handleAddWorkout(name, currentExercises) {
+    setWorkouts([
+      ...workouts,
+      { id: uid(), name: name, exercises: currentExercises },
+    ]);
+  }
+
+  function toggleCreateMode() {
+    setCreateMode(!createMode);
+  }
   return (
-    <>
+    <FlexWrapWorkouts>
+      {createMode ? <Filter onClick={toggleCreateMode}></Filter> : null}
+      {createMode ? (
+        <CancelCreateButton onClick={toggleCreateMode}>
+          &#x2B;
+        </CancelCreateButton>
+      ) : (
+        <CreateWorkoutButton onClick={toggleCreateMode}>
+          &#x2B;
+        </CreateWorkoutButton>
+      )}
+      {createMode ? (
+        <Form
+          onAddWorkout={handleAddWorkout}
+          createMode={createMode}
+          toggleCreateMode={toggleCreateMode}
+          onCreateMode={toggleCreateMode}
+        />
+      ) : null}
       <StyledHeadline>Choose Your Workout</StyledHeadline>
 
-      <WorkoutList>
+      <WorkoutListFlex>
         {preparedWorkouts.map((workout) => {
           const isDetailsVisible = showDetails[workout.id] || false;
           return (
@@ -70,12 +102,22 @@ export default function WorkoutsList() {
             </WorkoutCard>
           );
         })}
-      </WorkoutList>
-    </>
+      </WorkoutListFlex>
+    </FlexWrapWorkouts>
   );
 }
 
-const WorkoutList = styled.div`
+const Filter = styled.div`
+  width: 100vw;
+  min-height: 100vh;
+  position: fixed;
+  bottom: 0;
+  z-index: 1;
+  background: #00000099;
+  padding: 1rem 3rem;
+`;
+
+const WorkoutListFlex = styled.div`
   width: 100%;
   max-width: 1200px;
   display: flex;
@@ -164,4 +206,37 @@ const SpotlightHeading = styled.h3`
   text-align: center;
   margin-top: 0;
   margin-bottom: 1rem;
+`;
+
+const CreateWorkoutButton = styled(ToggleButton)`
+  background-color: #27ae60;
+  position: fixed;
+  z-index: 5;
+  font-size: 3rem;
+  bottom: 20px;
+  right: 14px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  width: 80px;
+  height: 80px;
+
+  &:hover {
+    background-color: #1f8a4d;
+  }
+`;
+
+const CancelCreateButton = styled(CreateWorkoutButton)`
+  background-color: #dc3545;
+  transform: rotate(45deg);
+
+  &:hover {
+    background-color: #c82333;
+  }
+`;
+
+const FlexWrapWorkouts = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
