@@ -20,6 +20,7 @@ export default function WorkoutsList() {
   };
 
   function handleDelete(id) {
+    console.log(id);
     setWorkouts(workouts.filter((workout) => workout.id !== id));
     toggleDeleteMode(null);
   }
@@ -63,7 +64,9 @@ export default function WorkoutsList() {
             return (
               <WorkoutCard key={workout.id}>
                 {deleteMode ? null : (
-                  <DeleteWorkoutButton onClick={toggleDeleteMode}>
+                  <DeleteWorkoutButton
+                    onClick={() => toggleDeleteMode(workout.id)}
+                  >
                     –
                   </DeleteWorkoutButton>
                 )}
@@ -74,7 +77,7 @@ export default function WorkoutsList() {
                       <YesButton onClick={() => handleDelete(workout.id)}>
                         YES
                       </YesButton>
-                      <ModalButton onClick={() => toggleDeleteMode(workout.id)}>
+                      <ModalButton onClick={() => toggleDeleteMode(null)}>
                         CANCEL
                       </ModalButton>
                     </ModalContent>
