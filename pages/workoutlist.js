@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { exercises } from "@/lib/exercises";
-import { workouts } from "@/lib/workouts";
+import { workouts as initialWorkouts } from "@/lib/workouts";
 
 function findExerciseById(exerciseId) {
   return exercises.find((exercise) => exercise.id === exerciseId);
@@ -9,6 +9,8 @@ function findExerciseById(exerciseId) {
 
 export default function WorkoutsList() {
   const [showDetails, setShowDetails] = useState({});
+  const [workouts, setWorkouts] = useState(initialWorkouts);
+  const [deleteMode, setDeleteMode] = useState(false);
 
   const toggleDetails = (workoutId) => {
     setShowDetails((prev) => ({
@@ -16,6 +18,15 @@ export default function WorkoutsList() {
       [workoutId]: !prev[workoutId],
     }));
   };
+
+  function handleDelete(id) {
+    setWorkouts(workouts.filter((workout) => workout.id !== id));
+    toggleDeleteMode();
+  }
+
+  function toggleDeleteMode() {
+    setDeleteMode(!deleteMode);
+  }
 
   const preparedWorkouts = workouts.map((workout) => {
     const muscleGroups = [];
@@ -40,36 +51,56 @@ export default function WorkoutsList() {
       <StyledHeadline>Choose Your Workout</StyledHeadline>
 
       <WorkoutList>
-        {preparedWorkouts.map((workout) => {
-          const isDetailsVisible = showDetails[workout.id] || false;
-          return (
-            <WorkoutCard key={workout.id}>
-              <h2>{workout.name}</h2>
-              <SpotlightHeading>Muscles In The Spotlight:</SpotlightHeading>
-              <MuscleGroupList>
-                {workout.muscleGroups.map((muscle) => (
-                  <MuscleBadge key={muscle}>{muscle}</MuscleBadge>
-                ))}
-              </MuscleGroupList>
-              <ToggleButton onClick={() => toggleDetails(workout.id)}>
-                {isDetailsVisible ? "Show Less" : "Show More"}
-              </ToggleButton>
-              {isDetailsVisible && (
-                <ExerciseList>
-                  {workout.exercises.map((exercise) => {
-                    return (
-                      <ExerciseItem key={exercise.exerciseId}>
-                        <ExerciseName>{exercise.name}</ExerciseName>
-                        <ExerciseDetails>Sets: {exercise.sets}</ExerciseDetails>
-                        <ExerciseDetails>Reps: {exercise.reps}</ExerciseDetails>
-                      </ExerciseItem>
-                    );
-                  })}
-                </ExerciseList>
-              )}
-            </WorkoutCard>
-          );
-        })}
+        {!preparedWorkouts.length ? (
+          <p>No workouts yet! Create a workout and reach your goals!</p>
+        ) : (
+          preparedWorkouts.map((workout) => {
+            const isDetailsVisible = showDetails[workout.id] || false;
+            return (
+              <WorkoutCard key={workout.id}>
+                {deleteMode ? null : (
+                  <button onClick={toggleDeleteMode}>Delete</button>
+                )}
+                {deleteMode ? (
+                  <div>
+                    <p>Are you sure you want to delete?</p>
+                    <button onClick={() => handleDelete(workout.id)}>
+                      YES
+                    </button>
+                    <button onClick={toggleDeleteMode}>CANCEL</button>
+                  </div>
+                ) : null}
+                <h2>{workout.name}</h2>
+                <SpotlightHeading>Muscles In The Spotlight:</SpotlightHeading>
+                <MuscleGroupList>
+                  {workout.muscleGroups.map((muscle) => (
+                    <MuscleBadge key={muscle}>{muscle}</MuscleBadge>
+                  ))}
+                </MuscleGroupList>
+                <ToggleButton onClick={() => toggleDetails(workout.id)}>
+                  {isDetailsVisible ? "Show Less" : "Show More"}
+                </ToggleButton>
+                {isDetailsVisible && (
+                  <ExerciseList>
+                    {workout.exercises.map((exercise) => {
+                      return (
+                        <ExerciseItem key={exercise.exerciseId}>
+                          <ExerciseName>{exercise.name}</ExerciseName>
+                          <ExerciseDetails>
+                            Sets: {exercise.sets}
+                          </ExerciseDetails>
+                          <ExerciseDetails>
+                            Reps: {exercise.reps}
+                          </ExerciseDetails>
+                        </ExerciseItem>
+                      );
+                    })}
+                  </ExerciseList>
+                )}
+              </WorkoutCard>
+            );
+          })
+        )}
       </WorkoutList>
     </>
   );
