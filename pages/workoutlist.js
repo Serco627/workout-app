@@ -49,7 +49,6 @@ export default function WorkoutList() {
   function toggleCreateMode() {
     setCreateMode(!createMode);
   }
-
   return (
     <FlexWrapWorkouts>
       {createMode ? <Filter onClick={toggleCreateMode}></Filter> : null}
