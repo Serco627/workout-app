@@ -238,7 +238,7 @@ export default function Form({ onAddWorkout, toggleCreateMode, onCreateMode }) {
               {currentExercises.length ? <h3>Exercises</h3> : null}
               <ExerciseListContainer>
                 {currentExercises.map((exercise, index) => (
-                  <ExerciseItem key={uid()}>
+                  <ExerciseItem key={index}>
                     <strong>
                       {findExerciseById(exercises, exercise.exerciseId).name}
                     </strong>{" "}
