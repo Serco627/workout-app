@@ -20,7 +20,6 @@ export default function WorkoutsList() {
   };
 
   function handleDelete(id) {
-    console.log(id);
     setWorkouts(workouts.filter((workout) => workout.id !== id));
     setDeleteMode(null);
   }
