@@ -10,7 +10,7 @@ function findExerciseById(exerciseId) {
 export default function WorkoutsList() {
   const [showDetails, setShowDetails] = useState({});
   const [workouts, setWorkouts] = useState(initialWorkouts);
-  const [deleteMode, setDeleteMode] = useState(false);
+  const [deleteMode, setDeleteMode] = useState(null);
 
   const toggleDetails = (workoutId) => {
     setShowDetails((prev) => ({
@@ -21,11 +21,11 @@ export default function WorkoutsList() {
 
   function handleDelete(id) {
     setWorkouts(workouts.filter((workout) => workout.id !== id));
-    toggleDeleteMode();
+    toggleDeleteMode(null);
   }
 
-  function toggleDeleteMode() {
-    setDeleteMode(!deleteMode);
+  function toggleDeleteMode(id) {
+    setDeleteMode(id);
   }
 
   const preparedWorkouts = workouts.map((workout) => {
@@ -52,23 +52,33 @@ export default function WorkoutsList() {
 
       <WorkoutList>
         {!preparedWorkouts.length ? (
-          <p>No workouts yet! Create a workout and reach your goals!</p>
+          <NoWorkoutsMessage>
+            No workouts yet! <br />
+            <br />
+            Create a workout and reach your goals!
+          </NoWorkoutsMessage>
         ) : (
           preparedWorkouts.map((workout) => {
             const isDetailsVisible = showDetails[workout.id] || false;
             return (
               <WorkoutCard key={workout.id}>
                 {deleteMode ? null : (
-                  <button onClick={toggleDeleteMode}>Delete</button>
+                  <DeleteWorkoutButton onClick={toggleDeleteMode}>
+                    –
+                  </DeleteWorkoutButton>
                 )}
                 {deleteMode ? (
-                  <div>
-                    <p>Are you sure you want to delete?</p>
-                    <button onClick={() => handleDelete(workout.id)}>
-                      YES
-                    </button>
-                    <button onClick={toggleDeleteMode}>CANCEL</button>
-                  </div>
+                  <ModalOverlay>
+                    <ModalContent>
+                      <p>Are you sure you want to delete?</p>
+                      <YesButton onClick={() => handleDelete(workout.id)}>
+                        YES
+                      </YesButton>
+                      <ModalButton onClick={() => toggleDeleteMode(workout.id)}>
+                        CANCEL
+                      </ModalButton>
+                    </ModalContent>
+                  </ModalOverlay>
                 ) : null}
                 <h2>{workout.name}</h2>
                 <SpotlightHeading>Muscles In The Spotlight:</SpotlightHeading>
@@ -121,9 +131,10 @@ const WorkoutCard = styled.div`
   overflow: hidden;
   box-shadow: 0 4px 8px #0000001a;
   margin-bottom: 2rem;
-  padding: 1rem;
+  padding: 1rem 2rem;
   background: #fff;
   text-align: center;
+  padding-top: 2rem;
 `;
 
 const StyledHeadline = styled.h2`
@@ -195,4 +206,64 @@ const SpotlightHeading = styled.h3`
   text-align: center;
   margin-top: 0;
   margin-bottom: 1rem;
+`;
+
+const NoWorkoutsMessage = styled.div`
+  font-size: 1.25rem;
+  color: #3498db;
+  text-align: center;
+  margin: 2rem 0;
+  padding: 1rem 1rem 1.5rem 1rem;
+  background-color: #fefefe;
+  border: 2px solid #3498db;
+  border-radius: 5px;
+`;
+
+const DeleteWorkoutButton = styled.button`
+  background-color: #e74c3c; /* Rote Farbe für den Button */
+  color: #fff; /* Weißes Minuszeichen */
+  border: none;
+  border-radius: 50%; /* Macht den Button rund */
+  width: 30px; /* Größe des Buttons */
+  height: 30px; /* Größe des Buttons */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem; /* Größe des Minuszeichens */
+  position: absolute;
+  left: 16px;
+  top: 16px;
+`;
+
+const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #00000030;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+`;
+const ModalContent = styled.div`
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 100%;
+`;
+const ModalButton = styled.button`
+  background-color: #dc3545;
+  border-radius: 5px;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  margin: 5px;
+  cursor: pointer;
+`;
+
+const YesButton = styled(ModalButton)`
+  background: #27ae60;
 `;
