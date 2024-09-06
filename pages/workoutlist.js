@@ -22,7 +22,7 @@ export default function WorkoutsList() {
   function handleDelete(id) {
     console.log(id);
     setWorkouts(workouts.filter((workout) => workout.id !== id));
-    toggleDeleteMode(null);
+    setDeleteMode(null);
   }
 
   function toggleDeleteMode(id) {
@@ -63,14 +63,7 @@ export default function WorkoutsList() {
             const isDetailsVisible = showDetails[workout.id] || false;
             return (
               <WorkoutCard key={workout.id}>
-                {deleteMode ? null : (
-                  <DeleteWorkoutButton
-                    onClick={() => toggleDeleteMode(workout.id)}
-                  >
-                    –
-                  </DeleteWorkoutButton>
-                )}
-                {deleteMode ? (
+                {deleteMode === workout.id ? (
                   <ModalOverlay>
                     <ModalContent>
                       <p>Are you sure you want to delete?</p>
@@ -82,7 +75,13 @@ export default function WorkoutsList() {
                       </ModalButton>
                     </ModalContent>
                   </ModalOverlay>
-                ) : null}
+                ) : (
+                  <DeleteWorkoutButton
+                    onClick={() => toggleDeleteMode(workout.id)}
+                  >
+                    –
+                  </DeleteWorkoutButton>
+                )}
                 <h2>{workout.name}</h2>
                 <SpotlightHeading>Muscles In The Spotlight:</SpotlightHeading>
                 <MuscleGroupList>
@@ -249,6 +248,7 @@ const ModalOverlay = styled.div`
   justify-content: center;
   align-items: center;
   padding: 1rem;
+  z-index: 1;
 `;
 const ModalContent = styled.div`
   background: white;
