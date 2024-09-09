@@ -1,25 +1,18 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { exercises } from "@/lib/exercises";
-import Form from "@/components/WorkoutForm";
 import { workouts as initialWorkouts } from "@/lib/workouts";
+import Form from "@/components/WorkoutForm";
+import Workout from "@/components/Workout/Workout";
 import { uid } from "uid";
 
 function findExerciseById(exerciseId) {
   return exercises.find((exercise) => exercise.id === exerciseId);
 }
 
-export default function WorkoutList() {
-  const [showDetails, setShowDetails] = useState({});
-  const [workouts, setWorkouts] = useState(initialWorkouts); // Initialisiere den Workout-State
+export default function WorkoutsList() {
+  const [workouts, setWorkouts] = useState(initialWorkouts);
   const [createMode, setCreateMode] = useState(false);
-
-  const toggleDetails = (workoutId) => {
-    setShowDetails((prev) => ({
-      ...prev,
-      [workoutId]: !prev[workoutId],
-    }));
-  };
 
   const preparedWorkouts = workouts.map((workout) => {
     const muscleGroups = [];
@@ -38,6 +31,10 @@ export default function WorkoutList() {
       muscleGroups: uniqueMuscleGroups,
     };
   });
+
+  function handleDelete(id) {
+    setWorkouts(workouts.filter((workout) => workout.id !== id));
+  }
 
   function handleAddWorkout(name, currentExercises) {
     setWorkouts([
@@ -70,39 +67,25 @@ export default function WorkoutList() {
         />
       ) : null}
       <StyledHeadline>Choose Your Workout</StyledHeadline>
-
-      <WorkoutListFlex>
-        {preparedWorkouts.map((workout) => {
-          const isDetailsVisible = showDetails[workout.id] || false;
-          return (
-            <WorkoutCard key={workout.id}>
-              <h2>{workout.name}</h2>
-              <SpotlightHeading>Muscles In The Spotlight:</SpotlightHeading>
-              <MuscleGroupList>
-                {workout.muscleGroups.map((muscle) => (
-                  <MuscleBadge key={muscle}>{muscle}</MuscleBadge>
-                ))}
-              </MuscleGroupList>
-              <ToggleButton onClick={() => toggleDetails(workout.id)}>
-                {isDetailsVisible ? "Show Less" : "Show More"}
-              </ToggleButton>
-              {isDetailsVisible && (
-                <ExerciseList>
-                  {workout.exercises.map((exercise) => {
-                    return (
-                      <ExerciseItem key={exercise.exerciseId}>
-                        <ExerciseName>{exercise.name}</ExerciseName>
-                        <ExerciseDetails>Sets: {exercise.sets}</ExerciseDetails>
-                        <ExerciseDetails>Reps: {exercise.reps}</ExerciseDetails>
-                      </ExerciseItem>
-                    );
-                  })}
-                </ExerciseList>
-              )}
-            </WorkoutCard>
-          );
-        })}
-      </WorkoutListFlex>
+      <WorkoutList>
+        {!preparedWorkouts.length ? (
+          <NoWorkoutsMessage>
+            No workouts yet! <br />
+            <br />
+            Create a workout and reach your goals!
+          </NoWorkoutsMessage>
+        ) : (
+          preparedWorkouts.map((workout) => {
+            return (
+              <Workout
+                key={workout.id}
+                workout={workout}
+                handleDelete={handleDelete}
+              />
+            );
+          })
+        )}
+      </WorkoutList>
     </FlexWrapWorkouts>
   );
 }
@@ -117,7 +100,7 @@ const Filter = styled.div`
   padding: 1rem 3rem;
 `;
 
-const WorkoutListFlex = styled.div`
+const WorkoutList = styled.section`
   width: 100%;
   max-width: 1200px;
   display: flex;
@@ -126,22 +109,22 @@ const WorkoutListFlex = styled.div`
   flex-direction: column;
 `;
 
-const WorkoutCard = styled.div`
-  position: relative;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px #0000001a;
-  margin-bottom: 2rem;
-  padding: 1rem;
-  background: #fff;
-  text-align: center;
-`;
-
 const StyledHeadline = styled.h2`
   background: #fff;
   padding: 0.5rem;
   margin: 0;
   text-align: center;
+`;
+
+const NoWorkoutsMessage = styled.div`
+  font-size: 1.25rem;
+  color: #3498db;
+  text-align: center;
+  margin: 2rem 0;
+  padding: 1rem 1rem 1.5rem 1rem;
+  background-color: #fefefe;
+  border: 2px solid #3498db;
+  border-radius: 5px;
 `;
 
 const ToggleButton = styled.button`
@@ -160,52 +143,6 @@ const ToggleButton = styled.button`
   &:hover {
     background: #d35400;
   }
-`;
-
-const MuscleGroupList = styled.ul`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  flex-wrap: wrap;
-  gap: 5px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-`;
-
-const MuscleBadge = styled.li`
-  background-color: #3498db;
-  color: #fff;
-  border-radius: 5px;
-  padding: 5px 10px;
-  font-size: 0.85em;
-`;
-
-const ExerciseList = styled.ul`
-  list-style: none;
-  padding: 0;
-`;
-
-const ExerciseItem = styled.li`
-  border-bottom: 1px solid #ddd;
-  padding: 0.5rem 0;
-`;
-
-const ExerciseName = styled.h3`
-  margin: 0;
-  color: #333;
-`;
-
-const ExerciseDetails = styled.p`
-  margin: 0;
-  color: #666;
-`;
-
-const SpotlightHeading = styled.h3`
-  text-align: center;
-  margin-top: 0;
-  margin-bottom: 1rem;
 `;
 
 const CreateWorkoutButton = styled(ToggleButton)`
