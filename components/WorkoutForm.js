@@ -20,8 +20,8 @@ const WrapperForm = styled.div`
   margin-bottom: 2rem;
   position: fixed;
   top: 0;
-  z-index: 6;
-  max-height: 80vh;
+  z-index: 2;
+  max-height: 78vh;
   overflow-y: auto;
 `;
 
