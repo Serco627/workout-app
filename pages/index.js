@@ -1,13 +1,49 @@
-import { exercises } from "@/lib/exercises";
+import { exercises, exercises as initialExercises } from "@/lib/exercises";
 import Image from "next/image";
 import styled from "styled-components";
 import Link from "next/link";
+import FilterSection from "@/components/FilterSection/FilterSection";
+import { useState } from "react";
 
 export default function HomePage() {
+  const [exercises, setExercises] = useState(initialExercises);
+  const [filters, setFilters] = useState([]);
+  const [filterMode, setFilterMode] = useState(false);
+
+  function filterExercises(exercises, filters) {
+    const filteredArray = exercises.filter((exercise) => {
+      return filters.every((filter) => exercise.muscleGroups.includes(filter));
+    });
+    return filteredArray;
+  }
+
+  function onAddFilter(newFilter) {
+    setFilters([...filters, newFilter]);
+  }
+
+  function handleDisableFilter(deleteFilter) {
+    const newFiltersArray = filters.filter((filter) => filter !== deleteFilter);
+    setFilters(newFiltersArray);
+  }
+
+  function handleClear() {
+    setFilters([]);
+    setExercises(initialExercises);
+  }
+
   return (
     <StyledFlexWrapper>
+      <button onClick={() => setFilterMode(!filterMode)}>Filter 🌈</button>
+      {filterMode ? (
+        <FilterSection
+          filters={filters}
+          onAddFilter={onAddFilter}
+          handleDisableFilter={handleDisableFilter}
+          handleClear={handleClear}
+        />
+      ) : null}
       <ExerciseList>
-        {exercises.map((exercise) => (
+        {filterExercises(exercises, filters).map((exercise) => (
           <ExerciseCard key={exercise.id}>
             <StyledLink href={`/exercises/${exercise.id}`}>
               <BackgroundImageWrapper>
@@ -39,6 +75,9 @@ export default function HomePage() {
 const StyledFlexWrapper = styled.div`
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const ExerciseList = styled.ul`
@@ -69,6 +108,7 @@ const ExerciseCard = styled.li`
   justify-content: flex-end;
   height: 25rem;
   width: 100%;
+  min-width: 290px;
 
   &:hover {
     background-color: #f0f8ff;
