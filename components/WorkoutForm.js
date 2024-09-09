@@ -17,13 +17,17 @@ const WrapperForm = styled.div`
   padding: 1rem;
   margin: 1rem;
   padding-top: 0;
-  position: absolute;
+  margin-bottom: 2rem;
+  position: fixed;
   top: 0;
-  z-index: 1;
+  z-index: 6;
+  max-height: 80vh;
+  overflow-y: auto;
 `;
 
 const FormContainer = styled.div`
   width: 100%;
+  padding: 1rem;
   max-width: 800px;
   padding: 1rem;
   padding-top: 0;
@@ -115,6 +119,7 @@ const ExerciseItem = styled.li`
 const StyledDiv = styled.div`
   display: flex;
   justify-content: space-between;
+  padding-bottom: 1rem;
 `;
 
 const InlineContainer = styled.div`
