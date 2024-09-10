@@ -33,16 +33,20 @@ export default function HomePage() {
 
   return (
     <StyledFlexWrapper>
-      <button onClick={() => setFilterMode(!filterMode)}>Filter 🌈</button>
-      {filterMode ? (
-        <FilterSection
-          filters={filters}
-          onAddFilter={onAddFilter}
-          handleDisableFilter={handleDisableFilter}
-          handleClear={handleClear}
-        />
-      ) : null}
       <ExerciseList>
+        <StyledFilterWrapper>
+          <StyledFilterButton onClick={() => setFilterMode(!filterMode)}>
+            {filterMode ? "Filter ▲" : "Filter ▼"}
+          </StyledFilterButton>
+          {filterMode ? (
+            <FilterSection
+              filters={filters}
+              onAddFilter={onAddFilter}
+              handleDisableFilter={handleDisableFilter}
+              handleClear={handleClear}
+            />
+          ) : null}
+        </StyledFilterWrapper>
         {filterExercises(exercises, filters).map((exercise) => (
           <ExerciseCard key={exercise.id}>
             <StyledLink href={`/exercises/${exercise.id}`}>
@@ -82,9 +86,10 @@ const StyledFlexWrapper = styled.div`
 
 const ExerciseList = styled.ul`
   list-style: none;
-  padding: 0;
+  padding: 1rem;
   display: grid;
   gap: 1.5rem;
+  place-items: center;
 
   grid-template-columns: repeat(3, 1fr);
 
@@ -171,6 +176,28 @@ const MuscleBadge = styled.li`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
+`;
+
+const StyledFilterButton = styled.button`
+  display: flex;
+  align-items: flex-end;
+  border-radius: 5px;
+  border: 2px solid #3498db;
+  background-color: #ffffff;
+  color: #3498db;
+  padding-top: 2px;
+  margin-bottom: 1rem;
+
+  &:hover {
+    background-color: #3498db;
+    color: #ffffff;
+  }
+`;
+
+const StyledFilterWrapper = styled.aside`
+  min-width: 290px;
+  width: 100%;
+  margin: 0;
 `;
 
 export {

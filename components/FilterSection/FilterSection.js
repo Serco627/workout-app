@@ -22,29 +22,33 @@ export default function FilterSection({
           );
         })}
       </StyledUl>
-      <hr />
+      <StyledRuler />
       <StyledUl>
         {!filters.length ? <p>No filters yet, add some to start.</p> : null}
         {filters.map((filter, index) => {
           return (
-            <StyledMuscle key={index}>
-              <span onClick={() => handleDisableFilter(filter)}>❌</span>{" "}
-              {filter}
-            </StyledMuscle>
+            <StyledFilteredMuscle key={index}>
+              {filter}&nbsp;&nbsp;
+              <span onClick={() => handleDisableFilter(filter)}>×</span>{" "}
+            </StyledFilteredMuscle>
           );
         })}
       </StyledUl>
-      <hr />
-      <button onClick={handleClear}>Clear Filters</button>
+      <StyledRuler />
+      <StyledButton onClick={handleClear}>CLEAR</StyledButton>
     </StyledFilter>
   );
 }
 
 const StyledMuscle = styled.li`
-  border: 1px solid black;
+  color: #3498db;
+  background-color: #ffffff;
+  border: 1px solid #3498db;
   border-radius: 5px;
   margin: 5px;
-  padding: 5px;
+  padding: 4px;
+  font-size: 0.85em;
+  font-weight: bold;
   ${(props) => props.$display}
 `;
 
@@ -57,6 +61,37 @@ const StyledUl = styled.ul`
 `;
 
 const StyledFilter = styled.aside`
-  border: 1px solid black;
-  padding: 1rem;
+  width: 100%;
+  min-width: 290px;
+  border: 2px solid #3498db;
+  border-radius: 10px;
+  padding: 0.5rem;
+`;
+
+const StyledFilteredMuscle = styled.span`
+  background-color: #3498db;
+  border-radius: 5px;
+  color: #ffffff;
+  padding: 5px;
+  margin: 5px;
+`;
+
+const StyledButton = styled.button`
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 1px solid #dc3545;
+  color: #dc3545;
+  padding: 4px;
+  margin: 5px;
+  font-size: 0.85em;
+  font-weight: bold;
+`;
+
+const StyledRuler = styled.hr`
+  background: #3498db;
+
+  align-self: flex-end;
+  height: 2px;
+  border: 1px;
+  border-radius: 3px;
 `;
