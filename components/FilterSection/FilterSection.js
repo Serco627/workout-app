@@ -62,10 +62,11 @@ const StyledUl = styled.ul`
 
 const StyledFilter = styled.aside`
   width: 100%;
-  min-width: 290px;
+  min-width: 300px;
   border: 2px solid #3498db;
   border-radius: 10px;
   padding: 0.5rem;
+  margin: 0 auto;
 `;
 
 const StyledFilteredMuscle = styled.span`

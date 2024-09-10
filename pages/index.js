@@ -81,25 +81,18 @@ const StyledFlexWrapper = styled.div`
   justify-content: center;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  max-width: 1050px;
+  margin: 0 auto;
 `;
 
 const ExerciseList = styled.ul`
   list-style: none;
   padding: 1rem;
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
   gap: 1.5rem;
-  place-items: center;
-
-  grid-template-columns: repeat(3, 1fr);
-
-  @media (max-width: 1024px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (max-width: 600px) {
-    grid-template-columns: 1fr;
-  }
+  justify-content: center;
+  align-items: center;
 `;
 
 const ExerciseCard = styled.li`
@@ -112,8 +105,7 @@ const ExerciseCard = styled.li`
   flex-direction: column;
   justify-content: flex-end;
   height: 25rem;
-  width: 100%;
-  min-width: 290px;
+  width: 300px;
 
   &:hover {
     background-color: #f0f8ff;
@@ -195,9 +187,11 @@ const StyledFilterButton = styled.button`
 `;
 
 const StyledFilterWrapper = styled.aside`
-  min-width: 290px;
+  min-width: 300px;
   width: 100%;
   margin: 0;
+
+  max-width: 932px;
 `;
 
 export {
