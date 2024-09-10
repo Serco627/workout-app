@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { exercises } from "@/lib/exercises";
 import findExerciseById from "@/utils/findExerciseById";
+import { uid } from "uid";
 
 // Styled Components
 const Header = styled.header`
@@ -12,16 +13,19 @@ const Header = styled.header`
 const WrapperForm = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   background-color: white;
   border-radius: 10px;
   padding: 1rem;
-  margin: 1rem;
-  padding-top: 0;
-  margin-bottom: 2rem;
+  margin: 0 auto;
   position: fixed;
-  top: 0;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -30%);
   z-index: 2;
-  max-height: 78vh;
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
   overflow-y: auto;
 `;
 
@@ -140,7 +144,13 @@ const ExerciseListDisplay = styled.div`
   margin-top: 1rem;
 `;
 
-export default function Form({ onAddWorkout, toggleCreateMode, onCreateMode }) {
+export default function Form({
+  onSaveWorkout,
+  toggleMode,
+  formTitle,
+  workout,
+  editMode,
+}) {
   const [currentExercises, setCurrentExercises] = useState([]);
 
   function handleAddExercise(event) {
@@ -153,10 +163,15 @@ export default function Form({ onAddWorkout, toggleCreateMode, onCreateMode }) {
       alert("Please fill in all the fields.");
       form.elements.exerciseName.focus();
     } else {
-      setCurrentExercises([
-        ...currentExercises,
-        { exerciseId: exerciseId, sets: sets, reps: reps },
-      ]);
+      !currentExercises.length && editMode
+        ? setCurrentExercises([
+            { exerciseId: exerciseId, sets: sets, reps: reps },
+            ...workout.exercises,
+          ])
+        : setCurrentExercises([
+            { exerciseId: exerciseId, sets: sets, reps: reps },
+            ...currentExercises,
+          ]);
       form.elements.exerciseName.value = "";
       form.elements.sets.value = "";
       form.elements.reps.value = "";
@@ -171,10 +186,10 @@ export default function Form({ onAddWorkout, toggleCreateMode, onCreateMode }) {
     if (!currentExercises.length) {
       alert("Please add exercises to your workout!");
     } else {
-      onAddWorkout(name, currentExercises);
+      onSaveWorkout(name, currentExercises);
       setCurrentExercises([]);
       event.target.reset();
-      onCreateMode();
+      toggleMode();
     }
   }
 
@@ -183,7 +198,7 @@ export default function Form({ onAddWorkout, toggleCreateMode, onCreateMode }) {
       <WrapperForm>
         <FormContainer>
           <Header>
-            <h2>Create New Workout</h2>
+            <h2>{formTitle}</h2>
           </Header>
           <form onSubmit={handleSubmit}>
             <Label>
@@ -194,6 +209,7 @@ export default function Form({ onAddWorkout, toggleCreateMode, onCreateMode }) {
                 placeholder="your workout name"
                 required
                 maxLength={30}
+                defaultValue={editMode ? workout.name : null}
               />
             </Label>
 
@@ -238,23 +254,37 @@ export default function Form({ onAddWorkout, toggleCreateMode, onCreateMode }) {
               </AddButton>
             </Fieldset>
 
-            {/* Display the list of added exercises */}
             <ExerciseListDisplay>
               {currentExercises.length ? <h3>Exercises</h3> : null}
               <ExerciseListContainer>
-                {currentExercises.map((exercise, index) => (
-                  <ExerciseItem key={index}>
-                    <strong>
-                      {findExerciseById(exercises, exercise.exerciseId).name}
-                    </strong>{" "}
-                    - {exercise.sets} sets, {exercise.reps} reps
-                  </ExerciseItem>
-                ))}
+                {!currentExercises.length && editMode
+                  ? workout.exercises.map((exercise) => (
+                      <ExerciseItem key={uid()}>
+                        <strong>
+                          {
+                            findExerciseById(exercises, exercise.exerciseId)
+                              .name
+                          }
+                        </strong>{" "}
+                        - {exercise.sets} sets, {exercise.reps} reps
+                      </ExerciseItem>
+                    ))
+                  : currentExercises.map((exercise, index) => (
+                      <ExerciseItem key={index}>
+                        <strong>
+                          {
+                            findExerciseById(exercises, exercise.exerciseId)
+                              .name
+                          }
+                        </strong>{" "}
+                        - {exercise.sets} sets, {exercise.reps} reps
+                      </ExerciseItem>
+                    ))}
               </ExerciseListContainer>
             </ExerciseListDisplay>
 
             <StyledDiv>
-              <CancelButton type="button" onClick={toggleCreateMode}>
+              <CancelButton type="button" onClick={toggleMode}>
                 Cancel
               </CancelButton>
               <ButtonSecondary type="submit">Save Workout</ButtonSecondary>

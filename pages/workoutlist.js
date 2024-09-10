@@ -38,14 +38,24 @@ export default function WorkoutsList() {
 
   function handleAddWorkout(name, currentExercises) {
     setWorkouts([
-      ...workouts,
       { id: uid(), name: name, exercises: currentExercises },
+      ...workouts,
     ]);
+  }
+
+  function handleEditWorkout(name, currentExercises, id) {
+    const newEditedWorkouts = workouts.map((workout) =>
+      workout.id === id
+        ? { id: workout.id, name: name, exercises: currentExercises }
+        : workout
+    );
+    setWorkouts(newEditedWorkouts);
   }
 
   function toggleCreateMode() {
     setCreateMode(!createMode);
   }
+
   return (
     <FlexWrapWorkouts>
       {createMode ? <Filter onClick={toggleCreateMode}></Filter> : null}
@@ -60,10 +70,10 @@ export default function WorkoutsList() {
       )}
       {createMode ? (
         <Form
-          onAddWorkout={handleAddWorkout}
+          onSaveWorkout={handleAddWorkout}
           createMode={createMode}
-          toggleCreateMode={toggleCreateMode}
-          onCreateMode={toggleCreateMode}
+          toggleMode={toggleCreateMode}
+          formTitle="Create New Workout"
         />
       ) : null}
       <StyledHeadline>Choose Your Workout</StyledHeadline>
@@ -81,6 +91,7 @@ export default function WorkoutsList() {
                 key={workout.id}
                 workout={workout}
                 handleDelete={handleDelete}
+                handleEditWorkout={handleEditWorkout}
               />
             );
           })

@@ -1,10 +1,13 @@
 import styled from "styled-components";
 import { useState } from "react";
+import Form from "../WorkoutForm";
+import { uid } from "uid";
 
-export default function Workout({ workout, handleDelete }) {
+export default function Workout({ workout, handleDelete, handleEditWorkout }) {
   const [showDetails, setShowDetails] = useState({});
   const [deleteMode, setDeleteMode] = useState(false);
   const isDetailsVisible = showDetails[workout.id] || false;
+  const [editMode, setEditMode] = useState(false);
 
   const toggleDetails = (workoutId) => {
     setShowDetails((prev) => ({
@@ -22,45 +25,78 @@ export default function Workout({ workout, handleDelete }) {
     setDeleteMode(!deleteMode);
   }
 
+  function toggleEditMode() {
+    setEditMode(!editMode);
+  }
+
+  function onSaveWorkout(name, currentExercises) {
+    handleEditWorkout(name, currentExercises, workout.id);
+  }
+
   return (
-    <WorkoutCard key={workout.id}>
-      {deleteMode ? (
-        <ModalOverlay onClick={toggleDeleteMode}>
-          <ModalContent onClick={(e) => e.stopPropagation()}>
-            <p>
-              Are you sure you want to delete <br />
-              <br /> &quot;{workout.name}&quot;?
-            </p>
-            <YesButton onClick={onDelete}>YES</YesButton>
-            <ModalButton onClick={toggleDeleteMode}>CANCEL</ModalButton>
-          </ModalContent>
-        </ModalOverlay>
+    <>
+      {editMode ? (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          <Filter onClick={toggleEditMode}></Filter>
+          <Form
+            formTitle="Edit your Workout"
+            toggleMode={toggleEditMode}
+            onSaveWorkout={onSaveWorkout}
+            workout={workout}
+            editMode={editMode}
+          />
+        </div>
       ) : null}
-      <DeleteWorkoutButton onClick={toggleDeleteMode}>–</DeleteWorkoutButton>
-      <h2>{workout.name}</h2>
-      <SpotlightHeading>Muscles In The Spotlight:</SpotlightHeading>
-      <MuscleGroupList>
-        {workout.muscleGroups.map((muscle) => (
-          <MuscleBadge key={muscle}>{muscle}</MuscleBadge>
-        ))}
-      </MuscleGroupList>
-      <ToggleButton onClick={() => toggleDetails(workout.id)}>
-        {isDetailsVisible ? "Show Less" : "Show More"}
-      </ToggleButton>
-      {isDetailsVisible && (
-        <ExerciseList>
-          {workout.exercises.map((exercise) => {
-            return (
-              <ExerciseItem key={exercise.exerciseId}>
-                <ExerciseName>{exercise.name}</ExerciseName>
-                <ExerciseDetails>Sets: {exercise.sets}</ExerciseDetails>
-                <ExerciseDetails>Reps: {exercise.reps}</ExerciseDetails>
-              </ExerciseItem>
-            );
-          })}
-        </ExerciseList>
-      )}
-    </WorkoutCard>
+      <WorkoutCard>
+        {deleteMode ? (
+          <ModalOverlay onClick={toggleDeleteMode}>
+            <ModalContent onClick={(e) => e.stopPropagation()}>
+              <p>
+                Are you sure you want to delete <br />
+                <br /> &quot;{workout.name}&quot;?
+              </p>
+              <YesButton onClick={onDelete}>YES</YesButton>
+              <ModalButton onClick={toggleDeleteMode}>CANCEL</ModalButton>
+            </ModalContent>
+          </ModalOverlay>
+        ) : null}
+
+        <DeleteWorkoutButton onClick={toggleDeleteMode}>–</DeleteWorkoutButton>
+        <EditWorkoutButton onClick={toggleEditMode}>&#9998;</EditWorkoutButton>
+
+        <h2>{workout.name}</h2>
+
+        <SpotlightHeading>Muscles In The Spotlight:</SpotlightHeading>
+        <MuscleGroupList>
+          {workout.muscleGroups.map((muscle) => (
+            <MuscleBadge key={muscle}>{muscle}</MuscleBadge>
+          ))}
+        </MuscleGroupList>
+        <ToggleButton onClick={() => toggleDetails(workout.id)}>
+          {isDetailsVisible ? "Show Less" : "Show More"}
+        </ToggleButton>
+
+        {isDetailsVisible && (
+          <ExerciseList>
+            {workout.exercises.map((exercise) => {
+              return (
+                <ExerciseItem key={uid()}>
+                  <ExerciseName>{exercise.name}</ExerciseName>
+                  <ExerciseDetails>Sets: {exercise.sets}</ExerciseDetails>
+                  <ExerciseDetails>Reps: {exercise.reps}</ExerciseDetails>
+                </ExerciseItem>
+              );
+            })}
+          </ExerciseList>
+        )}
+      </WorkoutCard>
+    </>
   );
 }
 
@@ -140,8 +176,7 @@ const SpotlightHeading = styled.h3`
   margin-bottom: 1rem;
 `;
 
-const DeleteWorkoutButton = styled.button`
-  background-color: #e74c3c; /* Rote Farbe für den Button */
+const WorkoutButtonCircle = styled.button`
   color: #fff; /* Weißes Minuszeichen */
   border: none;
   border-radius: 50%; /* Macht den Button rund */
@@ -152,8 +187,19 @@ const DeleteWorkoutButton = styled.button`
   justify-content: center;
   font-size: 1.4rem; /* Größe des Minuszeichens */
   position: absolute;
+`;
+
+const DeleteWorkoutButton = styled(WorkoutButtonCircle)`
+  background-color: #e74c3c; /* Rote Farbe für den Button */
   left: 16px;
   top: 16px;
+`;
+
+const EditWorkoutButton = styled(WorkoutButtonCircle)`
+  background-color: #e67e22;
+  right: 16px;
+  top: 16px;
+  transform: rotate(80deg);
 `;
 
 const ModalOverlay = styled.div`
@@ -189,4 +235,15 @@ const ModalButton = styled.button`
 
 const YesButton = styled(ModalButton)`
   background: #27ae60;
+`;
+
+const Filter = styled.div`
+  width: 100vw;
+  min-height: 100vh;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  background: #00000039;
+  padding: 1rem 3rem;
 `;
