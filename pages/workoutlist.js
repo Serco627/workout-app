@@ -41,8 +41,8 @@ export default function WorkoutsList() {
 
   function handleAddWorkout(name, currentExercises) {
     setWorkouts([
-      ...workouts,
       { id: uid(), name: name, exercises: currentExercises },
+      ...workouts,
     ]);
   }
 
