@@ -60,7 +60,7 @@ const StyledUl = styled.ul`
   flex-wrap: wrap;
 `;
 
-const StyledFilter = styled.aside`
+const StyledFilter = styled.div`
   width: 100%;
   min-width: 300px;
   border: 2px solid #3498db;
