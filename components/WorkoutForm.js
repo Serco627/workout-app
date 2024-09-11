@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { exercises } from "@/lib/exercises";
 import findExerciseById from "@/utils/findExerciseById";
 
-// Styled Components
 const Header = styled.header`
   text-align: center;
   margin-bottom: 1rem;
@@ -146,16 +145,16 @@ export default function Form({ onAddWorkout, toggleCreateMode, onCreateMode }) {
   function handleAddExercise(event) {
     const form = event.target.form;
     const exerciseId = form.elements.exerciseName.value;
-    const sets = form.elements.sets.value;
-    const reps = form.elements.reps.value;
+    const sets = Number(form.elements.sets.value);
+    const reps = Number(form.elements.reps.value);
 
     if (exerciseId === "default" || sets <= 0 || reps <= 0) {
       alert("Please fill in all the fields.");
       form.elements.exerciseName.focus();
     } else {
       setCurrentExercises([
-        ...currentExercises,
         { exerciseId: exerciseId, sets: sets, reps: reps },
+        ...currentExercises,
       ]);
       form.elements.exerciseName.value = "";
       form.elements.sets.value = "";
