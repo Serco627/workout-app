@@ -141,16 +141,16 @@ const SpotlightHeading = styled.h3`
 `;
 
 const DeleteWorkoutButton = styled.button`
-  background-color: #e74c3c; /* Rote Farbe für den Button */
-  color: #fff; /* Weißes Minuszeichen */
+  background-color: #e74c3c;
+  color: #fff;
   border: none;
-  border-radius: 50%; /* Macht den Button rund */
-  width: 30px; /* Größe des Buttons */
-  height: 30px; /* Größe des Buttons */
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.4rem; /* Größe des Minuszeichens */
+  font-size: 1.4rem;
   position: absolute;
   left: 16px;
   top: 16px;
