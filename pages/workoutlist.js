@@ -1,3 +1,4 @@
+import useLocalStorageState from "use-local-storage-state";
 import { useState } from "react";
 import styled from "styled-components";
 import { exercises } from "@/lib/exercises";
@@ -11,8 +12,10 @@ function findExerciseById(exerciseId) {
 }
 
 export default function WorkoutsList() {
-  const [workouts, setWorkouts] = useState(initialWorkouts);
   const [createMode, setCreateMode] = useState(false);
+  const [workouts, setWorkouts] = useLocalStorageState("workouts", {
+    defaultValue: [...initialWorkouts],
+  });
 
   const preparedWorkouts = workouts.map((workout) => {
     const muscleGroups = [];
@@ -38,8 +41,8 @@ export default function WorkoutsList() {
 
   function handleAddWorkout(name, currentExercises) {
     setWorkouts([
-      ...workouts,
       { id: uid(), name: name, exercises: currentExercises },
+      ...workouts,
     ]);
   }
 
