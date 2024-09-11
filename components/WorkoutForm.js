@@ -150,8 +150,8 @@ const ExerciseFlex = styled.div`
 `;
 
 const DeleteExerciseButton = styled.button`
-  color: #e74c3c;
-  border: 2px solid #e74c3c;
+  color: #c0392b;
+  border: 2px solid #c0392b;
   border-radius: 50%;
   width: 20px;
   height: 20px;

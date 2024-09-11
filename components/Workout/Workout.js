@@ -67,7 +67,7 @@ export default function Workout({ workout, handleDelete, handleEditWorkout }) {
           </ModalOverlay>
         ) : null}
 
-        <DeleteWorkoutButton onClick={toggleDeleteMode}>–</DeleteWorkoutButton>
+        <DeleteWorkoutButton onClick={toggleDeleteMode}>—</DeleteWorkoutButton>
         <EditWorkoutButton onClick={toggleEditMode}>&#9998;</EditWorkoutButton>
 
         <h2>{workout.name}</h2>
@@ -177,20 +177,21 @@ const SpotlightHeading = styled.h3`
 `;
 
 const WorkoutButtonCircle = styled.button`
-  color: #fff; /* Weißes Minuszeichen */
+  color: #fff;
   border: none;
-  border-radius: 50%; /* Macht den Button rund */
-  width: 30px; /* Größe des Buttons */
-  height: 30px; /* Größe des Buttons */
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.4rem; /* Größe des Minuszeichens */
+  font-size: 1rem;
+  font-weight: bold;
   position: absolute;
 `;
 
 const DeleteWorkoutButton = styled(WorkoutButtonCircle)`
-  background-color: #e74c3c; /* Rote Farbe für den Button */
+  background-color: #c0392b;
   left: 16px;
   top: 16px;
 `;
@@ -200,6 +201,8 @@ const EditWorkoutButton = styled(WorkoutButtonCircle)`
   right: 16px;
   top: 16px;
   transform: rotate(80deg);
+  font-size: 1.4rem;
+  font-weight: normal;
 `;
 
 const ModalOverlay = styled.div`
