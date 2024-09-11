@@ -59,15 +59,7 @@ export default function WorkoutsList() {
   return (
     <FlexWrapWorkouts>
       {createMode ? <Filter onClick={toggleCreateMode}></Filter> : null}
-      {createMode ? (
-        <CancelCreateButton onClick={toggleCreateMode}>
-          &#x2B;
-        </CancelCreateButton>
-      ) : (
-        <CreateWorkoutButton onClick={toggleCreateMode}>
-          &#x2B;
-        </CreateWorkoutButton>
-      )}
+
       {createMode ? (
         <Form
           onSaveWorkout={handleAddWorkout}
@@ -77,7 +69,13 @@ export default function WorkoutsList() {
         />
       ) : null}
       <StyledHeadline>Choose Your Workout</StyledHeadline>
+
       <WorkoutList>
+        <div>
+          <CreateWorkoutButton onClick={toggleCreateMode}>
+            Create Workout
+          </CreateWorkoutButton>
+        </div>
         {!preparedWorkouts.length ? (
           <NoWorkoutsMessage>
             No workouts yet! <br />
@@ -138,47 +136,20 @@ const NoWorkoutsMessage = styled.div`
   border-radius: 5px;
 `;
 
-const ToggleButton = styled.button`
-  background: #e67e22;
-  color: #fff;
-  border: none;
+const CreateWorkoutButton = styled.button`
+  display: flex;
+  align-items: flex-end;
   border-radius: 5px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  font-size: 1rem;
-  margin: 1rem 0;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+  border: 2px solid #3498db;
+  background-color: #ffffff;
+  color: #3498db;
+  padding-top: 2px;
+  margin-bottom: 1rem;
+  align-self: start;
 
   &:hover {
-    background: #d35400;
-  }
-`;
-
-const CreateWorkoutButton = styled(ToggleButton)`
-  background-color: #27ae60;
-  position: fixed;
-  z-index: 5;
-  font-size: 3rem;
-  bottom: 20px;
-  right: 14px;
-  border-radius: 50%;
-  border: 2px solid #fff;
-  width: 80px;
-  height: 80px;
-
-  &:hover {
-    background-color: #1f8a4d;
-  }
-`;
-
-const CancelCreateButton = styled(CreateWorkoutButton)`
-  background-color: #dc3545;
-  transform: rotate(45deg);
-
-  &:hover {
-    background-color: #c82333;
+    background-color: #3498db;
+    color: #ffffff;
   }
 `;
 

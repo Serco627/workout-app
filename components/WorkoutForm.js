@@ -4,7 +4,6 @@ import { exercises } from "@/lib/exercises";
 import findExerciseById from "@/utils/findExerciseById";
 import { uid } from "uid";
 
-// Styled Components
 const Header = styled.header`
   text-align: center;
   margin-bottom: 1rem;
