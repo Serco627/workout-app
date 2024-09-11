@@ -12,29 +12,30 @@ const Header = styled.header`
 const WrapperForm = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   background-color: white;
   border-radius: 10px;
   padding: 1rem;
   margin: 0 auto;
   position: fixed;
-  top: 30%;
+  top: 10%; /* Adjust this to allow space for the header */
   left: 50%;
-  transform: translate(-50%, -30%);
+  transform: translate(-50%, 0);
   z-index: 2;
   max-width: 500px;
   width: 90%;
-  max-height: 90vh;
-  overflow-y: auto;
+  max-height: 75vh; /* Restrict the height */
+  overflow-y: auto; /* Enable scrolling */
 `;
 
 const FormContainer = styled.div`
   width: 100%;
-  padding: 1rem;
   max-width: 800px;
   padding: 1rem;
-  padding-top: 0;
   margin: 0 auto;
+  overflow: hidden; /* Prevent unwanted overflow */
+  padding-top: 0;
+  padding-bottom: 0;
 `;
 
 const Fieldset = styled.fieldset`
