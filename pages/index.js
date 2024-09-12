@@ -1,63 +1,165 @@
-import { exercises as initialExercises } from "@/lib/exercises";
-import { useState } from "react";
 import {
-  StyledFlexWrapper,
-  ExerciseList,
-  StyledFilterButton,
-  StyledFilterWrapper,
-} from "/styledComponents.js";
-import Exercise from "../components/Exercise/Exercise";
-import FilterSection from "@/components/FilterSection/FilterSection";
+  motivationalQuotesBad,
+  motivationalQuotesGood,
+  motivationalQuotesOkay,
+} from "@/lib/quotes";
+import { useState } from "react";
+import { useEffect } from "react";
+import Image from "next/image";
+import styled from "styled-components";
 
 export default function HomePage() {
-  const [exercises, setExercises] = useState(initialExercises);
-  const [filters, setFilters] = useState([]);
-  const [filterMode, setFilterMode] = useState(false);
+  const quotes = [
+    ...motivationalQuotesBad,
+    ...motivationalQuotesGood,
+    ...motivationalQuotesOkay,
+  ];
 
-  function filterExercises(exercises, filters) {
-    const filteredArray = exercises.filter((exercise) => {
-      return filters.every((filter) => exercise.muscleGroups.includes(filter));
-    });
-    return filteredArray;
+  const [currentQuote, setCurrentQuote] = useState({
+    quote: "Loading...",
+    author: "",
+  });
+  const [moodMode, setMoodMode] = useState(null);
+
+  useEffect(() => {
+    setCurrentQuote(quotes[getRandomIndex(quotes.length)]);
+  }, []);
+
+  function getRandomIndex(arrayLength) {
+    return Math.floor(Math.random() * arrayLength);
   }
 
-  function onAddFilter(newFilter) {
-    setFilters([...filters, newFilter]);
+  function handleRandomQuote() {
+    setCurrentQuote(quotes[getRandomIndex(quotes.length)]);
   }
 
-  function handleDisableFilter(deleteFilter) {
-    const newFiltersArray = filters.filter((filter) => filter !== deleteFilter);
-    setFilters(newFiltersArray);
-  }
-
-  function handleClear() {
-    setFilters([]);
-    setExercises(initialExercises);
+  function handleMood(event, moodLevel) {
+    event.preventDefault();
+    if (moodLevel <= 3) {
+      setCurrentQuote(
+        motivationalQuotesBad[getRandomIndex(motivationalQuotesBad.length)]
+      );
+      setMoodMode("Feeling off today? Don’t sweat it, you’ll bounce back!");
+    } else if (moodLevel <= 7 && moodLevel >= 4) {
+      setCurrentQuote(
+        motivationalQuotesOkay[getRandomIndex(motivationalQuotesOkay.length)]
+      );
+      setMoodMode("A bit off today? Every step forward is still a win!");
+    } else if (moodLevel >= 8) {
+      setCurrentQuote(
+        motivationalQuotesGood[getRandomIndex(motivationalQuotesGood.length)]
+      );
+      setMoodMode("On top of the world today? Keep crushing it!");
+    }
   }
 
   return (
-    <StyledFlexWrapper>
-      <ExerciseList>
-        <StyledFilterWrapper>
-          <StyledFilterButton onClick={() => setFilterMode(!filterMode)}>
-            {filterMode ? "Filter ▲" : "Filter ▼"}
-          </StyledFilterButton>
-          {filterMode ? (
-            <FilterSection
-              filters={filters}
-              onAddFilter={onAddFilter}
-              handleDisableFilter={handleDisableFilter}
-              handleClear={handleClear}
+    <QuoteContainer>
+      <StyledHeadline>
+        {moodMode ? moodMode : "Hello, how are you feeling today?"}
+      </StyledHeadline>
+      {moodMode ? (
+        <>
+          <StyledPostionRelative>
+            <StyledQuotationMarks
+              src={"/quote.svg"}
+              width={100}
+              height={100}
+              alt="quote decoration"
             />
-          ) : null}
-        </StyledFilterWrapper>
-        {!filterExercises(exercises, filters).length ? (
-          <p>No exercises found. Please search for different muscle groups.</p>
-        ) : null}
-        {filterExercises(exercises, filters).map((exercise) => (
-          <Exercise key={exercise.id} exercise={exercise} />
-        ))}
-      </ExerciseList>
-    </StyledFlexWrapper>
+          </StyledPostionRelative>
+          <QuoteText>{currentQuote.quote}</QuoteText>
+          <AuthorText>{currentQuote.author}</AuthorText>
+        </>
+      ) : (
+        <>
+          <form
+            onSubmit={(event) => handleMood(event, event.target.mood.value)}
+          >
+            <label htmlFor="mood">My mood today is...</label>
+            <br />
+            <br />
+            <span>😔</span>
+            <input type="range" min={1} max={10} id="mood" name="mood"></input>
+            <span>🤩</span>
+            <br />
+            <Button type="submit">Send</Button>
+          </form>
+        </>
+      )}
+    </QuoteContainer>
   );
 }
+
+const StyledHeadline = styled.h2`
+  font-size: 1.5rem;
+  margin: 0;
+  margin-bottom: 1rem;
+`;
+
+const StyledQuotationMarks = styled(Image)`
+  position: absolute;
+  right: 80px;
+  top: -30px;
+`;
+
+const StyledPostionRelative = styled.div`
+  position: relative;
+`;
+
+const QuoteContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 600px;
+  margin: 20px auto;
+  text-align: center;
+  box-shadow: 0 4px 8px #0000001a;
+`;
+const QuoteText = styled.p`
+  font-size: 24px;
+  font-style: italic;
+  color: #333;
+  margin: 0 0 20px 0;
+  line-height: 1.6;
+  position: relative;
+  &::before,
+  &::after {
+    font-size: 30px;
+    color: #999;
+    position: absolute;
+  }
+  &::before {
+    top: -20px;
+    left: -20px;
+  }
+  &::after {
+    bottom: -20px;
+    right: -20px;
+  }
+`;
+const AuthorText = styled.p`
+  font-size: 1rem;
+  color: #555;
+  margin: 0;
+`;
+const Button = styled.button`
+  background: #e67e22;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 1rem 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+  &:hover {
+    background: #d35400;
+  }
+`;
