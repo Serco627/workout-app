@@ -193,8 +193,8 @@ export default function Form({
       form.elements.exerciseName.focus();
     } else {
       setCurrentExercises([
-        ...currentExercises,
         { exerciseId: exerciseId, sets: sets, reps: reps },
+        ...currentExercises,
       ]);
       form.elements.exerciseName.value = "";
       form.elements.sets.value = "";
