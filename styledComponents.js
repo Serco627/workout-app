@@ -95,23 +95,20 @@ export const FlexWrapWorkouts = styled.div`
 export const StyledFlexWrapper = styled.div`
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 1050px;
+  margin: 0 auto;
 `;
 
 export const ExerciseList = styled.ul`
   list-style: none;
-  padding: 0;
-  display: grid;
   gap: 1.5rem;
-
-  grid-template-columns: repeat(3, 1fr);
-
-  @media (max-width: 1024px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (max-width: 600px) {
-    grid-template-columns: 1fr;
-  }
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ExerciseCard = styled.li`
@@ -124,7 +121,7 @@ export const ExerciseCard = styled.li`
   flex-direction: column;
   justify-content: flex-end;
   height: 25rem;
-  width: 100%;
+  width: 300px;
 
   &:hover {
     background-color: #f0f8ff;
@@ -256,4 +253,28 @@ export const InstructionItem = styled.li`
 
 export const StyledExerciseName = styled.h2`
   font-size: 2rem;
+`;
+
+export const StyledFilterButton = styled.button`
+  display: flex;
+  align-items: flex-end;
+  border-radius: 5px;
+  border: 2px solid #3498db;
+  background-color: #ffffff;
+  color: #3498db;
+  padding-top: 2px;
+  margin-bottom: 1rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #3498db;
+    color: #ffffff;
+  }
+`;
+
+export const StyledFilterWrapper = styled.aside`
+  min-width: 300px;
+  width: 100%;
+  margin: 0;
+  max-width: 932px;
 `;
