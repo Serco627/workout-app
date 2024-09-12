@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
-import Form from "../WorkoutForm";
+import Form from "../WorkoutFom/WorkoutForm";
 import { uid } from "uid";
 
 export default function Workout({ workout, handleDelete, handleEditWorkout }) {

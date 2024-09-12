@@ -24,7 +24,11 @@ export default function FilterSection({
       </StyledUl>
       <StyledRuler />
       <StyledUl>
-        {!filters.length ? <p>No filters yet, add some to start.</p> : null}
+        {!filters.length ? (
+          <StyledText>
+            No muscle groups filtered yet, add some to start.
+          </StyledText>
+        ) : null}
         {filters.map((filter, index) => {
           return (
             <StyledActivatedFilter key={index}>
@@ -36,11 +40,21 @@ export default function FilterSection({
           );
         })}
       </StyledUl>
-      <StyledRuler />
-      <StyledButton onClick={handleClear}>CLEAR</StyledButton>
+      {!filters.length ? null : (
+        <>
+          <StyledRuler />
+          <StyledButton onClick={handleClear}>CLEAR</StyledButton>
+        </>
+      )}
     </StyledFilter>
   );
 }
+
+const StyledText = styled.p`
+  color: #3498db;
+  padding-left: 5px;
+  font-size: 14px;
+`;
 
 const StyledMuscle = styled.li`
   color: #3498db;

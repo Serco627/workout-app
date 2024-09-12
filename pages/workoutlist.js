@@ -2,7 +2,7 @@ import useLocalStorageState from "use-local-storage-state";
 import { useState } from "react";
 import { exercises } from "@/lib/exercises";
 import { workouts as initialWorkouts } from "@/lib/workouts";
-import Form from "@/components/WorkoutForm";
+import Form from "@/components/WorkoutFom/WorkoutForm";
 import Workout from "@/components/Workout/Workout";
 import { uid } from "uid";
 import {
