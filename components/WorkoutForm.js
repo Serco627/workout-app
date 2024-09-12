@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { exercises } from "@/lib/exercises";
 import findExerciseById from "@/utils/findExerciseById";
 import { uid } from "uid";
-import { workouts } from "@/lib/workouts";
 
 const Header = styled.header`
   text-align: center;
@@ -193,8 +192,8 @@ export default function Form({
       form.elements.exerciseName.focus();
     } else {
       setCurrentExercises([
-        { exerciseId: exerciseId, sets: sets, reps: reps },
         ...currentExercises,
+        { exerciseId: exerciseId, sets: sets, reps: reps },
       ]);
       form.elements.exerciseName.value = "";
       form.elements.sets.value = "";
