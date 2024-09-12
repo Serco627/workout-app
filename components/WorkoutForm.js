@@ -279,7 +279,11 @@ export default function Form({
             </Fieldset>
 
             <ExerciseListDisplay>
-              {currentExercises.length ? <h3>Exercises</h3> : null}
+              {currentExercises.length ? (
+                <h3>Exercises</h3>
+              ) : (
+                <p>No exercises here, please add some to crush it!</p>
+              )}
               <ExerciseListContainer>
                 {currentExercises.map((exercise, index) => (
                   <ExerciseItem key={uid()}>
