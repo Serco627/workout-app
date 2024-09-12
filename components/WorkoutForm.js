@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { exercises } from "@/lib/exercises";
 import findExerciseById from "@/utils/findExerciseById";
 import { uid } from "uid";
+import { workouts } from "@/lib/workouts";
 
 const Header = styled.header`
   text-align: center;
@@ -170,40 +171,31 @@ export default function Form({
   workout,
   editMode,
 }) {
-  const [currentExercises, setCurrentExercises] = useState([]);
+  const [currentExercises, setCurrentExercises] = useState(
+    editMode ? workout.exercises : []
+  );
 
   function handleDeleteExercise(event, index) {
     event.preventDefault();
-    if (!currentExercises.length) {
-      const exercises = [...workout.exercises];
-      exercises.splice(index, 1);
-      setCurrentExercises(exercises);
-    } else {
-      const exercises = [...currentExercises];
-      exercises.splice(index, 1);
-      setCurrentExercises(exercises);
-    }
+    const exercises = [...currentExercises];
+    exercises.splice(index, 1);
+    setCurrentExercises(exercises);
   }
 
   function handleAddExercise(event) {
     const form = event.target.form;
     const exerciseId = form.elements.exerciseName.value;
-    const sets = form.elements.sets.value;
-    const reps = form.elements.reps.value;
+    const sets = Number(form.elements.sets.value);
+    const reps = Number(form.elements.reps.value);
 
     if (exerciseId === "default" || sets <= 0 || reps <= 0) {
       alert("Please fill in all the fields.");
       form.elements.exerciseName.focus();
     } else {
-      !currentExercises.length && editMode
-        ? setCurrentExercises([
-            { exerciseId: exerciseId, sets: sets, reps: reps },
-            ...workout.exercises,
-          ])
-        : setCurrentExercises([
-            { exerciseId: exerciseId, sets: sets, reps: reps },
-            ...currentExercises,
-          ]);
+      setCurrentExercises([
+        ...currentExercises,
+        { exerciseId: exerciseId, sets: sets, reps: reps },
+      ]);
       form.elements.exerciseName.value = "";
       form.elements.sets.value = "";
       form.elements.reps.value = "";
@@ -289,51 +281,26 @@ export default function Form({
             <ExerciseListDisplay>
               {currentExercises.length ? <h3>Exercises</h3> : null}
               <ExerciseListContainer>
-                {!currentExercises.length && editMode
-                  ? workout.exercises.map((exercise, index) => (
-                      <ExerciseItem key={uid()}>
-                        <ExerciseFlex>
-                          <div>
-                            <strong>
-                              {
-                                findExerciseById(exercises, exercise.exerciseId)
-                                  .name
-                              }
-                            </strong>
-                            - {exercise.sets} sets, {exercise.reps} reps
-                          </div>
-                          <DeleteExerciseButton
-                            onClick={(event) =>
-                              handleDeleteExercise(event, index)
-                            }
-                          >
-                            –
-                          </DeleteExerciseButton>
-                        </ExerciseFlex>
-                      </ExerciseItem>
-                    ))
-                  : currentExercises.map((exercise, index) => (
-                      <ExerciseItem key={uid()}>
-                        <ExerciseFlex>
-                          <div>
-                            <strong>
-                              {
-                                findExerciseById(exercises, exercise.exerciseId)
-                                  .name
-                              }
-                            </strong>
-                            - {exercise.sets} sets, {exercise.reps} reps
-                          </div>
-                          <DeleteExerciseButton
-                            onClick={(event) =>
-                              handleDeleteExercise(event, index)
-                            }
-                          >
-                            –
-                          </DeleteExerciseButton>
-                        </ExerciseFlex>
-                      </ExerciseItem>
-                    ))}
+                {currentExercises.map((exercise, index) => (
+                  <ExerciseItem key={uid()}>
+                    <ExerciseFlex>
+                      <div>
+                        <strong>
+                          {
+                            findExerciseById(exercises, exercise.exerciseId)
+                              .name
+                          }
+                        </strong>
+                        - {exercise.sets} sets, {exercise.reps} reps
+                      </div>
+                      <DeleteExerciseButton
+                        onClick={(event) => handleDeleteExercise(event, index)}
+                      >
+                        –
+                      </DeleteExerciseButton>
+                    </ExerciseFlex>
+                  </ExerciseItem>
+                ))}
               </ExerciseListContainer>
             </ExerciseListDisplay>
 
