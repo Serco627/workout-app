@@ -1,146 +1,46 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import {
+  Header,
+  WrapperForm,
+  FormContainer,
+  Fieldset,
+  Legend,
+  Label,
+  Input,
+  Select,
+  AddButton,
+  ButtonSecondary,
+  CancelButton,
+  ExerciseListContainer,
+  ExerciseItem,
+  StyledDiv,
+  InlineContainer,
+  RepsSetsLabel,
+  ExerciseListDisplay,
+  ExerciseFlex,
+  DeleteExerciseButton,
+} from "./StyledWorkoutForm";
 import { exercises } from "@/lib/exercises";
 import findExerciseById from "@/utils/findExerciseById";
+import { uid } from "uid";
 
-const Header = styled.header`
-  text-align: center;
-  margin-bottom: 1rem;
-`;
+export default function Form({
+  onSaveWorkout,
+  toggleMode,
+  formTitle,
+  workout,
+  editMode,
+}) {
+  const [currentExercises, setCurrentExercises] = useState(
+    editMode ? workout.exercises : []
+  );
 
-const WrapperForm = styled.div`
-  display: flex;
-  justify-content: center;
-  background-color: white;
-  border-radius: 10px;
-  padding: 1rem;
-  margin: 1rem;
-  padding-top: 0;
-  margin-bottom: 2rem;
-  position: fixed;
-  top: 0;
-  z-index: 2;
-  max-height: 78vh;
-  overflow-y: auto;
-`;
-
-const FormContainer = styled.div`
-  width: 100%;
-  padding: 1rem;
-  max-width: 800px;
-  padding: 1rem;
-  padding-top: 0;
-  margin: 0 auto;
-`;
-
-const Fieldset = styled.fieldset`
-  border: none;
-  margin-bottom: 1rem;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px #0000001a;
-`;
-
-const Legend = styled.legend`
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-`;
-
-const Label = styled.label`
-  display: block;
-  margin-bottom: 1rem;
-  font-weight: bold;
-`;
-
-const Input = styled.input`
-  width: 100%;
-  padding: 0.5rem;
-  margin-top: 0.5rem;
-  border-radius: 4px;
-  border: 1px solid #ddd;
-`;
-
-const Select = styled.select`
-  width: 100%;
-  padding: 0.5rem;
-  margin-top: 0.5rem;
-  border-radius: 4px;
-  border: 1px solid #ddd;
-`;
-
-const AddButton = styled.button`
-  background-color: #3498db;
-  color: #ffffff;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
-  margin-top: 1rem;
-  transition: background-color 0.3s;
-
-  &:hover {
-    background-color: #2980b9;
+  function handleDeleteExercise(event, index) {
+    event.preventDefault();
+    const exercises = [...currentExercises];
+    exercises.splice(index, 1);
+    setCurrentExercises(exercises);
   }
-`;
-
-const ButtonSecondary = styled(AddButton)`
-  background-color: #27ae60;
-  border: 1px solid #fff;
-
-  &:hover {
-    background-color: #1f8a4d;
-  }
-`;
-
-const CancelButton = styled(ButtonSecondary)`
-  background-color: #dc3545;
-  border: 1px solid #fff;
-
-  &:hover {
-    background-color: #c82333;
-  }
-`;
-
-const ExerciseListContainer = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-`;
-
-const ExerciseItem = styled.li`
-  background-color: #f4f4f4;
-  border-radius: 4px;
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-`;
-
-const StyledDiv = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 1rem;
-`;
-
-const InlineContainer = styled.div`
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  width: 100%;
-`;
-
-const RepsSetsLabel = styled.label`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  font-weight: bold;
-`;
-
-const ExerciseListDisplay = styled.div`
-  margin-top: 1rem;
-`;
-
-export default function Form({ onAddWorkout, toggleCreateMode, onCreateMode }) {
-  const [currentExercises, setCurrentExercises] = useState([]);
 
   function handleAddExercise(event) {
     const form = event.target.form;
@@ -153,8 +53,8 @@ export default function Form({ onAddWorkout, toggleCreateMode, onCreateMode }) {
       form.elements.exerciseName.focus();
     } else {
       setCurrentExercises([
-        { exerciseId: exerciseId, sets: sets, reps: reps },
         ...currentExercises,
+        { exerciseId: exerciseId, sets: sets, reps: reps },
       ]);
       form.elements.exerciseName.value = "";
       form.elements.sets.value = "";
@@ -170,10 +70,10 @@ export default function Form({ onAddWorkout, toggleCreateMode, onCreateMode }) {
     if (!currentExercises.length) {
       alert("Please add exercises to your workout!");
     } else {
-      onAddWorkout(name, currentExercises);
+      onSaveWorkout(name, currentExercises);
       setCurrentExercises([]);
       event.target.reset();
-      onCreateMode();
+      toggleMode();
     }
   }
 
@@ -182,7 +82,7 @@ export default function Form({ onAddWorkout, toggleCreateMode, onCreateMode }) {
       <WrapperForm>
         <FormContainer>
           <Header>
-            <h2>Create New Workout</h2>
+            <h2>{formTitle}</h2>
           </Header>
           <form onSubmit={handleSubmit}>
             <Label>
@@ -193,6 +93,7 @@ export default function Form({ onAddWorkout, toggleCreateMode, onCreateMode }) {
                 placeholder="your workout name"
                 required
                 maxLength={30}
+                defaultValue={editMode ? workout.name : null}
               />
             </Label>
 
@@ -237,23 +138,38 @@ export default function Form({ onAddWorkout, toggleCreateMode, onCreateMode }) {
               </AddButton>
             </Fieldset>
 
-            {/* Display the list of added exercises */}
             <ExerciseListDisplay>
-              {currentExercises.length ? <h3>Exercises</h3> : null}
+              {currentExercises.length ? (
+                <h3>Exercises</h3>
+              ) : (
+                <p>No exercises here, please add some to crush it!</p>
+              )}
               <ExerciseListContainer>
                 {currentExercises.map((exercise, index) => (
-                  <ExerciseItem key={index}>
-                    <strong>
-                      {findExerciseById(exercises, exercise.exerciseId).name}
-                    </strong>{" "}
-                    - {exercise.sets} sets, {exercise.reps} reps
+                  <ExerciseItem key={uid()}>
+                    <ExerciseFlex>
+                      <div>
+                        <strong>
+                          {
+                            findExerciseById(exercises, exercise.exerciseId)
+                              .name
+                          }
+                        </strong>
+                        - {exercise.sets} sets, {exercise.reps} reps
+                      </div>
+                      <DeleteExerciseButton
+                        onClick={(event) => handleDeleteExercise(event, index)}
+                      >
+                        –
+                      </DeleteExerciseButton>
+                    </ExerciseFlex>
                   </ExerciseItem>
                 ))}
               </ExerciseListContainer>
             </ExerciseListDisplay>
 
             <StyledDiv>
-              <CancelButton type="button" onClick={toggleCreateMode}>
+              <CancelButton type="button" onClick={toggleMode}>
                 Cancel
               </CancelButton>
               <ButtonSecondary type="submit">Save Workout</ButtonSecondary>

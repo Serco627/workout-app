@@ -2,7 +2,7 @@ import useLocalStorageState from "use-local-storage-state";
 import { useState } from "react";
 import { exercises } from "@/lib/exercises";
 import { workouts as initialWorkouts } from "@/lib/workouts";
-import Form from "@/components/WorkoutForm";
+import Form from "@/components/WorkoutFom/WorkoutForm";
 import Workout from "@/components/Workout/Workout";
 import { uid } from "uid";
 import {
@@ -54,31 +54,39 @@ export default function WorkoutsList() {
     ]);
   }
 
+  function handleEditWorkout(name, currentExercises, id) {
+    const newEditedWorkouts = workouts.map((workout) =>
+      workout.id === id
+        ? { id: workout.id, name: name, exercises: currentExercises }
+        : workout
+    );
+    setWorkouts(newEditedWorkouts);
+  }
+
   function toggleCreateMode() {
     setCreateMode(!createMode);
   }
+
   return (
     <FlexWrapWorkouts>
       {createMode ? <Filter onClick={toggleCreateMode}></Filter> : null}
-      {createMode ? (
-        <CancelCreateButton onClick={toggleCreateMode}>
-          &#x2B;
-        </CancelCreateButton>
-      ) : (
-        <CreateWorkoutButton onClick={toggleCreateMode}>
-          &#x2B;
-        </CreateWorkoutButton>
-      )}
+
       {createMode ? (
         <Form
-          onAddWorkout={handleAddWorkout}
+          onSaveWorkout={handleAddWorkout}
           createMode={createMode}
-          toggleCreateMode={toggleCreateMode}
-          onCreateMode={toggleCreateMode}
+          toggleMode={toggleCreateMode}
+          formTitle="Create New Workout"
         />
       ) : null}
       <StyledHeadline>Choose Your Workout</StyledHeadline>
+
       <WorkoutList>
+        <div>
+          <CreateWorkoutButton onClick={toggleCreateMode}>
+            Create Workout
+          </CreateWorkoutButton>
+        </div>
         {!preparedWorkouts.length ? (
           <NoWorkoutsMessage>
             No workouts yet! <br />
@@ -92,6 +100,7 @@ export default function WorkoutsList() {
                 key={workout.id}
                 workout={workout}
                 handleDelete={handleDelete}
+                handleEditWorkout={handleEditWorkout}
               />
             );
           })

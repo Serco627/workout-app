@@ -58,20 +58,20 @@ export const ToggleButton = styled.button`
   }
 `;
 
-export const CreateWorkoutButton = styled(ToggleButton)`
-  background-color: #27ae60;
-  position: fixed;
-  z-index: 5;
-  font-size: 3rem;
-  bottom: 20px;
-  right: 14px;
-  border-radius: 50%;
-  border: 2px solid #fff;
-  width: 80px;
-  height: 80px;
+export const CreateWorkoutButton = styled.button`
+  display: flex;
+  align-items: flex-end;
+  border-radius: 5px;
+  border: 2px solid #3498db;
+  background-color: #ffffff;
+  color: #3498db;
+  padding-top: 2px;
+  margin-bottom: 1rem;
+  align-self: start;
 
   &:hover {
-    background-color: #1f8a4d;
+    background-color: #3498db;
+    color: #ffffff;
   }
 `;
 
