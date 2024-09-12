@@ -264,6 +264,8 @@ export const StyledFilterButton = styled.button`
   color: #3498db;
   padding-top: 2px;
   margin-bottom: 1rem;
+  cursor: pointer;
+
   &:hover {
     background-color: #3498db;
     color: #ffffff;

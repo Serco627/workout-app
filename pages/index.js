@@ -51,6 +51,9 @@ export default function HomePage() {
             />
           ) : null}
         </StyledFilterWrapper>
+        {!filterExercises(exercises, filters).length ? (
+          <p>No exercises found. Please search for different muscle groups.</p>
+        ) : null}
         {filterExercises(exercises, filters).map((exercise) => (
           <Exercise key={exercise.id} exercise={exercise} />
         ))}

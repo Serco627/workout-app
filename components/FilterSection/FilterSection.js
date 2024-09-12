@@ -27,10 +27,12 @@ export default function FilterSection({
         {!filters.length ? <p>No filters yet, add some to start.</p> : null}
         {filters.map((filter, index) => {
           return (
-            <StyledFilteredMuscle key={index}>
+            <StyledActivatedFilter key={index}>
               {filter}&nbsp;&nbsp;
-              <span onClick={() => handleDisableFilter(filter)}>×</span>{" "}
-            </StyledFilteredMuscle>
+              <StyledFilteredMuscle onClick={() => handleDisableFilter(filter)}>
+                ×
+              </StyledFilteredMuscle>{" "}
+            </StyledActivatedFilter>
           );
         })}
       </StyledUl>
@@ -50,6 +52,13 @@ const StyledMuscle = styled.li`
   font-size: 0.85em;
   font-weight: bold;
   ${(props) => props.$display}
+  cursor: pointer;
+`;
+
+const StyledActivatedFilter = styled(StyledMuscle)`
+  cursor: text;
+  background-color: #3498db;
+  color: #fff;
 `;
 
 const StyledUl = styled.ul`
@@ -73,8 +82,7 @@ const StyledFilteredMuscle = styled.span`
   background-color: #3498db;
   border-radius: 5px;
   color: #ffffff;
-  padding: 5px;
-  margin: 5px;
+  cursor: pointer;
 `;
 
 const StyledButton = styled.button`
