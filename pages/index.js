@@ -99,12 +99,13 @@ const StyledHeadline = styled.h2`
 
 const StyledQuotationMarks = styled(Image)`
   position: absolute;
-  right: 80px;
+  left: -30px;
   top: -30px;
 `;
 
 const StyledPostionRelative = styled.div`
   position: relative;
+  width: 100%;
 `;
 
 const QuoteContainer = styled.div`
