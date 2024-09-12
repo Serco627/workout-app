@@ -12,6 +12,7 @@ export default function Layout({ children }) {
         <Nav>
           <NavLink href="/">Home</NavLink>
           <NavLink href="/workoutlist">Workouts</NavLink>
+          <NavLink href="/exercises">Exercises</NavLink>
         </Nav>
       </Footer>
     </Container>
