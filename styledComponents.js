@@ -26,6 +26,7 @@ export const StyledHeadline = styled.h2`
   background: #fff;
   padding: 0.5rem;
   margin: 0;
+  margin-top: 1rem;
   text-align: center;
 `;
 

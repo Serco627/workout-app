@@ -57,7 +57,7 @@ const NavLink = styled(Link)`
 const MainContent = styled.main`
   flex: 1;
   padding: 1rem;
-  padding-top: 90px
+  padding-top: 0px;
   margin-bottom: 65px;
 `;
 
