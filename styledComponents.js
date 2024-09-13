@@ -180,10 +180,38 @@ export const MuscleBadge = styled.li`
   font-size: 0.85em;
   font-weight: bold;
   box-shadow:
-    0 4px 6px rgba(0, 0, 0, 0.1),
-    0 1px 3px rgba(0, 0, 0, 0.08);
+    0 2px 5px rgba(0, 0, 0, 0.12),
+    0 1px 3px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease-in-out;
 `;
+
+// MuscleBagde with soft shadow, slight glow
+// export const MuscleBadge = styled.li`
+//   background-color: #3498db;
+//   color: #fff;
+//   border-radius: 5px;
+//   padding: 5px 10px;
+//   font-size: 0.85em;
+//   font-weight: bold;
+//   box-shadow:
+//     0 4px 6px rgba(0, 0, 0, 0.1),
+//     0 1px 3px rgba(0, 0, 0, 0.08);
+//   transition: box-shadow 0.3s ease-in-out;
+// `;
+
+// MuscleBadge with Neumorphic Effect soft inset shadow
+// export const MuscleBadge = styled.li`
+//   background-color: #3498db;
+//   color: #fff;
+//   border-radius: 5px;
+//   padding: 5px 10px;
+//   font-size: 0.85em;
+//   font-weight: bold;
+//   box-shadow:
+//     8px 8px 15px rgba(0, 0, 0, 0.15),
+//     -5px -5px 16px rgba(255, 255, 255, 0.7);
+//   transition: box-shadow 0.3s ease-in-out;
+// `;
 
 export const StyledLink = styled(Link)`
   text-decoration: none;
