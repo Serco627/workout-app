@@ -145,6 +145,8 @@ export const BackgroundImageWrapper = styled.div`
 export const StyledImage = styled(Image)`
   z-index: 1;
   border-radius: 10px;
+  position: absolute;
+  top: 5px;
 `;
 
 export const ContentOverlay = styled.div`
@@ -252,16 +254,21 @@ export const InstructionItem = styled.li`
 `;
 
 export const StyledExerciseName = styled.h2`
-  font-size: 2.5rem;
+  font-size: 1.5;
   color: #3498db;
+  background-color: #fff;
   border-radius: 10px;
-  padding: 5px 50px 5px 50px;
+  padding: 4px 4px 4px 4px;
   margin-bottom: 15px;
-  margin-top: 10px;
+  margin-top: 0px;
   border: 2px solid #3498db;
   text-transform: uppercase;
-  width: 300px;
+  width: 285px;
+  position: absolute;
+  z-index: 5;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  left: 45px;
+  top: 101px;
 `;
 
 export const StyledFilterButton = styled.button`
