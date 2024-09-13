@@ -58,7 +58,10 @@ export default function ExerciseDetailsPage() {
           );
         })}
       </InstructionsList>
-      <Link href={`/exercises`} aria-label="back to homepage">
+      <Link
+        href={`/exercises/#${currentExercise.id}`}
+        aria-label="back to homepage"
+      >
         <BackLinkSvg
           xmlns="http://www.w3.org/2000/svg"
           width="40"

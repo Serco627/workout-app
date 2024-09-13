@@ -9,18 +9,18 @@ const StyledHeader = styled.header`
   align-items: center;
   padding: 10px;
   background-color: #fff;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 3px #3e4951;
   width: 100%;
 `;
 
 const LogoContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 30px;
 `;
 
 const AppName = styled.h1`
-  font-size: 2.2rem;
+  font-size: 2.3rem;
   color: #3498db;
   margin: 0;
   letter-spacing: 6px;
