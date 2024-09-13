@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import { useRouter } from "next/router";
 import { exercises } from "@/lib/exercises";
 import {
@@ -25,8 +26,8 @@ export default function ExerciseDetailsPage() {
   return (
     <Container>
       <StyledExerciseName>{currentExercise.name}</StyledExerciseName>
+      <h3>Muscles In The Spotlight</h3>
       <MuscleGroupList>
-        <h3>Muscles In The Spotlight</h3>
         {currentExercise.muscleGroups.map((muscle, index) => (
           <MuscleBadge key={`${currentExercise.id}-muscle-${index}`}>
             {muscle}
@@ -35,7 +36,7 @@ export default function ExerciseDetailsPage() {
       </MuscleGroupList>
       <ExerciseDetailsImage>
         <BackgroundImageWrapper>
-          <StyledImage
+          <StyledIdImage
             src={currentExercise.imageUrl}
             alt={currentExercise.name}
             layout="fill"
@@ -58,3 +59,7 @@ export default function ExerciseDetailsPage() {
     </Container>
   );
 }
+
+const StyledIdImage = styled(StyledImage)`
+  margin-top: 20px;
+`;
