@@ -172,6 +172,7 @@ export const MuscleGroupList = styled.ul`
   list-style: none;
 `;
 
+// MuscleBagde with elegant shadow, glow accent
 export const MuscleBadge = styled.li`
   background-color: #3498db;
   color: #fff;
