@@ -148,6 +148,11 @@ const MuscleBadge = styled.li`
   border-radius: 5px;
   padding: 5px 10px;
   font-size: 0.85em;
+  font-weight: bold;
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.12),
+    0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
 `;
 
 const ExerciseList = styled.ul`
