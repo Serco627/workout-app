@@ -254,9 +254,14 @@ export const InstructionItem = styled.li`
 export const StyledExerciseName = styled.h2`
   font-size: 2.5rem;
   color: #3498db;
-  background-color: #fff;
-  padding: 5px;
-  box-shadow: 2px 2px 10px #3498db7f;
+  border-radius: 10px;
+  padding: 5px 50px 5px 50px;
+  margin-bottom: 15px;
+  margin-top: 10px;
+  border: 2px solid #3498db;
+  text-transform: uppercase;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
 export const StyledFilterButton = styled.button`
