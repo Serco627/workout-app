@@ -13,6 +13,10 @@ import {
   StyledImage,
 } from "/styledComponents";
 
+const StyledIdImage = styled(StyledImage)`
+  margin-top: 20px;
+`;
+
 export default function ExerciseDetailsPage() {
   const router = useRouter();
   const { id } = router.query;
@@ -59,7 +63,3 @@ export default function ExerciseDetailsPage() {
     </Container>
   );
 }
-
-const StyledIdImage = styled(StyledImage)`
-  margin-top: 20px;
-`;
