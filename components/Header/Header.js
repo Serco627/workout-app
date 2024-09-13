@@ -1,10 +1,7 @@
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
-
-const HiddenAppName = styled.h1`
-  display: none;
-`;
+import { StyledRuler } from "../FilterSection/FilterSection";
 
 const StyledHeader = styled.header`
   display: flex;
@@ -12,9 +9,7 @@ const StyledHeader = styled.header`
   align-items: center;
   padding: 10px;
   background-color: #fff;
-  box-shadow:
-    0 4px 6px rgba(0, 0, 0, 0.1),
-    0 4px 10px -2px rgba(52, 152, 219, 0.7);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
   width: 100%;
 `;
 
@@ -28,8 +23,8 @@ const AppName = styled.h1`
   font-size: 2.2rem;
   color: #3498db;
   margin: 0;
-  letter-spacing: 2px;
-  font-weight: 200;
+  letter-spacing: 6px;
+  font-weight: 300;
 `;
 
 const StyledLog = styled.span`
@@ -51,17 +46,17 @@ export default function Header() {
           <Image
             src="/Logo_ohne_Schrift.png"
             alt="Logo"
-            width={90}
-            height={90}
+            width={100}
+            height={100}
           />
         </Link>
         <div>
           <AppName>
             GYM<StyledLog>LOG</StyledLog>
           </AppName>
+          <StyledRuler></StyledRuler>
           <Slogan>Crush your goals</Slogan>
         </div>
-        <HiddenAppName>GYM LOG - Crush your Goals</HiddenAppName>
       </LogoContainer>
     </StyledHeader>
   );
