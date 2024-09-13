@@ -253,23 +253,31 @@ export const InstructionItem = styled.li`
   }
 `;
 
-export const StyledExerciseName = styled.h2`
-  font-size: 3rem;
-  text-shadow:
-    3px 3px #3498db,
-    -3px -3px #2980b9;
-  color: #fff;
-  _background-color: #fff;
-  _border-radius: 10px;
-  _padding: 4px 4px 4px 4px;
-  margin-bottom: 15px;
-  margin-top: 0px;
-  _border: 2px solid #3498db;
-  text-transform: uppercase;
-  _width: 285px;
+export const StyledExerciseNameContainer = styled.p`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 303px;
   position: absolute;
-  z-index: 5;
-  _box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+`;
+
+export const StyledExerciseName = styled.h2`
+  font-size: 2.9rem;
+  font-weight: 750;
+  line-height: 0.75;
+  letter-spacing: +2px;
+  text-indent: -30px;
+  padding-left: 30px;
+  text-shadow:
+    1px 1px #fff,
+    -1px -1px #fff,
+    -1px 1px #fff,
+    1px -1px #fff,
+    0px 0px 5px #00000090;
+  color: #3498db;
+  margin-top: 5px;
+  text-transform: uppercase;
+  z-index: 2;
   left: 45px;
   top: 101px;
 `;
