@@ -25,6 +25,14 @@ export default function ExerciseDetailsPage() {
   return (
     <Container>
       <StyledExerciseName>{currentExercise.name}</StyledExerciseName>
+      <MuscleGroupList>
+        {currentExercise.muscleGroups.map((muscle, index) => (
+          <MuscleBadge key={`${currentExercise.id}-muscle-${index}`}>
+            {muscle}
+          </MuscleBadge>
+        ))}
+      </MuscleGroupList>
+
       <ExerciseDetailsImage>
         <BackgroundImageWrapper>
           <StyledImage
