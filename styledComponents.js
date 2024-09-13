@@ -2,7 +2,6 @@ import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
 
-// WorkoutsList.js Components
 export const Filter = styled.div`
   width: 100vw;
   min-height: 100vh;
