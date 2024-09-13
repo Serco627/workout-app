@@ -11,11 +11,6 @@ import {
   BackgroundImageWrapper,
   StyledImage,
 } from "/styledComponents";
-import styled from "styled-components";
-
-const ImageWrapper = styled.div`
-  padding: 20px;
-`;
 
 export default function ExerciseDetailsPage() {
   const router = useRouter();
@@ -31,28 +26,24 @@ export default function ExerciseDetailsPage() {
     <Container>
       <StyledExerciseName>{currentExercise.name}</StyledExerciseName>
       <MuscleGroupList>
-        <>
-          <h3>Muscles In The Spotlight</h3>
-        </>
+        <h3>Muscles In The Spotlight</h3>
         {currentExercise.muscleGroups.map((muscle, index) => (
           <MuscleBadge key={`${currentExercise.id}-muscle-${index}`}>
             {muscle}
           </MuscleBadge>
         ))}
       </MuscleGroupList>
-      <ImageWrapper>
-        <ExerciseDetailsImage>
-          <BackgroundImageWrapper>
-            <StyledImage
-              src={currentExercise.imageUrl}
-              alt={currentExercise.name}
-              layout="fill"
-              objectFit="cover"
-              quality={75}
-            />
-          </BackgroundImageWrapper>
-        </ExerciseDetailsImage>
-      </ImageWrapper>
+      <ExerciseDetailsImage>
+        <BackgroundImageWrapper>
+          <StyledImage
+            src={currentExercise.imageUrl}
+            alt={currentExercise.name}
+            layout="fill"
+            objectFit="cover"
+            quality={75}
+          />
+        </BackgroundImageWrapper>
+      </ExerciseDetailsImage>
 
       <InstructionsList>
         <h3>How To Crush It</h3>
