@@ -4,33 +4,18 @@ import {
   motivationalQuotesOkay,
 } from "@/lib/quotes";
 import { useState } from "react";
-import { useEffect } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 
 export default function HomePage() {
-  const quotes = [
-    ...motivationalQuotesBad,
-    ...motivationalQuotesGood,
-    ...motivationalQuotesOkay,
-  ];
-
   const [currentQuote, setCurrentQuote] = useState({
     quote: "Loading...",
     author: "",
   });
   const [moodMode, setMoodMode] = useState(null);
 
-  useEffect(() => {
-    setCurrentQuote(quotes[getRandomIndex(quotes.length)]);
-  }, []);
-
   function getRandomIndex(arrayLength) {
     return Math.floor(Math.random() * arrayLength);
-  }
-
-  function handleRandomQuote() {
-    setCurrentQuote(quotes[getRandomIndex(quotes.length)]);
   }
 
   function handleMood(event, moodLevel) {
@@ -108,7 +93,7 @@ const StyledPostionRelative = styled.div`
   width: 100%;
 `;
 
-const QuoteContainer = styled.div`
+const QuoteContainer = styled.article`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -120,7 +105,7 @@ const QuoteContainer = styled.div`
   text-align: center;
   box-shadow: 0 4px 8px #0000001a;
 `;
-const QuoteText = styled.p`
+const QuoteText = styled.blockquote`
   font-size: 24px;
   font-style: italic;
   color: #333;
