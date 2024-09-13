@@ -254,19 +254,22 @@ export const InstructionItem = styled.li`
 `;
 
 export const StyledExerciseName = styled.h2`
-  font-size: 1.5;
-  color: #3498db;
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 4px 4px 4px 4px;
+  font-size: 3rem;
+  text-shadow:
+    3px 3px #3498db,
+    -3px -3px #2980b9;
+  color: #fff;
+  _background-color: #fff;
+  _border-radius: 10px;
+  _padding: 4px 4px 4px 4px;
   margin-bottom: 15px;
   margin-top: 0px;
-  border: 2px solid #3498db;
+  _border: 2px solid #3498db;
   text-transform: uppercase;
-  width: 285px;
+  _width: 285px;
   position: absolute;
   z-index: 5;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  _box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   left: 45px;
   top: 101px;
 `;
