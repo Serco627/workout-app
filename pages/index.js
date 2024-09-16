@@ -7,6 +7,7 @@ import { useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import SpotlightExercise from "@/components/SpotlightExercise/SpotlightExercise";
+import getRandomIndex from "@/utils/getRandomIndex";
 
 export default function HomePage() {
   const [currentQuote, setCurrentQuote] = useState({
@@ -14,10 +15,6 @@ export default function HomePage() {
     author: "",
   });
   const [moodMode, setMoodMode] = useState(null);
-
-  function getRandomIndex(arrayLength) {
-    return Math.floor(Math.random() * arrayLength);
-  }
 
   function handleMood(event, moodLevel) {
     event.preventDefault();
@@ -142,7 +139,7 @@ const AuthorText = styled.p`
   color: #555;
   margin: 0;
 `;
-const Button = styled.button`
+export const Button = styled.button`
   background: #e67e22;
   color: #fff;
   border: none;
