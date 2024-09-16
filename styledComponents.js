@@ -252,7 +252,7 @@ export const InstructionItem = styled.li`
 `;
 
 export const StyledExerciseName = styled.h2`
-  font-size: 2.5rem;
+  font-size: 2.1rem;
   color: #3498db;
   border-radius: 10px;
   padding: 5px 50px 5px 50px;
