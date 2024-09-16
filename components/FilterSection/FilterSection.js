@@ -5,7 +5,7 @@ export default function FilterSection({
   onAddFilter,
   filters,
   handleDisableFilter,
-  handleClear,
+  handleClearFilter,
 }) {
   return (
     <StyledFilter>
@@ -43,7 +43,7 @@ export default function FilterSection({
       {!filters.length ? null : (
         <>
           <StyledRuler />
-          <StyledButton onClick={handleClear}>CLEAR</StyledButton>
+          <StyledButton onClick={handleClearFilter}>CLEAR</StyledButton>
         </>
       )}
     </StyledFilter>
