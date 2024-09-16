@@ -145,8 +145,6 @@ export const BackgroundImageWrapper = styled.div`
 export const StyledImage = styled(Image)`
   z-index: 1;
   border-radius: 10px;
-  position: absolute;
-  top: 5px;
 `;
 
 export const ContentOverlay = styled.div`
@@ -253,33 +251,17 @@ export const InstructionItem = styled.li`
   }
 `;
 
-export const StyledExerciseNameContainer = styled.p`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 303px;
-  position: absolute;
-`;
-
 export const StyledExerciseName = styled.h2`
-  font-size: 2.9rem;
-  font-weight: 750;
-  line-height: 0.75;
-  letter-spacing: +2px;
-  text-indent: -30px;
-  padding-left: 30px;
-  text-shadow:
-    1px 1px #fff,
-    -1px -1px #fff,
-    -1px 1px #fff,
-    1px -1px #fff,
-    0px 0px 5px #00000090;
+  font-size: 2.5rem;
   color: #3498db;
-  margin-top: 5px;
+  border-radius: 10px;
+  padding: 5px 50px 5px 50px;
+  margin-bottom: 15px;
+  margin-top: 10px;
+  border: 2px solid #3498db;
   text-transform: uppercase;
-  z-index: 2;
-  left: 45px;
-  top: 101px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
 export const StyledFilterButton = styled.button`

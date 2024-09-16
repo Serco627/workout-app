@@ -10,7 +10,6 @@ import {
   MuscleBadge,
   BackgroundImageWrapper,
   StyledImage,
-  StyledExerciseNameContainer,
 } from "/styledComponents";
 
 export default function ExerciseDetailsPage() {
@@ -25,9 +24,7 @@ export default function ExerciseDetailsPage() {
 
   return (
     <Container>
-      <StyledExerciseNameContainer>
-        <StyledExerciseName>{currentExercise.name}</StyledExerciseName>
-      </StyledExerciseNameContainer>
+      <StyledExerciseName>{currentExercise.name}</StyledExerciseName>
       <ExerciseDetailsImage>
         <BackgroundImageWrapper>
           <StyledImage
