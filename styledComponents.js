@@ -91,7 +91,7 @@ export const FlexWrapWorkouts = styled.div`
   align-items: center;
 `;
 
-// HomePage Components
+// Exercises Page
 export const StyledFlexWrapper = styled.div`
   display: flex;
   justify-content: center;
