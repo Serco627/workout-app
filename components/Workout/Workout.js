@@ -70,7 +70,7 @@ export default function Workout({ workout, handleDelete, handleEditWorkout }) {
         <DeleteWorkoutButton onClick={toggleDeleteMode}>—</DeleteWorkoutButton>
         <EditWorkoutButton onClick={toggleEditMode}>&#9998;</EditWorkoutButton>
 
-        <h2>{workout.name}</h2>
+        <StyledCardHeadline>{workout.name}</StyledCardHeadline>
 
         <SpotlightHeading>Muscles In The Spotlight:</SpotlightHeading>
         <MuscleGroupList>
@@ -250,4 +250,20 @@ const Filter = styled.div`
   z-index: 1;
   background: #00000039;
   padding: 1rem 3rem;
+`;
+
+const StyledCardHeadline = styled.h2`
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.25rem;
+  text-shadow:
+    2px 2px 0 #3498db,
+    -2px -2px 0 #3498db,
+    0px -2px 0 #3498db,
+    -2px 0px 0 #3498db,
+    2px 0px 0 #3498db,
+    0px 2px 0 #3498db,
+    2px -2px 0 #3498db,
+    2px 0px 0 #3498db,
+    -2px 2px 0 #3498db;
 `;
