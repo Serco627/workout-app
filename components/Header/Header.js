@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
-import { StyledRuler } from "../FilterSection/FilterSection";
 
 const StyledHeader = styled.header`
   display: flex;
@@ -25,6 +24,7 @@ const AppName = styled.h1`
   margin: 0;
   letter-spacing: 6px;
   font-weight: 300;
+  border-bottom: 2px solid #3498db;
 `;
 
 const StyledLog = styled.span`
@@ -54,7 +54,6 @@ export default function Header() {
           <AppName>
             GYM<StyledLog>LOG</StyledLog>
           </AppName>
-          <StyledRuler></StyledRuler>
           <Slogan>Crush your goals</Slogan>
         </div>
       </LogoContainer>
