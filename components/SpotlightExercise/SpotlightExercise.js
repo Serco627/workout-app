@@ -46,6 +46,7 @@ const SpotlightContainer = styled.section`
   text-align: center;
   padding: 2rem;
   box-shadow: 0 4px 8px #0000001a;
+  border-radius: 12px;
 `;
 
 const BenefitsSection = styled.div`
