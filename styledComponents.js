@@ -27,6 +27,9 @@ export const StyledHeadline = styled.h2`
   padding: 0.5rem;
   margin: 0;
   text-align: center;
+  color: #555555;
+  text-transform: uppercase;
+  font-size: 1.7rem;
 `;
 
 export const NoWorkoutsMessage = styled.div`

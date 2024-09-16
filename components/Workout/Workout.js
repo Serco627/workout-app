@@ -174,6 +174,7 @@ const SpotlightHeading = styled.h3`
   text-align: center;
   margin-top: 0;
   margin-bottom: 1rem;
+  font-weight: 450;
 `;
 
 const WorkoutButtonCircle = styled.button`

@@ -70,4 +70,6 @@ const Footer = styled.footer`
   bottom: 0;
   z-index: 3;
   width: 100%;
+  border-top: 1px solid #fff;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
 `;
