@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import getRandomIndex from "@/utils/getRandomIndex";
-import { Button } from "@/pages";
 import { exercises } from "/lib/exercises";
 import Exercise from "../Exercise/Exercise";
 
@@ -18,13 +17,13 @@ export default function SpotlightExercise() {
 
   return (
     <SpotlightContainer>
-      <h1>Spotlight Exercise</h1>
+      <h1>Spotlight Exercise 🔎</h1>
       <h2>{spotlightExercise.name}</h2>
       <Exercise exercise={spotlightExercise} spotlightMode={true} />
 
-      <Button onClick={() => setShowBenefits(!showBenefits)}>
+      <ShowBenefitsButton onClick={() => setShowBenefits(!showBenefits)}>
         {showBenefits ? "Hide Benefits" : "Show Benefits"}
-      </Button>
+      </ShowBenefitsButton>
 
       {showBenefits ? (
         <BenefitsSection>
@@ -67,4 +66,21 @@ const BenefitItem = styled.p`
   padding: 0.5rem;
   border-radius: 5px;
   margin: 0.5rem 0;
+`;
+
+const ShowBenefitsButton = styled.button`
+  background: #e67e22;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 1rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 21px;
+  &:hover {
+    background: #d35400;
+  }
 `;
