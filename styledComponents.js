@@ -282,3 +282,64 @@ export const StyledFilterWrapper = styled.aside`
   margin: 0;
   max-width: 932px;
 `;
+
+// Styled Component for WarmupCooldown Programcard:
+export const ProgramCard = styled.div`
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  _height: 15rem;
+  width: 330px;
+  margin: 1rem; /* Add some space between the cards */
+  padding: 1rem;
+  background-color: #fff; /* White background for the card */
+`;
+
+// Styled table and rows for the exercises, reps, and duration
+export const StyledTable = styled.table`
+  width: 100%;
+  margin-top: 1rem;
+  border-collapse: collapse;
+`;
+
+export const StyledTableRow = styled.tr`
+  border-bottom: 1px solid #ddd;
+`;
+
+export const StyledTableHeader = styled.th`
+  padding: 0.5rem;
+  text-align: left;
+  font-weight: bold;
+`;
+
+export const StyledTableData = styled.td`
+  padding: 0.5rem;
+  text-align: center;
+`;
+
+export const StyledTableDataExercises = styled(StyledTableData)`
+  text-align: left;
+`;
+
+// Show more / show less Button in ProgramCard
+export const InfoToggleButton = styled.button`
+  background: #e67e22;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 1rem 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+  &:hover {
+    background: #d35400;
+  }
+`;
