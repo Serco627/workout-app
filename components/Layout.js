@@ -22,7 +22,6 @@ export default function Layout({ children }) {
           >
             Workouts
           </NavLink>
-          {/* Aktivieren bei allen Unterseiten von "/exercises" */}
           <NavLink
             href="/exercises"
             isActive={router.pathname.startsWith("/exercises")}
@@ -67,7 +66,7 @@ const NavLink = styled(({ isActive, ...props }) => <Link {...props} />)`
   &:active {
     background-color: #ffffff;
     color: #3498db;
-    font-weight: bold;
+    _font-weight: bold;
     border: 3px solid #ffffff;
   }
 `;

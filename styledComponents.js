@@ -108,6 +108,7 @@ export const ExerciseList = styled.ul`
   list-style: none;
   gap: 1.5rem;
   padding: 1rem;
+  padding-top: 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

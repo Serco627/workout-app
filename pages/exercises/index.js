@@ -5,6 +5,7 @@ import {
   ExerciseList,
   StyledFilterButton,
   StyledFilterWrapper,
+  StyledHeadline,
 } from "@/styledComponents";
 import Exercise from "@/components/Exercise/Exercise";
 import FilterSection from "@/components/FilterSection/FilterSection";
@@ -37,6 +38,7 @@ export default function Exercises() {
 
   return (
     <StyledFlexWrapper>
+      <StyledHeadline>YOUR EXERCISES</StyledHeadline>
       <ExerciseList>
         <StyledFilterWrapper>
           <StyledFilterButton onClick={() => setFilterMode(!filterMode)}>

@@ -84,12 +84,18 @@ export default function Workout({ workout, handleDelete, handleEditWorkout }) {
 
         {isDetailsVisible && (
           <ExerciseList>
+            <ExerciseItemHeadline>
+              <ExerciseName>EXERCISE</ExerciseName>
+              <ExerciseDetails>SETS</ExerciseDetails>
+              <ExerciseDetails>REPS</ExerciseDetails>
+            </ExerciseItemHeadline>
+
             {workout.exercises.map((exercise) => {
               return (
                 <ExerciseItem key={uid()}>
                   <ExerciseName>{exercise.name}</ExerciseName>
-                  <ExerciseDetails>Sets: {exercise.sets}</ExerciseDetails>
-                  <ExerciseDetails>Reps: {exercise.reps}</ExerciseDetails>
+                  <ExerciseDetails>{exercise.sets}</ExerciseDetails>
+                  <ExerciseDetails>{exercise.reps}</ExerciseDetails>
                 </ExerciseItem>
               );
             })}
@@ -155,19 +161,42 @@ const ExerciseList = styled.ul`
   padding: 0;
 `;
 
+const ExerciseItemHeadline = styled.li`
+  border-bottom: 3px solid #888;
+  padding: 0.5rem 0;
+  text-align: left;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+`;
+
 const ExerciseItem = styled.li`
   border-bottom: 1px solid #ddd;
   padding: 0.5rem 0;
+  text-align: left;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 `;
 
-const ExerciseName = styled.h3`
+const ExerciseName = styled.span`
+  _flex-grow: 1;
+  flex-basis: 60px;
   margin: 0;
-  color: #333;
+  font-weight: 500;
+  color: #222;
+  margin-right: 0.5rem;
 `;
 
-const ExerciseDetails = styled.p`
+const ExerciseDetails = styled.span`
+  _flex-grow: 0;
+  flex-basis: 30px;
   margin: 0;
   color: #666;
+  margin-right: 0.5rem;
+  text-align: center;
 `;
 
 const SpotlightHeading = styled.h3`
