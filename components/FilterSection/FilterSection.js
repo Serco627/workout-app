@@ -110,7 +110,7 @@ const StyledButton = styled.button`
   font-weight: bold;
 `;
 
-const StyledRuler = styled.hr`
+export const StyledRuler = styled.hr`
   background: #3498db;
 
   align-self: flex-end;

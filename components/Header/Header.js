@@ -1,76 +1,62 @@
 import styled from "styled-components";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import Link from "next/link";
 
 const StyledHeader = styled.header`
-  text-align: center;
-  margin-bottom: 0;
-`;
-
-const BackLinkSvg = styled.svg`
-  position: fixed;
-  left: 5px;
-  top: 5px;
-  padding: 8px;
-  z-index: 3;
-  border: 2px solid #3498db;
-  border-radius: 8px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px;
   background-color: #fff;
-  box-shadow: 0 4px 8px #00000033;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-
-  &:hover {
-    background-color: #f0f8ff;
-    transform: scale(1.1);
-  }
-
-  &:active {
-    transform: scale(1.05);
-  }
+  box-shadow: 0 2px 3px #3e4951;
+  width: 100%;
 `;
 
-const HiddenAppName = styled.h1`
-  display: none;
+const LogoContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 30px;
+`;
+
+const AppName = styled.h1`
+  font-size: 2.3rem;
+  color: #3498db;
+  margin: 0;
+  letter-spacing: 6px;
+  font-weight: 300;
+  border-bottom: 2px solid #3498db;
+`;
+
+const StyledLog = styled.span`
+  font-weight: 900;
+`;
+
+const Slogan = styled.p`
+  font-size: 1.2rem;
+  color: #3498db;
+  margin: 0;
+  font-family: monospace;
 `;
 
 export default function Header() {
-  const router = useRouter();
-  const headerContent = getHeaderContent(router.pathname);
-
-  function getHeaderContent(pathname) {
-    switch (pathname) {
-      case "/exercises/[id]":
-        return (
-          <>
-            <Image src="/logo.png" alt="Logo" width={90} height={90} />
-            <Link href={`/`} aria-label="back to homepage">
-              <BackLinkSvg
-                xmlns="http://www.w3.org/2000/svg"
-                width="50"
-                height="50"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#3498db"
-                strokeWidth="3"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <polyline points="15 18 9 12 15 6" />
-              </BackLinkSvg>
-            </Link>
-            <HiddenAppName>GYM LOG - Reach your Goals</HiddenAppName>
-          </>
-        );
-      default:
-        return (
-          <>
-            <Image src="/logo.png" alt="Logo" width={90} height={90} />
-            <HiddenAppName>GYM LOG - Reach your Goals</HiddenAppName>
-          </>
-        );
-    }
-  }
-  return <StyledHeader>{headerContent}</StyledHeader>;
+  return (
+    <StyledHeader>
+      <LogoContainer>
+        <Link href="/">
+          <Image
+            src="/Logo_ohne_Schrift.png"
+            alt="Logo"
+            width={100}
+            height={100}
+          />
+        </Link>
+        <div>
+          <AppName>
+            GYM<StyledLog>LOG</StyledLog>
+          </AppName>
+          <Slogan>Crush your goals</Slogan>
+        </div>
+      </LogoContainer>
+    </StyledHeader>
+  );
 }

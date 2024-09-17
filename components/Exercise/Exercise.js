@@ -11,7 +11,7 @@ import {
 
 export default function Exercise({ exercise }) {
   return (
-    <ExerciseCard>
+    <ExerciseCard id={exercise.id}>
       <StyledLink href={`/exercises/${exercise.id}`}>
         <BackgroundImageWrapper>
           <StyledImage
