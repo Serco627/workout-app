@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const StyledHeader = styled.header`
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   padding: 10px;
   background-color: #fff;
@@ -14,8 +14,10 @@ const StyledHeader = styled.header`
 
 const LogoContainer = styled.div`
   display: flex;
+  justify-content: space-around;
+
   align-items: center;
-  gap: 30px;
+  gap: 25px;
 `;
 
 const AppName = styled.h1`
