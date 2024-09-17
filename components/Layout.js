@@ -1,8 +1,11 @@
 import styled from "styled-components";
 import Link from "next/link";
 import Header from "./Header/Header";
+import { useRouter } from "next/router";
 
 export default function Layout({ children }) {
+  const router = useRouter();
+
   return (
     <Container>
       <Header />
@@ -10,9 +13,22 @@ export default function Layout({ children }) {
 
       <Footer>
         <Nav>
-          <NavLink href="/">Home</NavLink>
-          <NavLink href="/workoutlist">Workouts</NavLink>
-          <NavLink href="/exercises">Exercises</NavLink>
+          <NavLink href="/" isActive={router.pathname === "/"}>
+            Home
+          </NavLink>
+          <NavLink
+            href="/workoutlist"
+            isActive={router.pathname === "/workoutlist"}
+          >
+            Workouts
+          </NavLink>
+          {/* Aktivieren bei allen Unterseiten von "/exercises" */}
+          <NavLink
+            href="/exercises"
+            isActive={router.pathname.startsWith("/exercises")}
+          >
+            Exercises
+          </NavLink>
         </Nav>
       </Footer>
     </Container>
@@ -31,8 +47,10 @@ const Nav = styled.nav`
   justify-content: center;
 `;
 
-const NavLink = styled(Link)`
-  color: #ffffff;
+const NavLink = styled(({ isActive, ...props }) => <Link {...props} />)`
+  color: ${({ isActive }) => (isActive ? "#3498db" : "#ffffff")};
+  background-color: ${({ isActive }) => (isActive ? "#ffffff" : "transparent")};
+
   text-decoration: none;
   border: 2px solid #ffffff;
   padding: 10px 15px;
@@ -59,6 +77,8 @@ const MainContent = styled.main`
   padding: 1rem;
   padding-top: 0;
   margin-bottom: 65px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  _background-color: #efefef;
 `;
 
 const Footer = styled.footer`
