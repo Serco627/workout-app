@@ -4,7 +4,12 @@ import Form from "../WorkoutFom/WorkoutForm";
 import { uid } from "uid";
 import { CreateWorkoutButton } from "@/styledComponents";
 
-export default function Workout({ workout, handleDelete, handleEditWorkout }) {
+export default function Workout({
+  workout,
+  handleDelete,
+  handleEditWorkout,
+  spotlightMode,
+}) {
   const [showDetails, setShowDetails] = useState({});
   const [deleteMode, setDeleteMode] = useState(false);
   const isDetailsVisible = showDetails[workout.id] || false;
@@ -37,13 +42,7 @@ export default function Workout({ workout, handleDelete, handleEditWorkout }) {
   return (
     <>
       {editMode ? (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
+        <div>
           <Filter onClick={toggleEditMode}></Filter>
           <Form
             formTitle="Edit your Workout"
@@ -54,7 +53,14 @@ export default function Workout({ workout, handleDelete, handleEditWorkout }) {
           />
         </div>
       ) : null}
-      <WorkoutCard>
+      <WorkoutCard
+        $spotlightPadding={
+          spotlightMode
+            ? "padding-top: 0; border-top: 1px solid #0000001a;"
+            : null
+        }
+        $spotlightShadow={spotlightMode ? ", 0 -0.5px 5px #0000000d" : null}
+      >
         {deleteMode ? (
           <ModalOverlay onClick={toggleDeleteMode}>
             <ModalContent onClick={(e) => e.stopPropagation()}>
@@ -67,13 +73,14 @@ export default function Workout({ workout, handleDelete, handleEditWorkout }) {
             </ModalContent>
           </ModalOverlay>
         ) : null}
-
-        <StyledEditDeleteWrapper>
-          <StyledButtonDelete onClick={toggleDeleteMode}>
-            Delete
-          </StyledButtonDelete>
-          <StyledButtonEdit onClick={toggleEditMode}>Edit</StyledButtonEdit>
-        </StyledEditDeleteWrapper>
+        {spotlightMode ? null : (
+          <StyledEditDeleteWrapper>
+            <StyledButtonDelete onClick={toggleDeleteMode}>
+              Delete
+            </StyledButtonDelete>
+            <StyledButtonEdit onClick={toggleEditMode}>Edit</StyledButtonEdit>
+          </StyledEditDeleteWrapper>
+        )}
         <h2>{workout.name}</h2>
 
         <SpotlightHeading>Muscles In The Spotlight:</SpotlightHeading>
@@ -82,9 +89,12 @@ export default function Workout({ workout, handleDelete, handleEditWorkout }) {
             <MuscleBadge key={muscle}>{muscle}</MuscleBadge>
           ))}
         </MuscleGroupList>
-        <ToggleButton onClick={() => toggleDetails(workout.id)}>
-          {isDetailsVisible ? "Show Less" : "Show More"}
-        </ToggleButton>
+
+        {spotlightMode ? null : (
+          <ToggleButton onClick={() => toggleDetails(workout.id)}>
+            {isDetailsVisible ? "Show Less" : "Show More"}
+          </ToggleButton>
+        )}
 
         {isDetailsVisible && (
           <ExerciseList>
@@ -137,12 +147,14 @@ const WorkoutCard = styled.article`
   position: relative;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 8px #0000001a;
+  box-shadow: 0 4px 8px #0000001a ${(props) => props.$spotlightShadow};
   margin-bottom: 2rem;
   padding: 1rem 2rem;
   background: #fff;
   text-align: center;
   padding-top: 2rem;
+  padding-bottom: 1.5rem;
+  ${(props) => props.$spotlightPadding}
 `;
 
 const ToggleButton = styled.button`
@@ -212,35 +224,6 @@ const SpotlightHeading = styled.h3`
   text-align: center;
   margin-top: 0;
   margin-bottom: 1rem;
-`;
-
-const WorkoutButtonCircle = styled.button`
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  font-weight: bold;
-  position: absolute;
-`;
-
-const DeleteWorkoutButton = styled(WorkoutButtonCircle)`
-  background-color: #c0392b;
-  left: 16px;
-  top: 16px;
-`;
-
-const EditWorkoutButton = styled(WorkoutButtonCircle)`
-  background-color: #e67e22;
-  right: 16px;
-  top: 16px;
-  transform: rotate(80deg);
-  font-size: 1.4rem;
-  font-weight: normal;
 `;
 
 const ModalOverlay = styled.div`

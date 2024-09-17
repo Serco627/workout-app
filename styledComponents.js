@@ -188,6 +188,7 @@ export const MuscleBadge = styled.li`
 
 export const StyledLink = styled(Link)`
   text-decoration: none;
+  color: black;
 `;
 
 // ExerciseDetailsPage Components

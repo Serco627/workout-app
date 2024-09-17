@@ -6,6 +6,7 @@ import {
 import { useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
+import DailyCrusher from "@/components/DailyCrusher/DailyCrusher";
 
 export default function HomePage() {
   const [currentQuote, setCurrentQuote] = useState({
@@ -39,40 +40,49 @@ export default function HomePage() {
   }
 
   return (
-    <QuoteContainer>
-      <StyledHeadline>
-        {moodMode ? moodMode : "Hello, how are you feeling today?"}
-      </StyledHeadline>
-      {moodMode ? (
-        <>
-          <StyledPostionRelative>
-            <StyledQuotationMarks
-              src={"/quote.svg"}
-              width={100}
-              height={100}
-              alt="quote decoration"
-            />
-          </StyledPostionRelative>
-          <QuoteText>{currentQuote.quote}</QuoteText>
-          <AuthorText>{currentQuote.author}</AuthorText>
-        </>
-      ) : (
-        <>
-          <form
-            onSubmit={(event) => handleMood(event, event.target.mood.value)}
-          >
-            <label htmlFor="mood">My mood today is...</label>
-            <br />
-            <br />
-            <span>😔</span>
-            <input type="range" min={1} max={10} id="mood" name="mood"></input>
-            <span>🤩</span>
-            <br />
-            <Button type="submit">Send</Button>
-          </form>
-        </>
-      )}
-    </QuoteContainer>
+    <>
+      <QuoteContainer>
+        <StyledHeadline>
+          {moodMode ? moodMode : "Hello, how are you feeling today?"}
+        </StyledHeadline>
+        {moodMode ? (
+          <>
+            <StyledPostionRelative>
+              <StyledQuotationMarks
+                src={"/quote.svg"}
+                width={100}
+                height={100}
+                alt="quote decoration"
+              />
+            </StyledPostionRelative>
+            <QuoteText>{currentQuote.quote}</QuoteText>
+            <AuthorText>{currentQuote.author}</AuthorText>
+          </>
+        ) : (
+          <>
+            <form
+              onSubmit={(event) => handleMood(event, event.target.mood.value)}
+            >
+              <label htmlFor="mood">My mood today is...</label>
+              <br />
+              <br />
+              <span>😔</span>
+              <input
+                type="range"
+                min={1}
+                max={10}
+                id="mood"
+                name="mood"
+              ></input>
+              <span>🤩</span>
+              <br />
+              <Button type="submit">Send</Button>
+            </form>
+          </>
+        )}
+      </QuoteContainer>
+      <DailyCrusher />
+    </>
   );
 }
 
@@ -105,6 +115,7 @@ const QuoteContainer = styled.article`
   text-align: center;
   box-shadow: 0 4px 8px #0000001a;
 `;
+
 const QuoteText = styled.blockquote`
   font-size: 24px;
   font-style: italic;
