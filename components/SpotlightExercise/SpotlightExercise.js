@@ -42,10 +42,12 @@ const SpotlightContainer = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  padding: 2rem;
-  box-shadow: 0 4px 8px #0000001a;
+  padding: 20px;
   border-radius: 12px;
+  max-width: 600px;
+  margin: 20px auto;
+  text-align: center;
+  box-shadow: 0 4px 8px #0000001a;
 `;
 
 const BenefitsSection = styled.div`
