@@ -59,7 +59,6 @@ export default function Workout({
             ? "padding-top: 0; border-top: 1px solid #0000001a;"
             : null
         }
-        $spotlightShadow={spotlightMode ? ", 0 -0.5px 5px #0000000d" : null}
       >
         {deleteMode ? (
           <ModalOverlay onClick={toggleDeleteMode}>
@@ -147,7 +146,9 @@ const WorkoutCard = styled.article`
   position: relative;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 8px #0000001a ${(props) => props.$spotlightShadow};
+  box-shadow:
+    0 4px 8px #0000001a,
+    0 -0.5px 5px #0000000d;
   margin-bottom: 2rem;
   padding: 1rem 2rem;
   background: #fff;

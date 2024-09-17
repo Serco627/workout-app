@@ -115,7 +115,9 @@ export const ExerciseCard = styled.li`
   position: relative;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.1),
+    0 -0.5px 5px #0000000d;
   text-align: center;
   display: flex;
   flex-direction: column;

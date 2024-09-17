@@ -116,12 +116,13 @@ const StyledCrusherWrapper = styled.article`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
   border-radius: 12px;
   max-width: 600px;
   margin: 20px auto;
   text-align: center;
-  box-shadow: 0 4px 8px #0000001a;
+  box-shadow:
+    0 4px 8px #0000001a,
+    0 -0.5px 5px #0000000d;
 `;
 
 const StyledArticleWrap = styled.div`
@@ -163,7 +164,7 @@ const StyledAbsoluteToggleButton = styled(ToggleButton)`
   top: 20px;
   left: 50%;
   transform: translate(-50%, 0);
-  z-index: 5;
+  z-index: 2;
 `;
 const StyledToggleButton = styled(ToggleButton)`
   margin-top: 0;
