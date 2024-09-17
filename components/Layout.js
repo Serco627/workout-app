@@ -13,6 +13,7 @@ export default function Layout({ children }) {
           <NavLink href="/">Home</NavLink>
           <NavLink href="/workoutlist">Workouts</NavLink>
           <NavLink href="/exercises">Exercises</NavLink>
+          <NavLink href="/community">Community</NavLink>
         </Nav>
       </Footer>
     </Container>
