@@ -23,13 +23,12 @@ function findWarmupCooldownExerciseById(exerciseId) {
 }
 
 export default function PrepAndFollowUp() {
-  const [showDetails, setShowDetails] = useState(false);
-  const isDetailsVisible = showDetails[warmUpCoolDownExercises.id] || false;
+  const [showDetails, setShowDetails] = useState({});
 
-  const toggleDetails = (workoutId) => {
+  const toggleDetails = (exerciseId) => {
     setShowDetails((prev) => ({
       ...prev,
-      [workoutId]: !prev[workoutId],
+      [exerciseId]: !prev[exerciseId],
     }));
   };
 
@@ -57,7 +56,7 @@ export default function PrepAndFollowUp() {
                   if (!exercise) {
                     return null;
                   }
-
+                  const isDetailsVisible = showDetails[exercise.id] || false;
                   return (
                     <StyledTableRow key={exercise.id}>
                       <StyledTableDataExercises>
@@ -67,11 +66,9 @@ export default function PrepAndFollowUp() {
                       <StyledTableData>{exercise.duration}</StyledTableData>
                       <StyledTableData>
                         <StyledFilterButton
-                          onClick={() =>
-                            toggleDetails(warmUpCoolDownExercises.id)
-                          }
+                          onClick={() => toggleDetails(exerciseId)}
                         >
-                          {isDetailsVisible ? "Filter ▲" : "Filter ▼"}
+                          {isDetailsVisible ? "Info ▲" : "Info ▼"}
                         </StyledFilterButton>
                       </StyledTableData>
                     </StyledTableRow>
