@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import Form from "../WorkoutFom/WorkoutForm";
 import { uid } from "uid";
+import { CreateWorkoutButton } from "@/styledComponents";
 
 export default function Workout({ workout, handleDelete, handleEditWorkout }) {
   const [showDetails, setShowDetails] = useState({});
@@ -67,10 +68,13 @@ export default function Workout({ workout, handleDelete, handleEditWorkout }) {
           </ModalOverlay>
         ) : null}
 
-        <DeleteWorkoutButton onClick={toggleDeleteMode}>—</DeleteWorkoutButton>
-        <EditWorkoutButton onClick={toggleEditMode}>&#9998;</EditWorkoutButton>
-
-        <StyledCardHeadline>{workout.name}</StyledCardHeadline>
+        <StyledEditDeleteWrapper>
+          <StyledButtonDelete onClick={toggleDeleteMode}>
+            Delete
+          </StyledButtonDelete>
+          <StyledButtonEdit onClick={toggleEditMode}>Edit</StyledButtonEdit>
+        </StyledEditDeleteWrapper>
+        <h2>{workout.name}</h2>
 
         <SpotlightHeading>Muscles In The Spotlight:</SpotlightHeading>
         <MuscleGroupList>
@@ -105,6 +109,35 @@ export default function Workout({ workout, handleDelete, handleEditWorkout }) {
     </>
   );
 }
+
+const StyledEditDeleteWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const StyledButtonDelete = styled(CreateWorkoutButton)`
+  margin: 0;
+  color: #c0392b;
+  border: 2px solid #c0392b;
+  background-color: #c0392b30;
+
+  &:hover {
+    background-color: #c0392b;
+    color: #fff;
+  }
+`;
+
+const StyledButtonEdit = styled(CreateWorkoutButton)`
+  margin: 0;
+  color: #e67e22;
+  border: 2px solid #e67e22;
+  background-color: #e67e2230;
+
+  &:hover {
+    background-color: #e67e22;
+    color: #fff;
+  }
+`;
 
 const WorkoutCard = styled.article`
   position: relative;
@@ -154,6 +187,11 @@ const MuscleBadge = styled.li`
   border-radius: 5px;
   padding: 5px 10px;
   font-size: 0.85em;
+  font-weight: bold;
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.12),
+    0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
 `;
 
 const ExerciseList = styled.ul`

@@ -11,7 +11,6 @@ import {
   StyledHeadline,
   NoWorkoutsMessage,
   CreateWorkoutButton,
-  CancelCreateButton,
   FlexWrapWorkouts,
 } from "@/styledComponents";
 

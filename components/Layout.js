@@ -74,7 +74,7 @@ const NavLink = styled(({ isActive, ...props }) => <Link {...props} />)`
 const MainContent = styled.main`
   flex: 1;
   padding: 1rem;
-  padding-top: 0;
+  padding-top: 0px;
   margin-bottom: 65px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   _background-color: #efefef;

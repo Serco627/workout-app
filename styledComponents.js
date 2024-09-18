@@ -2,7 +2,6 @@ import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
 
-// WorkoutsList.js Components
 export const Filter = styled.div`
   width: 100vw;
   min-height: 100vh;
@@ -26,6 +25,7 @@ export const StyledHeadline = styled.h2`
   background: #fff;
   padding: 0.5rem;
   margin: 0;
+  margin-top: 1rem;
   text-align: center;
   color: #555555;
   text-transform: uppercase;
@@ -94,7 +94,7 @@ export const FlexWrapWorkouts = styled.div`
   align-items: center;
 `;
 
-// HomePage Components
+// Exercises Page
 export const StyledFlexWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -184,6 +184,10 @@ export const MuscleBadge = styled.li`
   padding: 5px 10px;
   font-size: 0.85em;
   font-weight: bold;
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.12),
+    0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
 `;
 
 export const StyledLink = styled(Link)`

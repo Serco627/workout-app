@@ -4,34 +4,17 @@ import {
   motivationalQuotesOkay,
 } from "@/lib/quotes";
 import { useState } from "react";
-import { useEffect } from "react";
 import Image from "next/image";
 import styled from "styled-components";
+import SpotlightExercise from "@/components/SpotlightExercise/SpotlightExercise";
+import getRandomIndex from "@/utils/getRandomIndex";
 
 export default function HomePage() {
-  const quotes = [
-    ...motivationalQuotesBad,
-    ...motivationalQuotesGood,
-    ...motivationalQuotesOkay,
-  ];
-
   const [currentQuote, setCurrentQuote] = useState({
     quote: "Loading...",
     author: "",
   });
   const [moodMode, setMoodMode] = useState(null);
-
-  useEffect(() => {
-    setCurrentQuote(quotes[getRandomIndex(quotes.length)]);
-  }, []);
-
-  function getRandomIndex(arrayLength) {
-    return Math.floor(Math.random() * arrayLength);
-  }
-
-  function handleRandomQuote() {
-    setCurrentQuote(quotes[getRandomIndex(quotes.length)]);
-  }
 
   function handleMood(event, moodLevel) {
     event.preventDefault();
@@ -54,40 +37,49 @@ export default function HomePage() {
   }
 
   return (
-    <QuoteContainer>
-      <StyledHeadline>
-        {moodMode ? moodMode : "Hello, how are you feeling today?"}
-      </StyledHeadline>
-      {moodMode ? (
-        <>
-          <StyledPostionRelative>
-            <StyledQuotationMarks
-              src={"/quote.svg"}
-              width={100}
-              height={100}
-              alt="quote decoration"
-            />
-          </StyledPostionRelative>
-          <QuoteText>{currentQuote.quote}</QuoteText>
-          <AuthorText>{currentQuote.author}</AuthorText>
-        </>
-      ) : (
-        <>
-          <form
-            onSubmit={(event) => handleMood(event, event.target.mood.value)}
-          >
-            <label htmlFor="mood">My mood today is...</label>
-            <br />
-            <br />
-            <span>😔</span>
-            <input type="range" min={1} max={10} id="mood" name="mood"></input>
-            <span>🤩</span>
-            <br />
-            <Button type="submit">Send</Button>
-          </form>
-        </>
-      )}
-    </QuoteContainer>
+    <>
+      <QuoteContainer>
+        <StyledHeadline>
+          {moodMode ? moodMode : "Hello, how are you feeling today?"}
+        </StyledHeadline>
+        {moodMode ? (
+          <>
+            <StyledPostionRelative>
+              <StyledQuotationMarks
+                src={"/quote.svg"}
+                width={100}
+                height={100}
+                alt="quote decoration"
+              />
+            </StyledPostionRelative>
+            <QuoteText>{currentQuote.quote}</QuoteText>
+            <AuthorText>{currentQuote.author}</AuthorText>
+          </>
+        ) : (
+          <>
+            <form
+              onSubmit={(event) => handleMood(event, event.target.mood.value)}
+            >
+              <label htmlFor="mood">My mood today is...</label>
+              <br />
+              <br />
+              <span>😔</span>
+              <input
+                type="range"
+                min={1}
+                max={10}
+                id="mood"
+                name="mood"
+              ></input>
+              <span>🤩</span>
+              <br />
+              <Button type="submit">Send</Button>
+            </form>
+          </>
+        )}
+      </QuoteContainer>
+      <SpotlightExercise />
+    </>
   );
 }
 
@@ -101,15 +93,16 @@ const StyledHeadline = styled.h2`
 
 const StyledQuotationMarks = styled(Image)`
   position: absolute;
-  right: 80px;
+  left: -30px;
   top: -30px;
 `;
 
 const StyledPostionRelative = styled.div`
   position: relative;
+  width: 100%;
 `;
 
-const QuoteContainer = styled.div`
+const QuoteContainer = styled.article`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -121,7 +114,7 @@ const QuoteContainer = styled.div`
   text-align: center;
   box-shadow: 0 4px 8px #0000001a;
 `;
-const QuoteText = styled.p`
+const QuoteText = styled.blockquote`
   font-size: 24px;
   font-style: italic;
   color: #333;
@@ -148,7 +141,7 @@ const AuthorText = styled.p`
   color: #555;
   margin: 0;
 `;
-const Button = styled.button`
+export const Button = styled.button`
   background: #e67e22;
   color: #fff;
   border: none;

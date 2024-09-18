@@ -31,7 +31,7 @@ export default function Exercises() {
     setFilters(newFiltersArray);
   }
 
-  function handleClear() {
+  function handleClearFilter() {
     setFilters([]);
     setExercises(initialExercises);
   }
@@ -49,7 +49,7 @@ export default function Exercises() {
               filters={filters}
               onAddFilter={onAddFilter}
               handleDisableFilter={handleDisableFilter}
-              handleClear={handleClear}
+              handleClearFilter={handleClearFilter}
             />
           ) : null}
         </StyledFilterWrapper>
