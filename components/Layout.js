@@ -11,9 +11,9 @@ export default function Layout({ children }) {
       <Footer>
         <Nav>
           <NavLink href="/">Home</NavLink>
-          <NavLink href="/workoutlist">Workouts</NavLink>
-          <NavLink href="/exercises">Exercises</NavLink>
-          <NavLink href="/community">Community</NavLink>
+          <NavLink href="/workoutlist">Work outs</NavLink>
+          <NavLink href="/exercises">Exer cises</NavLink>
+          <NavLink href="/community">Chat</NavLink>
         </Nav>
       </Footer>
     </Container>
@@ -33,6 +33,8 @@ const Nav = styled.nav`
 `;
 
 const NavLink = styled(Link)`
+  display: flex;
+  align-items: center;
   color: #ffffff;
   text-decoration: none;
   border: 2px solid #ffffff;
@@ -60,6 +62,9 @@ const MainContent = styled.main`
   padding: 1rem;
   padding-top: 0px;
   margin-bottom: 65px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Footer = styled.footer`
