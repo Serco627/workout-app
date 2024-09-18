@@ -13,7 +13,9 @@ export default function Layout({ children }) {
           <NavLink href="/">Home</NavLink>
           <NavLink href="/workoutlist">Work outs</NavLink>
           <NavLink href="/exercises">Exer cises</NavLink>
-          <NavLink href="/prep-and-follow-up">Prep down</NavLink>
+          <NavLink href="/prep-and-follow-up">
+            Warm&nbsp;&#10548; Cool&nbsp;&#10549;
+          </NavLink>
         </Nav>
       </Footer>
     </Container>
@@ -33,12 +35,14 @@ const Nav = styled.nav`
 `;
 
 const NavLink = styled(Link)`
+  display: flex;
+  align-items: center;
   color: #ffffff;
   text-decoration: none;
   border: 2px solid #ffffff;
   padding: 10px 15px;
   border-radius: 5px;
-  font-size: 1rem;
+  font-size: 0.9rem;
   transition: all 0.3s ease-in-out;
 
   &:hover {
