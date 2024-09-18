@@ -30,8 +30,9 @@ export default function Community() {
     }
     event.target.reset();
   }
-  const sortedData = sortByNewestTime(data);
 
+  const sortedData = sortByNewestTime(data);
+  console.log(sortedData);
   return (
     <>
       <CommunityWrapper>
