@@ -7,6 +7,8 @@ import { useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import DailyCrusher from "@/components/DailyCrusher/DailyCrusher";
+import SpotlightExercise from "@/components/SpotlightExercise/SpotlightExercise";
+import getRandomIndex from "@/utils/getRandomIndex";
 
 export default function HomePage() {
   const [currentQuote, setCurrentQuote] = useState({
@@ -14,10 +16,6 @@ export default function HomePage() {
     author: "",
   });
   const [moodMode, setMoodMode] = useState(null);
-
-  function getRandomIndex(arrayLength) {
-    return Math.floor(Math.random() * arrayLength);
-  }
 
   function handleMood(event, moodLevel) {
     event.preventDefault();
@@ -47,14 +45,15 @@ export default function HomePage() {
         </StyledHeadline>
         {moodMode ? (
           <>
-            <StyledPositionRelativeRelative>
+            <StyledPostionRelative>
               <StyledQuotationMarks
                 src={"/quote.svg"}
                 width={100}
                 height={100}
                 alt="quote decoration"
               />
-            </StyledPositionRelativeRelative>
+            </StyledPostionRelative>
+
             <QuoteText>{currentQuote.quote}</QuoteText>
             <AuthorText>{currentQuote.author}</AuthorText>
           </>
@@ -80,8 +79,9 @@ export default function HomePage() {
             </form>
           </>
         )}
-      </QuoteContainer>
+      </QuoteContainer>{" "}
       <DailyCrusher />
+      <SpotlightExercise />
     </>
   );
 }
@@ -90,6 +90,8 @@ const StyledHeadline = styled.h2`
   font-size: 1.5rem;
   margin: 0;
   margin-bottom: 1rem;
+  color: #2980b9;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 `;
 
 const StyledQuotationMarks = styled(Image)`
@@ -98,7 +100,7 @@ const StyledQuotationMarks = styled(Image)`
   top: -30px;
 `;
 
-const StyledPositionRelativeRelative = styled.div`
+const StyledPostionRelative = styled.div`
   position: relative;
   width: 100%;
 `;
@@ -143,7 +145,7 @@ const AuthorText = styled.p`
   color: #555;
   margin: 0;
 `;
-const Button = styled.button`
+export const Button = styled.button`
   background: #e67e22;
   color: #fff;
   border: none;

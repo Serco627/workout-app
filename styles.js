@@ -11,4 +11,8 @@ export default createGlobalStyle`
     margin: 0;
     font-family: system-ui;
   }
+
+ h2, h3 {
+  color: #555555;
+}
 `;
