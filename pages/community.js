@@ -16,7 +16,10 @@ export default function Community() {
   async function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
-    const newMessage = Object.fromEntries(formData);
+    const dataMessage = Object.fromEntries(formData);
+    const date = new Date().toLocaleString();
+    const newMessage = { ...dataMessage, date: date };
+    console.log(newMessage);
     const response = await fetch("/api/messages", {
       method: "POST",
       body: JSON.stringify(newMessage),
@@ -35,8 +38,7 @@ export default function Community() {
           <MessageBubble key={message._id}>
             <MessageAuthor>{message.name}</MessageAuthor>
             <p>{message.message}</p>
-            <MessageTimestamp>{new Date().toLocaleString()}</MessageTimestamp>
-            {/* time is placeholder for now */}
+            <MessageTimestamp>{message.date}</MessageTimestamp>
           </MessageBubble>
         ))}
       </CommunityWrapper>
