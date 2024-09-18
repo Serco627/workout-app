@@ -45,13 +45,31 @@ export default function Community() {
         ))}
       </CommunityWrapper>
       <InputFormWrapper onSubmit={handleSubmit}>
-        <StyledInput type="text" placeholder="name" name="name" />
-        <StyledInput type="text" placeholder="your message..." name="message" />
+        <StyledLabel htmlFor="name">Name</StyledLabel>
+        <StyledInput
+          type="text"
+          placeholder="name"
+          name="name"
+          id="name"
+          required
+        />
+        <StyledLabel htmlFor="message">Name</StyledLabel>
+        <StyledInput
+          type="text"
+          placeholder="your message..."
+          id="message"
+          name="message"
+          required
+        />
         <StyledSendButton type="submit">send</StyledSendButton>
       </InputFormWrapper>
     </>
   );
 }
+
+const StyledLabel = styled.label`
+  display: none;
+`;
 
 const CommunityWrapper = styled.section`
   display: flex;
