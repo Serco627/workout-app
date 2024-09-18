@@ -47,14 +47,14 @@ export default function HomePage() {
         </StyledHeadline>
         {moodMode ? (
           <>
-            <StyledPostionRelative>
+            <StyledPositionRelativeRelative>
               <StyledQuotationMarks
                 src={"/quote.svg"}
                 width={100}
                 height={100}
                 alt="quote decoration"
               />
-            </StyledPostionRelative>
+            </StyledPositionRelativeRelative>
             <QuoteText>{currentQuote.quote}</QuoteText>
             <AuthorText>{currentQuote.author}</AuthorText>
           </>
@@ -66,7 +66,7 @@ export default function HomePage() {
               <label htmlFor="mood">My mood today is...</label>
               <br />
               <br />
-              <span>😔</span>
+              <span aria-label="sad emoji">😔</span>
               <input
                 type="range"
                 min={1}
@@ -74,7 +74,7 @@ export default function HomePage() {
                 id="mood"
                 name="mood"
               ></input>
-              <span>🤩</span>
+              <span aria-label="emoji with star eyes">🤩</span>
               <br />
               <Button type="submit">Send</Button>
             </form>
@@ -98,7 +98,7 @@ const StyledQuotationMarks = styled(Image)`
   top: -30px;
 `;
 
-const StyledPostionRelative = styled.div`
+const StyledPositionRelativeRelative = styled.div`
   position: relative;
   width: 100%;
 `;

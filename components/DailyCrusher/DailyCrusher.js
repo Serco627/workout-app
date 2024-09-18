@@ -66,7 +66,7 @@ export default function DailyCrusher() {
         <StyledLink href="/workoutlist">
           <Workout workout={dailyCrusher} spotlightMode={true} />
         </StyledLink>
-        <StyledPostionRelative>
+        <StyledPositionRelativeRelative>
           {isCrusherDetailsVisible ? null : (
             <StyledAbsoluteToggleButton onClick={toggleVisibility}>
               Show More
@@ -74,7 +74,7 @@ export default function DailyCrusher() {
           )}
           <StyledPreviewFilter
             $showMore={
-              isCrusherDetailsVisible ? "filter: none; color: black;" : null
+              isCrusherDetailsVisible ? "filter: none; color: #000;" : null
             }
           >
             <h3>{dailyCrusher.title}</h3>
@@ -82,7 +82,7 @@ export default function DailyCrusher() {
               {dailyCrusher.description1}
             </StyledDescriptionText>
           </StyledPreviewFilter>
-        </StyledPostionRelative>
+        </StyledPositionRelativeRelative>
         {isCrusherDetailsVisible ? (
           <>
             {dailyCrusher.exercises.map((exercise) => {
@@ -102,11 +102,11 @@ export default function DailyCrusher() {
           </>
         ) : null}
       </StyledArticleWrap>
-      {!isCrusherDetailsVisible ? null : (
+      {isCrusherDetailsVisible ? (
         <StyledToggleButton onClick={toggleVisibility}>
           Show Less
         </StyledToggleButton>
-      )}
+      ) : null}
     </StyledCrusherWrapper>
   );
 }
@@ -155,7 +155,7 @@ const StyledPreviewFilter = styled.div`
   ${(props) => props.$showMore}
 `;
 
-const StyledPostionRelative = styled.div`
+const StyledPositionRelativeRelative = styled.div`
   position: relative;
 `;
 

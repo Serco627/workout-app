@@ -62,7 +62,7 @@ export default function Workout({
       >
         {deleteMode ? (
           <ModalOverlay onClick={toggleDeleteMode}>
-            <ModalContent onClick={(e) => e.stopPropagation()}>
+            <ModalContent onClick={(event) => event.stopPropagation()}>
               <p>
                 Are you sure you want to delete <br />
                 <br /> &quot;{workout.name}&quot;?
@@ -197,7 +197,7 @@ const MuscleBadge = styled.li`
   font-weight: bold;
   box-shadow:
     0 2px 5px rgba(0, 0, 0, 0.12),
-    0 1px 3px rgba(0, 0, 0, 0.1);
+    0 1px 3px #0000001a;
   transition: box-shadow 0.3s ease-in-out;
 `;
 
