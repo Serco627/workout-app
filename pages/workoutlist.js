@@ -78,7 +78,7 @@ export default function WorkoutsList() {
           formTitle="Create New Workout"
         />
       ) : null}
-      <StyledHeadline>Choose Your Workout</StyledHeadline>
+      <StyledHeadline>Your Workouts</StyledHeadline>
 
       <WorkoutList>
         <div>

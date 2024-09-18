@@ -38,7 +38,7 @@ export default function Exercises() {
 
   return (
     <StyledFlexWrapper>
-      <StyledHeadline>Exercises</StyledHeadline>
+      <StyledHeadline>YOUR EXERCISES</StyledHeadline>
       <ExerciseList>
         <StyledFilterWrapper>
           <StyledFilterButton onClick={() => setFilterMode(!filterMode)}>

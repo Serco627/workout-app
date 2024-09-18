@@ -87,6 +87,8 @@ const StyledHeadline = styled.h2`
   font-size: 1.5rem;
   margin: 0;
   margin-bottom: 1rem;
+  color: #2980b9;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 `;
 
 const StyledQuotationMarks = styled(Image)`
