@@ -20,7 +20,6 @@ export default function Community() {
     const dataMessage = Object.fromEntries(formData);
     const date = new Date().toLocaleString();
     const newMessage = { ...dataMessage, date: date };
-
     const response = await fetch("/api/messages", {
       method: "POST",
       body: JSON.stringify(newMessage),
