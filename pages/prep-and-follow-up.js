@@ -1,5 +1,5 @@
 import { warmUpCoolDownPrograms } from "@/lib/warmupCooldownPrograms";
-import { warmUpCoolDownExercises } from "@/lib/warmUpCoolDownExercises"; // Change require to import
+import { warmUpCoolDownExercises } from "@/lib/warmUpCoolDownExercises";
 import {
   ProgramCard,
   StyledTable,
@@ -7,22 +7,32 @@ import {
   StyledTableHeader,
   StyledTableData,
   StyledTableDataExercises,
-  InfoToggleButton,
+  StyledFilterButton,
 } from "@/styledComponents";
-import Image from "next/image";
+import { useState } from "react";
 
 function findWarmupCooldownExerciseById(exerciseId) {
-  const stringId = String(exerciseId); // Convert exerciseId to string
+  const stringId = String(exerciseId);
   const foundExercise = warmUpCoolDownExercises.find(
     (exercise) => exercise.id === stringId
   );
   if (!foundExercise) {
-    console.warn(`Exercise with id ${stringId} not found`); // Use backticks for template literals
+    console.warn(`Exercise with id ${stringId} not found`);
   }
-  return foundExercise; // Return the found exercise, not exercise.id === exerciseId
+  return foundExercise;
 }
 
 export default function PrepAndFollowUp() {
+  const [showDetails, setShowDetails] = useState(false);
+  const isDetailsVisible = showDetails[warmUpCoolDownExercises.id] || false;
+
+  const toggleDetails = (workoutId) => {
+    setShowDetails((prev) => ({
+      ...prev,
+      [workoutId]: !prev[workoutId],
+    }));
+  };
+
   return (
     <div>
       <h1>Heat It Up & Chill It Out</h1>
@@ -56,14 +66,13 @@ export default function PrepAndFollowUp() {
                       <StyledTableData>{exercise.reps}</StyledTableData>
                       <StyledTableData>{exercise.duration}</StyledTableData>
                       <StyledTableData>
-                        <InfoToggleButton>
-                          <Image
-                            src="/info.svg"
-                            alt="Instructions"
-                            width={20}
-                            height={20}
-                          />
-                        </InfoToggleButton>
+                        <StyledFilterButton
+                          onClick={() =>
+                            toggleDetails(warmUpCoolDownExercises.id)
+                          }
+                        >
+                          {isDetailsVisible ? "Filter ▲" : "Filter ▼"}
+                        </StyledFilterButton>
                       </StyledTableData>
                     </StyledTableRow>
                   );
