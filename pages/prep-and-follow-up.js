@@ -58,20 +58,30 @@ export default function PrepAndFollowUp() {
                   }
                   const isDetailsVisible = showDetails[exercise.id] || false;
                   return (
-                    <StyledTableRow key={exercise.id}>
-                      <StyledTableDataExercises>
-                        {exercise.name}
-                      </StyledTableDataExercises>
-                      <StyledTableData>{exercise.reps}</StyledTableData>
-                      <StyledTableData>{exercise.duration}</StyledTableData>
-                      <StyledTableData>
-                        <StyledFilterButton
-                          onClick={() => toggleDetails(exerciseId)}
-                        >
-                          {isDetailsVisible ? "Info ▲" : "Info ▼"}
-                        </StyledFilterButton>
-                      </StyledTableData>
-                    </StyledTableRow>
+                    <>
+                      <StyledTableRow key={exercise.id}>
+                        <StyledTableDataExercises>
+                          {exercise.name}
+                        </StyledTableDataExercises>
+                        <StyledTableData>{exercise.reps}</StyledTableData>
+                        <StyledTableData>{exercise.duration}</StyledTableData>
+                        <StyledTableData>
+                          <StyledFilterButton
+                            onClick={() => toggleDetails(exerciseId)}
+                          >
+                            {isDetailsVisible ? "Info ▲" : "Info ▼"}
+                          </StyledFilterButton>
+                        </StyledTableData>
+                      </StyledTableRow>
+
+                      {isDetailsVisible ? (
+                        <StyledTableRow>
+                          <StyledTableData colSpan={4}>
+                            <p>Beschreibung</p>
+                          </StyledTableData>
+                        </StyledTableRow>
+                      ) : null}
+                    </>
                   );
                 })}
               </tbody>
