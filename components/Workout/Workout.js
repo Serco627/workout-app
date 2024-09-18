@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import Form from "../WorkoutFom/WorkoutForm";
 import { uid } from "uid";
-import { CreateWorkoutButton } from "@/styledComponents";
+import { CreateWorkoutButton, StyledCardHeadline } from "@/styledComponents";
 
 export default function Workout({ workout, handleDelete, handleEditWorkout }) {
   const [showDetails, setShowDetails] = useState({});
@@ -287,20 +287,4 @@ const Filter = styled.div`
   z-index: 1;
   background: #00000039;
   padding: 1rem 3rem;
-`;
-
-const StyledCardHeadline = styled.h2`
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 0.25rem;
-  text-shadow:
-    2px 2px 0 #3498db,
-    -2px -2px 0 #3498db,
-    0px -2px 0 #3498db,
-    -2px 0px 0 #3498db,
-    2px 0px 0 #3498db,
-    0px 2px 0 #3498db,
-    2px -2px 0 #3498db,
-    2px 0px 0 #3498db,
-    -2px 2px 0 #3498db;
 `;

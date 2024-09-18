@@ -7,7 +7,11 @@ import {
   StyledTableHeader,
   StyledTableData,
   StyledTableDataExercises,
-  StyledFilterButton,
+  StyledInfoButton,
+  InstructionItem,
+  InstructionsList,
+  StyledHeadline,
+  StyledCardHeadlineCoolDown,
 } from "@/styledComponents";
 import { useState } from "react";
 
@@ -34,13 +38,15 @@ export default function PrepAndFollowUp() {
 
   return (
     <div>
-      <h1>Heat It Up & Chill It Out</h1>
+      <StyledHeadline>Heat It Up & Chill It Out</StyledHeadline>
       <div
         style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
       >
         {warmUpCoolDownPrograms.map((program) => (
           <ProgramCard key={program.id}>
-            <h2>{program.name}</h2>
+            <StyledCardHeadlineCoolDown>
+              {program.name}
+            </StyledCardHeadlineCoolDown>
             <StyledTable>
               <thead>
                 <StyledTableRow>
@@ -66,18 +72,27 @@ export default function PrepAndFollowUp() {
                         <StyledTableData>{exercise.reps}</StyledTableData>
                         <StyledTableData>{exercise.duration}</StyledTableData>
                         <StyledTableData>
-                          <StyledFilterButton
+                          <StyledInfoButton
                             onClick={() => toggleDetails(exerciseId)}
                           >
                             {isDetailsVisible ? "Info ▲" : "Info ▼"}
-                          </StyledFilterButton>
+                          </StyledInfoButton>
                         </StyledTableData>
                       </StyledTableRow>
 
                       {isDetailsVisible ? (
                         <StyledTableRow>
                           <StyledTableData colSpan={4}>
-                            <p>Beschreibung</p>
+                            <h4>Instructions:</h4>
+                            <InstructionsList>
+                              {exercise.instruction.map(
+                                (instruction, index) => (
+                                  <InstructionItem key={index}>
+                                    {instruction}
+                                  </InstructionItem>
+                                )
+                              )}
+                            </InstructionsList>
                           </StyledTableData>
                         </StyledTableRow>
                       ) : null}

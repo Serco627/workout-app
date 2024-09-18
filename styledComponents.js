@@ -29,6 +29,12 @@ export const StyledHeadline = styled.h2`
   text-align: center;
 `;
 
+export const StyledHeadlineH3 = styled.h3`
+  background: #fff;
+  margin: 0;
+  text-align: center;
+`;
+
 export const NoWorkoutsMessage = styled.div`
   font-size: 1.25rem;
   color: #3498db;
@@ -276,6 +282,16 @@ export const StyledFilterButton = styled.button`
   }
 `;
 
+export const StyledInfoButton = styled(StyledFilterButton)`
+  color: #e67e22;
+  border: 2px solid #e67e22;
+  margin-bottom: 0;
+  &:hover {
+    background-color: #d35400;
+    color: #ffffff;
+  }
+`;
+
 export const StyledFilterWrapper = styled.aside`
   min-width: 300px;
   width: 100%;
@@ -319,6 +335,7 @@ export const StyledTableHeader = styled.th`
 export const StyledTableData = styled.td`
   padding: 0.5rem;
   text-align: center;
+  vertical-align: middle;
 `;
 
 export const StyledTableDataExercises = styled(StyledTableData)`
@@ -342,4 +359,24 @@ export const InfoToggleButton = styled.button`
   &:hover {
     background: #d35400;
   }
+`;
+
+export const StyledCardHeadline = styled.h2`
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.25rem;
+  text-shadow:
+    2px 2px 0 #3498db,
+    -2px -2px 0 #3498db,
+    0px -2px 0 #3498db,
+    -2px 0px 0 #3498db,
+    2px 0px 0 #3498db,
+    0px 2px 0 #3498db,
+    2px -2px 0 #3498db,
+    2px 0px 0 #3498db,
+    -2px 2px 0 #3498db;
+`;
+
+export const StyledCardHeadlineCoolDown = styled(StyledCardHeadline)`
+  margin: 0;
 `;
