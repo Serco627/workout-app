@@ -119,7 +119,9 @@ export const ExerciseCard = styled.li`
   position: relative;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 4px 8px #0000001a,
+    0 -0.5px 5px #0000000d;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -186,12 +188,13 @@ export const MuscleBadge = styled.li`
   font-weight: bold;
   box-shadow:
     0 2px 5px rgba(0, 0, 0, 0.12),
-    0 1px 3px rgba(0, 0, 0, 0.1);
+    0 1px 3px #0000001a;
   transition: box-shadow 0.3s ease-in-out;
 `;
 
 export const StyledLink = styled(Link)`
   text-decoration: none;
+  color: #000;
 `;
 
 // ExerciseDetailsPage Components

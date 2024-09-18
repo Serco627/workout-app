@@ -3,6 +3,7 @@ import styled from "styled-components";
 import getRandomIndex from "@/utils/getRandomIndex";
 import { exercises } from "/lib/exercises";
 import Exercise from "../Exercise/Exercise";
+import { StyledHeadline } from "@/styledComponents";
 
 export default function SpotlightExercise() {
   const [spotlightExercise, setSpotlightExercise] = useState(null);
@@ -17,7 +18,7 @@ export default function SpotlightExercise() {
 
   return (
     <SpotlightContainer>
-      <h1>Spotlight Exercise 🔎</h1>
+      <StyledHeadline>SPOTLIGHT EXERCISE 🔎</StyledHeadline>
       <h2>{spotlightExercise.name}</h2>
       <Exercise exercise={spotlightExercise} spotlightMode={true} />
 
@@ -47,7 +48,9 @@ const SpotlightContainer = styled.section`
   max-width: 600px;
   margin: 20px auto;
   text-align: center;
-  box-shadow: 0 4px 8px #0000001a;
+  box-shadow:
+    0 4px 8px #0000001a,
+    0 -0.5px 5px #0000000d;
 `;
 
 const BenefitsSection = styled.div`

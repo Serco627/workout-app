@@ -6,6 +6,7 @@ import {
 import { useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
+import DailyCrusher from "@/components/DailyCrusher/DailyCrusher";
 import SpotlightExercise from "@/components/SpotlightExercise/SpotlightExercise";
 import getRandomIndex from "@/utils/getRandomIndex";
 
@@ -52,6 +53,7 @@ export default function HomePage() {
                 alt="quote decoration"
               />
             </StyledPostionRelative>
+
             <QuoteText>{currentQuote.quote}</QuoteText>
             <AuthorText>{currentQuote.author}</AuthorText>
           </>
@@ -63,7 +65,7 @@ export default function HomePage() {
               <label htmlFor="mood">My mood today is...</label>
               <br />
               <br />
-              <span>😔</span>
+              <span aria-label="sad emoji">😔</span>
               <input
                 type="range"
                 min={1}
@@ -71,13 +73,14 @@ export default function HomePage() {
                 id="mood"
                 name="mood"
               ></input>
-              <span>🤩</span>
+              <span aria-label="emoji with star eyes">🤩</span>
               <br />
               <Button type="submit">Send</Button>
             </form>
           </>
         )}
-      </QuoteContainer>
+      </QuoteContainer>{" "}
+      <DailyCrusher />
       <SpotlightExercise />
     </>
   );
@@ -114,6 +117,7 @@ const QuoteContainer = styled.article`
   text-align: center;
   box-shadow: 0 4px 8px #0000001a;
 `;
+
 const QuoteText = styled.blockquote`
   font-size: 24px;
   font-style: italic;
