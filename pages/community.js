@@ -1,5 +1,6 @@
 import useSWR from "swr";
 import styled from "styled-components";
+import sortByNewestTime from "@/utils/sortByNewestTime";
 
 export default function Community() {
   const { data, error, isLoading } = useSWR("/api/messages");
@@ -19,7 +20,7 @@ export default function Community() {
     const dataMessage = Object.fromEntries(formData);
     const date = new Date().toLocaleString();
     const newMessage = { ...dataMessage, date: date };
-    console.log(newMessage);
+
     const response = await fetch("/api/messages", {
       method: "POST",
       body: JSON.stringify(newMessage),
@@ -30,11 +31,12 @@ export default function Community() {
     }
     event.target.reset();
   }
+  const sortedData = sortByNewestTime(data);
 
   return (
     <>
       <CommunityWrapper>
-        {data.map((message) => (
+        {sortedData.map((message) => (
           <MessageBubble key={message._id}>
             <MessageAuthor>{message.name}</MessageAuthor>
             <p>{message.message}</p>
