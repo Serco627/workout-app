@@ -11,8 +11,9 @@ export default function Layout({ children }) {
       <Footer>
         <Nav>
           <NavLink href="/">Home</NavLink>
-          <NavLink href="/workoutlist">Workouts</NavLink>
-          <NavLink href="/exercises">Exercises</NavLink>
+          <NavLink href="/workoutlist">Work outs</NavLink>
+          <NavLink href="/exercises">Exer cises</NavLink>
+          <NavLink href="/prep-and-follow-up">Prep down</NavLink>
         </Nav>
       </Footer>
     </Container>
