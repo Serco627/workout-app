@@ -14,6 +14,7 @@ import {
   StyledCardHeadlineCoolDown,
 } from "@/styledComponents";
 import { useState } from "react";
+import React from "react";
 
 function findWarmupCooldownExerciseById(exerciseId) {
   const stringId = String(exerciseId);
@@ -64,7 +65,7 @@ export default function PrepAndFollowUp() {
                   }
                   const isDetailsVisible = showDetails[exercise.id] || false;
                   return (
-                    <>
+                    <React.Fragment key={exercise.id}>
                       <StyledTableRow key={exercise.id}>
                         <StyledTableDataExercises>
                           {exercise.name}
@@ -87,7 +88,9 @@ export default function PrepAndFollowUp() {
                             <InstructionsList>
                               {exercise.instruction.map(
                                 (instruction, index) => (
-                                  <InstructionItem key={index}>
+                                  <InstructionItem
+                                    key={`${exercise.id}-${index}`}
+                                  >
                                     {instruction}
                                   </InstructionItem>
                                 )
@@ -96,7 +99,7 @@ export default function PrepAndFollowUp() {
                           </StyledTableData>
                         </StyledTableRow>
                       ) : null}
-                    </>
+                    </React.Fragment>
                   );
                 })}
               </tbody>
