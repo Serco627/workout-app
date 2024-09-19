@@ -1,31 +1,75 @@
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 import Link from "next/link";
 import Header from "./Header/Header";
-import { useRouter } from "next/router";
 import { useState } from "react";
 
+// Animation keyframes for sliding up
+const slideUp = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
 export default function Layout({ children }) {
-  const [menuOpen, setMenuOpen] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
   function toggleMenu() {
     setMenuOpen(!menuOpen);
   }
+
   return (
     <Container>
       <Header />
-      <MainContent>{children}</MainContent>
+      <MainContent $mainFilter={menuOpen ? "filter: blur(2px);" : null}>
+        {children}
+      </MainContent>
 
       <Footer>
         <Nav>
-          <NavLink href="/">Home</NavLink>
-          <NavSpan onClick={toggleMenu}>
-            <p>Activities</p>
+          <NavSpan onClick={toggleMenu} aria-label="menu">
+            &#9776;
           </NavSpan>
 
-          <SubNavLink1 href="/exercises">Workouts</SubNavLink1>
-          <SubNavLink2 href="/exercises">Exercises</SubNavLink2>
-          <SubNavLink3 href="/exercises">Warm ups & Cool Downs</SubNavLink3>
+          {menuOpen && (
+            <>
+              <SubNavLink1 $menuOpen={menuOpen} href="/" onClick={toggleMenu}>
+                Home
+              </SubNavLink1>
 
-          <NavLink href="/community">Chat</NavLink>
+              <SubNavLink2
+                $menuOpen={menuOpen}
+                href="/workoutlist"
+                onClick={toggleMenu}
+              >
+                Workouts
+              </SubNavLink2>
+              <SubNavLink3
+                $menuOpen={menuOpen}
+                href="/exercises"
+                onClick={toggleMenu}
+              >
+                Exercises
+              </SubNavLink3>
+              <SubNavLink4
+                $menuOpen={menuOpen}
+                href="/exercises"
+                onClick={toggleMenu}
+              >
+                Warm ups & Cool Downs
+              </SubNavLink4>
+              <SubNavLink5
+                $menuOpen={menuOpen}
+                href="/community"
+                onClick={toggleMenu}
+              >
+                Chat
+              </SubNavLink5>
+            </>
+          )}
         </Nav>
       </Footer>
     </Container>
@@ -33,14 +77,20 @@ export default function Layout({ children }) {
 }
 
 const NavSpan = styled.span`
-  color: #fff;
-  background-color: transparent;
+  color: #3498db;
+  background-color: #fff;
   text-decoration: none;
   border: 2px solid #ffffff;
   padding: 10px 15px;
   border-radius: 5px;
   font-size: 1rem;
   transition: all 0.3s ease-in-out;
+  display: inline-block;
+  border: 3px solid #3498db;
+  font-weight: bold;
+  box-shadow:
+    0 2px 5px #0000001f,
+    0 1px 5px #0000001f;
 `;
 
 const Container = styled.div`
@@ -52,8 +102,7 @@ const Container = styled.div`
 const Nav = styled.nav`
   display: flex;
   gap: 1rem;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-end;
 `;
 
 const NavLink = styled(({ isActive, ...props }) => <Link {...props} />)`
@@ -83,39 +132,54 @@ const NavLink = styled(({ isActive, ...props }) => <Link {...props} />)`
 const SubNavLink = styled(NavLink)`
   position: fixed;
   background-color: #3498db;
+  opacity: 0; /* Start hidden */
+  transform: translateY(20px); /* Start off-screen */
+  transition:
+    opacity 0.3s ease-in-out,
+    transform 0.3s ease-in-out;
+  ${({ $menuOpen }) =>
+    $menuOpen &&
+    css`
+      animation: ${slideUp} 0.3s forwards;
+    `}
 `;
 
 const SubNavLink1 = styled(SubNavLink)`
-  bottom: 80px;
+  bottom: 70px;
 `;
 
 const SubNavLink2 = styled(SubNavLink)`
-  bottom: 125px;
+  bottom: 115px;
 `;
 
 const SubNavLink3 = styled(SubNavLink)`
-  bottom: 170px;
+  bottom: 160px;
+`;
+
+const SubNavLink4 = styled(SubNavLink)`
+  bottom: 205px;
+`;
+
+const SubNavLink5 = styled(SubNavLink)`
+  bottom: 250px;
 `;
 
 const MainContent = styled.main`
   flex: 1;
-  padding: 1rem;
   padding-top: 0px;
   margin-bottom: 65px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  ${(props) => props.$mainFilter}
 `;
 
 const Footer = styled.footer`
   text-align: center;
   padding: 1rem;
-  background-color: #3498db;
   color: #fff;
   position: fixed;
   bottom: 0;
   z-index: 3;
   width: 100%;
-  border-top: 1px solid #fff;
-  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
 `;

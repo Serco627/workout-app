@@ -1,5 +1,6 @@
 import useSWR from "swr";
 import styled from "styled-components";
+import Image from "next/image";
 import sortByNewestTime from "@/utils/sortByNewestTime";
 
 export default function Community() {
@@ -34,16 +35,7 @@ export default function Community() {
   const sortedData = sortByNewestTime(data);
 
   return (
-    <>
-      <CommunityWrapper>
-        {sortedData.map((message) => (
-          <MessageBubble key={message._id}>
-            <MessageAuthor>{message.name}</MessageAuthor>
-            <p>{message.message}</p>
-            <MessageTimestamp>{message.date}</MessageTimestamp>
-          </MessageBubble>
-        ))}
-      </CommunityWrapper>
+    <StyledBackground>
       <InputFormWrapper onSubmit={handleSubmit}>
         <StyledLabel htmlFor="name">Name</StyledLabel>
         <StyledInput
@@ -61,29 +53,50 @@ export default function Community() {
           name="message"
           required
         />
-        <StyledSendButton type="submit">send</StyledSendButton>
+        <StyledSendButton type="submit">
+          <StyledPaperplane src="/paperplane.svg" width={20} height={20} />
+        </StyledSendButton>
       </InputFormWrapper>
-    </>
+      <CommunityWrapper>
+        {sortedData.map((message) => (
+          <MessageBubble key={message._id}>
+            <MessageAuthor>{message.name}</MessageAuthor>
+            <p>{message.message}</p>
+            <MessageTimestamp>{message.date}</MessageTimestamp>
+          </MessageBubble>
+        ))}
+      </CommunityWrapper>
+    </StyledBackground>
   );
 }
+
+const StyledPaperplane = styled(Image)`
+  transform: rotate(-30deg);
+  color: #fff;
+`;
 
 const StyledLabel = styled.label`
   display: none;
 `;
 
-const CommunityWrapper = styled.section`
+const StyledBackground = styled.section`
+  background-color: #fff;
+`;
+
+const CommunityWrapper = styled.article`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 1rem;
+  padding-bottom: 0;
+  padding-top: 0;
   max-width: 300px;
   margin: 0 auto;
-  padding-bottom: 4.5rem;
 `;
 
 const MessageBubble = styled.div`
-  background: #fff;
+  background: #f5f5f5;
   border-radius: 15px;
   padding: 10px;
   margin: 10px 0;
@@ -111,13 +124,9 @@ const InputFormWrapper = styled.form`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 1rem;
   width: 100%;
-  position: fixed;
-  bottom: 90px;
-  background-color: #fff;
-  padding: 10px;
-  box-shadow: 0 -0.5px 5px #0000000d;
+  padding: 0.5rem;
+  margin-top: 8px;
 `;
 
 const StyledInput = styled.input`
@@ -128,14 +137,18 @@ const StyledInput = styled.input`
   margin-right: 5px;
   outline: none;
   width: 30%;
+
+  &::placeholder {
+    color: #3498db;
+  }
 `;
 
 const StyledSendButton = styled.button`
-  padding: 10px 15px;
+  padding: 7px 12px;
   border-radius: 15px;
-  background-color: #e67e22;
+  background-color: #27ae60;
+  border: 1px solid #27ae60;
   color: #fff;
-  border: none;
   cursor: pointer;
 
   &:hover {
