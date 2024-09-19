@@ -2,9 +2,15 @@ import styled from "styled-components";
 import { useState } from "react";
 import Form from "../WorkoutFom/WorkoutForm";
 import { uid } from "uid";
-import { CreateWorkoutButton, StyledCardHeadline } from "@/styledComponents";
+import { CreateWorkoutButton } from "@/styledComponents";
+import Image from "next/image";
 
-export default function Workout({ workout, handleDelete, handleEditWorkout }) {
+export default function Workout({
+  workout,
+  handleDelete,
+  handleEditWorkout,
+  spotlightMode,
+}) {
   const [showDetails, setShowDetails] = useState({});
   const [deleteMode, setDeleteMode] = useState(false);
   const isDetailsVisible = showDetails[workout.id] || false;
@@ -37,13 +43,7 @@ export default function Workout({ workout, handleDelete, handleEditWorkout }) {
   return (
     <>
       {editMode ? (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
+        <div>
           <Filter onClick={toggleEditMode}></Filter>
           <Form
             formTitle="Edit your Workout"
@@ -54,10 +54,16 @@ export default function Workout({ workout, handleDelete, handleEditWorkout }) {
           />
         </div>
       ) : null}
-      <WorkoutCard>
+      <WorkoutCard
+        $spotlightPadding={
+          spotlightMode
+            ? "padding-top: 0; border-top: 1px solid #0000001a;"
+            : null
+        }
+      >
         {deleteMode ? (
           <ModalOverlay onClick={toggleDeleteMode}>
-            <ModalContent onClick={(e) => e.stopPropagation()}>
+            <ModalContent onClick={(event) => event.stopPropagation()}>
               <p>
                 Are you sure you want to delete <br />
                 <br /> &quot;{workout.name}&quot;?
@@ -67,14 +73,28 @@ export default function Workout({ workout, handleDelete, handleEditWorkout }) {
             </ModalContent>
           </ModalOverlay>
         ) : null}
-
-        <StyledEditDeleteWrapper>
-          <StyledButtonDelete onClick={toggleDeleteMode}>
-            Delete
-          </StyledButtonDelete>
-          <StyledButtonEdit onClick={toggleEditMode}>Edit</StyledButtonEdit>
-        </StyledEditDeleteWrapper>
-        <StyledCardHeadline>{workout.name}</StyledCardHeadline>
+        {spotlightMode ? null : (
+          <StyledEditDeleteWrapper>
+            <StyledButtonDelete onClick={toggleDeleteMode}>
+              <StyledSvg
+                src="/trash.svg"
+                width={25}
+                height={25}
+                alt="delete button"
+              />
+            </StyledButtonDelete>
+            <StyledButtonEdit onClick={toggleEditMode}>
+              {" "}
+              <StyledSvg
+                src="/pencil.svg"
+                width={25}
+                height={25}
+                alt="edit button"
+              />
+            </StyledButtonEdit>
+          </StyledEditDeleteWrapper>
+        )}
+        <h2>{workout.name}</h2>
 
         <SpotlightHeading>Muscles In The Spotlight:</SpotlightHeading>
         <MuscleGroupList>
@@ -82,18 +102,27 @@ export default function Workout({ workout, handleDelete, handleEditWorkout }) {
             <MuscleBadge key={muscle}>{muscle}</MuscleBadge>
           ))}
         </MuscleGroupList>
-        <ToggleButton onClick={() => toggleDetails(workout.id)}>
-          {isDetailsVisible ? "Show Less" : "Show More"}
-        </ToggleButton>
+
+        {spotlightMode ? null : (
+          <ToggleButton onClick={() => toggleDetails(workout.id)}>
+            {isDetailsVisible ? "Show Less" : "Show More"}
+          </ToggleButton>
+        )}
 
         {isDetailsVisible && (
           <ExerciseList>
+            <ExerciseItemHeadline>
+              <ExerciseName>EXERCISE</ExerciseName>
+              <ExerciseDetails>SETS</ExerciseDetails>
+              <ExerciseDetails>REPS</ExerciseDetails>
+            </ExerciseItemHeadline>
+
             {workout.exercises.map((exercise) => {
               return (
                 <ExerciseItem key={uid()}>
                   <ExerciseName>{exercise.name}</ExerciseName>
-                  <ExerciseDetails>Sets: {exercise.sets}</ExerciseDetails>
-                  <ExerciseDetails>Reps: {exercise.reps}</ExerciseDetails>
+                  <ExerciseDetails>{exercise.sets}</ExerciseDetails>
+                  <ExerciseDetails>{exercise.reps}</ExerciseDetails>
                 </ExerciseItem>
               );
             })}
@@ -104,6 +133,11 @@ export default function Workout({ workout, handleDelete, handleEditWorkout }) {
   );
 }
 
+const StyledSvg = styled(Image)`
+  padding: 0;
+  margin: 0;
+`;
+
 const StyledEditDeleteWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -111,25 +145,31 @@ const StyledEditDeleteWrapper = styled.div`
 
 const StyledButtonDelete = styled(CreateWorkoutButton)`
   margin: 0;
+  padding: 0;
   color: #c0392b;
   border: 2px solid #c0392b;
-  background-color: #c0392b30;
+  background-color: #c0392b;
+  box-shadow:
+    0 4px 8px #0000001a,
+    0 -0.5px 5px #0000000d;
 
   &:hover {
     background-color: #c0392b;
-    color: #fff;
   }
 `;
 
 const StyledButtonEdit = styled(CreateWorkoutButton)`
   margin: 0;
+  padding: 0;
   color: #e67e22;
   border: 2px solid #e67e22;
-  background-color: #e67e2230;
+  background-color: #e67e22;
+  box-shadow:
+    0 4px 8px #0000001a,
+    0 -0.5px 5px #0000000d;
 
   &:hover {
     background-color: #e67e22;
-    color: #fff;
   }
 `;
 
@@ -137,12 +177,16 @@ const WorkoutCard = styled.article`
   position: relative;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 8px #0000001a;
+  box-shadow:
+    0 4px 8px #0000001a,
+    0 -0.5px 5px #0000000d;
   margin-bottom: 2rem;
   padding: 1rem 2rem;
   background: #fff;
   text-align: center;
   padding-top: 2rem;
+  padding-bottom: 1.5rem;
+  ${(props) => props.$spotlightPadding}
 `;
 
 const ToggleButton = styled.button`
@@ -184,7 +228,7 @@ const MuscleBadge = styled.li`
   font-weight: bold;
   box-shadow:
     0 2px 5px rgba(0, 0, 0, 0.12),
-    0 1px 3px rgba(0, 0, 0, 0.1);
+    0 1px 3px #0000001a;
   transition: box-shadow 0.3s ease-in-out;
 `;
 
@@ -193,54 +237,49 @@ const ExerciseList = styled.ul`
   padding: 0;
 `;
 
+const ExerciseItemHeadline = styled.li`
+  border-bottom: 3px solid #888;
+  padding: 0.5rem 0;
+  text-align: left;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+`;
+
 const ExerciseItem = styled.li`
   border-bottom: 1px solid #ddd;
   padding: 0.5rem 0;
+  text-align: left;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 `;
 
-const ExerciseName = styled.h3`
+const ExerciseName = styled.span`
+  _flex-grow: 1;
+  flex-basis: 60px;
   margin: 0;
-  color: #333;
+  font-weight: 500;
+  color: #222;
+  margin-right: 0.5rem;
 `;
 
-const ExerciseDetails = styled.p`
+const ExerciseDetails = styled.span`
+  _flex-grow: 0;
+  flex-basis: 30px;
   margin: 0;
   color: #666;
+  margin-right: 0.5rem;
+  text-align: center;
 `;
 
 const SpotlightHeading = styled.h3`
   text-align: center;
   margin-top: 0;
   margin-bottom: 1rem;
-`;
-
-const WorkoutButtonCircle = styled.button`
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  font-weight: bold;
-  position: absolute;
-`;
-
-const DeleteWorkoutButton = styled(WorkoutButtonCircle)`
-  background-color: #c0392b;
-  left: 16px;
-  top: 16px;
-`;
-
-const EditWorkoutButton = styled(WorkoutButtonCircle)`
-  background-color: #e67e22;
-  right: 16px;
-  top: 16px;
-  transform: rotate(80deg);
-  font-size: 1.4rem;
-  font-weight: normal;
+  font-weight: 450;
 `;
 
 const ModalOverlay = styled.div`
@@ -284,7 +323,23 @@ const Filter = styled.div`
   position: fixed;
   bottom: 0;
   left: 0;
-  z-index: 1;
+  z-index: 6;
   background: #00000039;
   padding: 1rem 3rem;
+`;
+
+const StyledCardHeadline = styled.h2`
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.25rem;
+  text-shadow:
+    2px 2px 0 #3498db,
+    -2px -2px 0 #3498db,
+    0px -2px 0 #3498db,
+    -2px 0px 0 #3498db,
+    2px 0px 0 #3498db,
+    0px 2px 0 #3498db,
+    2px -2px 0 #3498db,
+    2px 0px 0 #3498db,
+    -2px 2px 0 #3498db;
 `;

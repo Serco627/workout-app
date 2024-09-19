@@ -9,7 +9,7 @@ import {
   ExerciseCard,
 } from "/styledComponents.js";
 
-export default function Exercise({ exercise }) {
+export default function Exercise({ exercise, spotlightMode }) {
   return (
     <ExerciseCard id={exercise.id}>
       <StyledLink href={`/exercises/${exercise.id}`}>
@@ -24,12 +24,17 @@ export default function Exercise({ exercise }) {
           />
         </BackgroundImageWrapper>
         <ContentOverlay>
-          <ExerciseName>{exercise.name}</ExerciseName>
-          <MuscleGroupList>
-            {exercise.muscleGroups.map((muscle, index) => (
-              <MuscleBadge key={index}>{muscle}</MuscleBadge>
-            ))}
-          </MuscleGroupList>
+          {spotlightMode ? null : <ExerciseName>{exercise.name}</ExerciseName>}
+
+          {spotlightMode ? (
+            <p>{exercise.intro}</p>
+          ) : (
+            <MuscleGroupList>
+              {exercise.muscleGroups.map((muscle, index) => (
+                <MuscleBadge key={index}>{muscle}</MuscleBadge>
+              ))}
+            </MuscleGroupList>
+          )}
         </ContentOverlay>
       </StyledLink>
     </ExerciseCard>
