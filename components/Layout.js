@@ -13,21 +13,10 @@ export default function Layout({ children }) {
 
       <Footer>
         <Nav>
-          <NavLink href="/" isActive={router.pathname === "/"}>
-            Home
-          </NavLink>
-          <NavLink
-            href="/workoutlist"
-            isActive={router.pathname === "/workoutlist"}
-          >
-            Workouts
-          </NavLink>
-          <NavLink
-            href="/exercises"
-            isActive={router.pathname.startsWith("/exercises")}
-          >
-            Exercises
-          </NavLink>
+          <NavLink href="/">Home</NavLink>
+          <NavLink href="/workoutlist">Work outs</NavLink>
+          <NavLink href="/exercises">Exer cises</NavLink>
+          <NavLink href="/community">Chat</NavLink>
         </Nav>
       </Footer>
     </Container>
@@ -66,7 +55,6 @@ const NavLink = styled(({ isActive, ...props }) => <Link {...props} />)`
   &:active {
     background-color: #ffffff;
     color: #3498db;
-    _font-weight: bold;
     border: 3px solid #ffffff;
   }
 `;
@@ -76,8 +64,9 @@ const MainContent = styled.main`
   padding: 1rem;
   padding-top: 0px;
   margin-bottom: 65px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  _background-color: #efefef;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Footer = styled.footer`
