@@ -78,8 +78,8 @@ export default function Workout({
             <StyledButtonDelete onClick={toggleDeleteMode}>
               <StyledSvg
                 src="/trash.svg"
-                width={20}
-                height={20}
+                width={25}
+                height={25}
                 alt="delete button"
               />
             </StyledButtonDelete>
@@ -87,8 +87,8 @@ export default function Workout({
               {" "}
               <StyledSvg
                 src="/pencil.svg"
-                width={20}
-                height={20}
+                width={25}
+                height={25}
                 alt="edit button"
               />
             </StyledButtonEdit>
@@ -145,6 +145,7 @@ const StyledEditDeleteWrapper = styled.div`
 
 const StyledButtonDelete = styled(CreateWorkoutButton)`
   margin: 0;
+  padding: 0;
   color: #c0392b;
   border: 2px solid #c0392b;
   background-color: #c0392b;
@@ -159,6 +160,7 @@ const StyledButtonDelete = styled(CreateWorkoutButton)`
 
 const StyledButtonEdit = styled(CreateWorkoutButton)`
   margin: 0;
+  padding: 0;
   color: #e67e22;
   border: 2px solid #e67e22;
   background-color: #e67e22;

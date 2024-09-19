@@ -165,8 +165,8 @@ export default function Form({
                       >
                         <StyledSvg
                           src="/trash.svg"
-                          width={15}
-                          height={15}
+                          width={16}
+                          height={16}
                           alt="delete exercise"
                         />
                       </StyledButtonDelete>
@@ -195,6 +195,7 @@ const StyledSvg = styled(Image)`
 `;
 const StyledButtonDelete = styled(CreateWorkoutButton)`
   margin: 0;
+  padding: 0;
   color: #c0392b;
   border: 2px solid #c0392b;
   background-color: #c0392b;
