@@ -7,7 +7,7 @@ export const Filter = styled.div`
   min-height: 100vh;
   position: fixed;
   bottom: 0;
-  z-index: 1;
+  z-index: 6;
   background: #00000099;
   padding: 1rem 3rem;
 `;

@@ -154,7 +154,6 @@ const StyledButtonDelete = styled(CreateWorkoutButton)`
 
   &:hover {
     background-color: #c0392b;
-    color: #fff;
   }
 `;
 
@@ -169,7 +168,6 @@ const StyledButtonEdit = styled(CreateWorkoutButton)`
 
   &:hover {
     background-color: #e67e22;
-    color: #fff;
   }
 `;
 

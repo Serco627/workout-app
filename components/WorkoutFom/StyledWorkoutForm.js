@@ -17,7 +17,7 @@ export const WrapperForm = styled.div`
   top: 10%;
   left: 50%;
   transform: translate(-50%, 0);
-  z-index: 2;
+  z-index: 6;
   max-width: 500px;
   width: 90%;
   max-height: 75vh;
