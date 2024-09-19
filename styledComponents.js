@@ -69,7 +69,6 @@ export const CreateWorkoutButton = styled.button`
   border: 2px solid #3498db;
   background-color: #ffffff;
   color: #3498db;
-  padding-top: 2px;
   margin-bottom: 1rem;
   align-self: start;
 

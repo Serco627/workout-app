@@ -3,6 +3,7 @@ import { useState } from "react";
 import Form from "../WorkoutFom/WorkoutForm";
 import { uid } from "uid";
 import { CreateWorkoutButton } from "@/styledComponents";
+import Image from "next/image";
 
 export default function Workout({
   workout,
@@ -75,9 +76,22 @@ export default function Workout({
         {spotlightMode ? null : (
           <StyledEditDeleteWrapper>
             <StyledButtonDelete onClick={toggleDeleteMode}>
-              Delete
+              <StyledSvg
+                src="/trash.svg"
+                width={20}
+                height={20}
+                alt="delete button"
+              />
             </StyledButtonDelete>
-            <StyledButtonEdit onClick={toggleEditMode}>Edit</StyledButtonEdit>
+            <StyledButtonEdit onClick={toggleEditMode}>
+              {" "}
+              <StyledSvg
+                src="/pencil.svg"
+                width={20}
+                height={20}
+                alt="edit button"
+              />
+            </StyledButtonEdit>
           </StyledEditDeleteWrapper>
         )}
         <h2>{workout.name}</h2>
@@ -119,6 +133,11 @@ export default function Workout({
   );
 }
 
+const StyledSvg = styled(Image)`
+  padding: 0;
+  margin: 0;
+`;
+
 const StyledEditDeleteWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -128,7 +147,10 @@ const StyledButtonDelete = styled(CreateWorkoutButton)`
   margin: 0;
   color: #c0392b;
   border: 2px solid #c0392b;
-  background-color: #c0392b30;
+  background-color: #c0392b;
+  box-shadow:
+    0 4px 8px #0000001a,
+    0 -0.5px 5px #0000000d;
 
   &:hover {
     background-color: #c0392b;
@@ -140,7 +162,10 @@ const StyledButtonEdit = styled(CreateWorkoutButton)`
   margin: 0;
   color: #e67e22;
   border: 2px solid #e67e22;
-  background-color: #e67e2230;
+  background-color: #e67e22;
+  box-shadow:
+    0 4px 8px #0000001a,
+    0 -0.5px 5px #0000000d;
 
   &:hover {
     background-color: #e67e22;
