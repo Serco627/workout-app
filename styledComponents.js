@@ -27,6 +27,9 @@ export const StyledHeadline = styled.h2`
   margin: 0;
   margin-top: 1rem;
   text-align: center;
+  color: #555555;
+  text-transform: uppercase;
+  font-size: 1.7rem;
 `;
 
 export const NoWorkoutsMessage = styled.div`
@@ -91,7 +94,7 @@ export const FlexWrapWorkouts = styled.div`
   align-items: center;
 `;
 
-// HomePage Components
+// Exercises Page
 export const StyledFlexWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -105,6 +108,7 @@ export const ExerciseList = styled.ul`
   list-style: none;
   gap: 1.5rem;
   padding: 1rem;
+  padding-top: 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -115,7 +119,9 @@ export const ExerciseCard = styled.li`
   position: relative;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 4px 8px #0000001a,
+    0 -0.5px 5px #0000000d;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -182,12 +188,13 @@ export const MuscleBadge = styled.li`
   font-weight: bold;
   box-shadow:
     0 2px 5px rgba(0, 0, 0, 0.12),
-    0 1px 3px rgba(0, 0, 0, 0.1);
+    0 1px 3px #0000001a;
   transition: box-shadow 0.3s ease-in-out;
 `;
 
 export const StyledLink = styled(Link)`
   text-decoration: none;
+  color: #000;
 `;
 
 // ExerciseDetailsPage Components
@@ -256,7 +263,16 @@ export const InstructionItem = styled.li`
 `;
 
 export const StyledExerciseName = styled.h2`
-  font-size: 2rem;
+  font-size: 2.1rem;
+  color: #3498db;
+  border-radius: 10px;
+  padding: 5px 50px 5px 50px;
+  margin-bottom: 15px;
+  margin-top: 10px;
+  border: 2px solid #3498db;
+  text-transform: uppercase;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
 export const StyledFilterButton = styled.button`

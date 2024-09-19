@@ -1,8 +1,11 @@
 import styled from "styled-components";
 import Link from "next/link";
 import Header from "./Header/Header";
+import { useRouter } from "next/router";
 
 export default function Layout({ children }) {
+  const router = useRouter();
+
   return (
     <Container>
       <Header />
@@ -32,16 +35,16 @@ const Nav = styled.nav`
   justify-content: center;
 `;
 
-const NavLink = styled(Link)`
-  display: flex;
-  align-items: center;
-  color: #ffffff;
+const NavLink = styled(({ isActive, ...props }) => <Link {...props} />)`
+  color: ${({ isActive }) => (isActive ? "#3498db" : "#ffffff")};
+  background-color: ${({ isActive }) => (isActive ? "#ffffff" : "transparent")};
   text-decoration: none;
   border: 2px solid #ffffff;
   padding: 10px 15px;
   border-radius: 5px;
   font-size: 1rem;
   transition: all 0.3s ease-in-out;
+  box-shadow: ${({ isActive }) => (isActive ? "0 0 10px #ffffff" : "none")};
 
   &:hover {
     background-color: #ffffff;
@@ -52,7 +55,6 @@ const NavLink = styled(Link)`
   &:active {
     background-color: #ffffff;
     color: #3498db;
-    font-weight: bold;
     border: 3px solid #ffffff;
   }
 `;
@@ -76,4 +78,6 @@ const Footer = styled.footer`
   bottom: 0;
   z-index: 3;
   width: 100%;
+  border-top: 1px solid #fff;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
 `;
