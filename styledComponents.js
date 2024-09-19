@@ -18,6 +18,7 @@ export const WorkoutList = styled.section`
   display: flex;
   justify-content: center;
   padding: 1rem;
+  padding-bottom: 0;
   flex-direction: column;
 `;
 
@@ -109,6 +110,7 @@ export const ExerciseList = styled.ul`
   gap: 1.5rem;
   padding: 1rem;
   padding-top: 0;
+  padding-bottom: 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
