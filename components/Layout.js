@@ -56,7 +56,7 @@ export default function Layout({ children }) {
               </SubNavLink3>
               <SubNavLink4
                 $menuOpen={menuOpen}
-                href="/exercises"
+                href="/prep-and-follow-up"
                 onClick={toggleMenu}
               >
                 Warm ups & Cool Downs
@@ -108,11 +108,12 @@ const Nav = styled.nav`
 const NavLink = styled(({ isActive, ...props }) => <Link {...props} />)`
   color: ${({ isActive }) => (isActive ? "#3498db" : "#ffffff")};
   background-color: ${({ isActive }) => (isActive ? "#ffffff" : "transparent")};
+
   text-decoration: none;
   border: 2px solid #ffffff;
   padding: 10px 15px;
   border-radius: 5px;
-  font-size: 1rem;
+  font-size: 0.9rem;
   transition: all 0.3s ease-in-out;
   box-shadow: ${({ isActive }) => (isActive ? "0 0 10px #ffffff" : "none")};
 
