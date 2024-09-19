@@ -38,7 +38,7 @@ export default function HomePage() {
   }
 
   return (
-    <>
+    <StyledArticleIndex>
       <QuoteContainer>
         <StyledHeadline>
           {moodMode ? moodMode : "Hello, how are you feeling today?"}
@@ -82,9 +82,13 @@ export default function HomePage() {
       </QuoteContainer>{" "}
       <DailyCrusher />
       <SpotlightExercise />
-    </>
+    </StyledArticleIndex>
   );
 }
+
+const StyledArticleIndex = styled.article`
+  padding: 1rem;
+`;
 
 const StyledHeadline = styled.h2`
   font-size: 1.5rem;

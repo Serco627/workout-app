@@ -10,6 +10,7 @@ const StyledHeader = styled.header`
   background-color: #fff;
   box-shadow: 0 2px 3px #3e4951;
   width: 100%;
+  z-index: 5;
 `;
 
 const LogoContainer = styled.div`
