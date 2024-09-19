@@ -23,6 +23,9 @@ import {
 import { exercises } from "@/lib/exercises";
 import findExerciseById from "@/utils/findExerciseById";
 import { uid } from "uid";
+import { CreateWorkoutButton } from "@/styledComponents";
+import styled from "styled-components";
+import Image from "next/image";
 
 export default function Form({
   onSaveWorkout,
@@ -157,11 +160,16 @@ export default function Form({
                         </strong>
                         - {exercise.sets} sets, {exercise.reps} reps
                       </div>
-                      <DeleteExerciseButton
+                      <StyledButtonDelete
                         onClick={(event) => handleDeleteExercise(event, index)}
                       >
-                        –
-                      </DeleteExerciseButton>
+                        <StyledSvg
+                          src="/trash.svg"
+                          width={15}
+                          height={15}
+                          alt="delete exercise"
+                        />
+                      </StyledButtonDelete>
                     </ExerciseFlex>
                   </ExerciseItem>
                 ))}
@@ -180,3 +188,20 @@ export default function Form({
     </>
   );
 }
+const StyledSvg = styled(Image)`
+  padding: 0;
+  margin: 0;
+`;
+const StyledButtonDelete = styled(CreateWorkoutButton)`
+  margin: 0;
+  color: #c0392b;
+  border: 2px solid #c0392b;
+  background-color: #c0392b;
+  box-shadow:
+    0 4px 8px #0000001a,
+    0 -0.5px 5px #0000000d;
+
+  &:hover {
+    background-color: #c0392b;
+  }
+`;
