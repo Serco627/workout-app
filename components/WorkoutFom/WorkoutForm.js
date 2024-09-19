@@ -188,6 +188,7 @@ export default function Form({
     </>
   );
 }
+
 const StyledSvg = styled(Image)`
   padding: 0;
   margin: 0;

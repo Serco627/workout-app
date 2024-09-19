@@ -321,7 +321,7 @@ const Filter = styled.div`
   position: fixed;
   bottom: 0;
   left: 0;
-  z-index: 1;
+  z-index: 6;
   background: #00000039;
   padding: 1rem 3rem;
 `;
