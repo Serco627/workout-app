@@ -2,10 +2,13 @@ import styled from "styled-components";
 import Link from "next/link";
 import Header from "./Header/Header";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 export default function Layout({ children }) {
-  const router = useRouter();
-
+  const [menuOpen, setMenuOpen] = useState(true);
+  function toggleMenu() {
+    setMenuOpen(!menuOpen);
+  }
   return (
     <Container>
       <Header />
@@ -14,14 +17,31 @@ export default function Layout({ children }) {
       <Footer>
         <Nav>
           <NavLink href="/">Home</NavLink>
-          <NavLink href="/workoutlist">Work outs</NavLink>
-          <NavLink href="/exercises">Exer cises</NavLink>
+          <NavSpan onClick={toggleMenu}>
+            <p>Activities</p>
+          </NavSpan>
+
+          <SubNavLink1 href="/exercises">Workouts</SubNavLink1>
+          <SubNavLink2 href="/exercises">Exercises</SubNavLink2>
+          <SubNavLink3 href="/exercises">Warm ups & Cool Downs</SubNavLink3>
+
           <NavLink href="/community">Chat</NavLink>
         </Nav>
       </Footer>
     </Container>
   );
 }
+
+const NavSpan = styled.span`
+  color: #fff;
+  background-color: transparent;
+  text-decoration: none;
+  border: 2px solid #ffffff;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: all 0.3s ease-in-out;
+`;
 
 const Container = styled.div`
   display: flex;
@@ -33,6 +53,7 @@ const Nav = styled.nav`
   display: flex;
   gap: 1rem;
   justify-content: center;
+  align-items: center;
 `;
 
 const NavLink = styled(({ isActive, ...props }) => <Link {...props} />)`
@@ -57,6 +78,23 @@ const NavLink = styled(({ isActive, ...props }) => <Link {...props} />)`
     color: #3498db;
     border: 3px solid #ffffff;
   }
+`;
+
+const SubNavLink = styled(NavLink)`
+  position: fixed;
+  background-color: #3498db;
+`;
+
+const SubNavLink1 = styled(SubNavLink)`
+  bottom: 80px;
+`;
+
+const SubNavLink2 = styled(SubNavLink)`
+  bottom: 125px;
+`;
+
+const SubNavLink3 = styled(SubNavLink)`
+  bottom: 170px;
 `;
 
 const MainContent = styled.main`

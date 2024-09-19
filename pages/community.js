@@ -32,7 +32,7 @@ export default function Community() {
   }
 
   const sortedData = sortByNewestTime(data);
-  console.log(sortedData);
+
   return (
     <>
       <CommunityWrapper>
